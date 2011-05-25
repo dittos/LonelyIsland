@@ -3,6 +3,7 @@ package catdog.mine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 public class World {
 	
@@ -10,46 +11,50 @@ public class World {
 	private SpriteBatch spriteBatch;
 	private Block[][] map;
 	
-	private static final int WIDTH = 100;
-	private static final int HEIGHT = 50;
-	private static final int GROUND_ALTITUDE = 25;
-
-	private int blockWidth, blockHeight;
-	private Texture playerTex;
-	private float playerX, playerY;
+	public static final int WIDTH = 100;
+	public static final int HEIGHT = 50;
+	public static final int GROUND_ALTITUDE = 25;
 	
 	public World() {
-		playerTex = new Texture(Gdx.files.internal("data/player.png"));
 		blockTex = new Texture(Gdx.files.internal("data/block.png"));
-		blockWidth = blockTex.getWidth();
-		blockHeight = blockTex.getHeight();
 		spriteBatch = new SpriteBatch();
 		map = new Block[HEIGHT][WIDTH];
 		initMap();
-		playerX = 0;
-		playerY = GROUND_ALTITUDE;
 	}
 	
+	/**
+	 * 맵 배치를 초기화한다.
+	 */
 	private void initMap() {
+		for (int i = GROUND_ALTITUDE; i < HEIGHT; i++) {
+			map[i][i - GROUND_ALTITUDE + 1] = new Block();
+		}
+		
+		// TODO: 이것은 임시 코드임. 계단 만들기 -_-
 		for (int i = 0; i < GROUND_ALTITUDE; i++) {
 			for (int j = 0; j < WIDTH; j++) {
 				map[i][j] = new Block();
 			}
 		}
-		for (int i = GROUND_ALTITUDE; i < HEIGHT; i++) {
-			map[i][i - GROUND_ALTITUDE] = new Block();
-		}
 	}
 
-	public void render(float delta) {
+	public void render(Viewport viewport) {
 		spriteBatch.begin();
-		for (int i = 0; i < HEIGHT; i++) {
-			for (int j = 0; j < WIDTH; j++) {
-				if (map[i][j] != null)
-					spriteBatch.draw(blockTex, j * blockWidth, (i - GROUND_ALTITUDE + 5) * blockHeight);
+		Vector2 pos = new Vector2();
+		int x0, y0, x1, y1;
+		x0 = Math.max(0, (int)viewport.startX);
+		y0 = Math.max(0, (int)viewport.startY);
+		x1 = Math.min(WIDTH - 1, (int)(viewport.startX + viewport.width));
+		y1 = Math.min(HEIGHT - 1, (int)(viewport.startY + viewport.height));
+		for (int i = y0; i <= y1; i++) {
+			for (int j = x0; j <= x1; j++) {
+				if (map[i][j] != null) {
+					pos.set(j, i);
+					Vector2 screenPos = viewport.toScreen(pos);
+					spriteBatch.draw(blockTex, screenPos.x, screenPos.y);
+				}
 			}
 		}
-		spriteBatch.draw(playerTex, playerX * blockWidth, (playerY - GROUND_ALTITUDE + 5) * blockHeight);
 		spriteBatch.end();
 	}
 
