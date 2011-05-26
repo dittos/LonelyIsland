@@ -7,19 +7,25 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Player {
 	public Vector2 position;
+	private Vector2 movepos;
 	
 	private Texture playerTex;
 	private SpriteBatch spriteBatch;
+	
+	private World world;
+	
 	
 	/**
 	 * 생성자
 	 * @param x 초기 위치 x좌표
 	 * @param y 초기 위치 y좌표
 	 */
-	public Player(float x, float y) {
+	public Player(float x, float y, World world) {
 		position = new Vector2(x, y);
+		movepos = new Vector2(x, y);
 		playerTex = new Texture(Gdx.files.internal("data/player.png"));
 		spriteBatch = new SpriteBatch();
+		this.world = world;
 	}
 	
 	/**
@@ -27,7 +33,7 @@ public class Player {
 	 * @param newPos 목적지 위치
 	 */
 	public void requestMove(Vector2 newPos) {
-		position.set(newPos);
+		movepos.set(newPos);
 	}
 	
 	public void render(Viewport viewport) {
@@ -35,5 +41,9 @@ public class Player {
 		spriteBatch.begin();
 		spriteBatch.draw(playerTex, screenPos.x, screenPos.y);
 		spriteBatch.end();
+	}
+	
+	public void update(float delta) {
+		// 움직임
 	}
 }

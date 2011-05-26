@@ -58,4 +58,14 @@ public class World {
 		spriteBatch.end();
 	}
 
+	/**
+	 * 해당 위치의 블럭 구하기
+	 * @param pos
+	 * @return Block 오브젝트 (없을 경우 null)
+	 */
+	public Block getBlock(Vector2 pos) {
+		return null;
+	}
+	
+	 
 }

@@ -35,7 +35,7 @@ public class GameScreen implements Screen {
 	@Override
 	public void show() {
 		world = new World();
-		player = new Player(50, World.GROUND_ALTITUDE);
+		player = new Player(50, World.GROUND_ALTITUDE, world);
 		viewport = new Viewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 32, 32);
 		viewport.focusOn(player.position);
 	}
