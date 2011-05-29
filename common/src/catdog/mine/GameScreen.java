@@ -15,9 +15,17 @@ public class GameScreen implements Screen {
 	public void render(float delta) {
 		if (Gdx.input.justTouched()) {
 			// 터치 이벤트는 화면 왼쪽 위가 (0, 0)
-			Vector2 touchPos = new Vector2(Gdx.input.getX(), viewport.screenHeight - Gdx.input.getY());
-			player.requestMove(viewport.fromScreen(touchPos));
+			Vector2 touchPos = viewport.fromScreen(
+					new Vector2(Gdx.input.getX(), viewport.screenHeight - Gdx.input.getY())
+			);
+			
+			Block block = world.getBlock(touchPos);
+			if (block != null)
+				player.startDig(block);
+			else
+				player.requestMove(touchPos);
 		}
+		
 		player.update(delta);
 		viewport.focusOn(player.position);
 		

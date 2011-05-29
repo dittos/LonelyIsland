@@ -48,9 +48,12 @@ public class World {
 		y1 = Math.min(HEIGHT - 1, (int)(viewport.startY + viewport.height));
 		for (int i = y0; i <= y1; i++) {
 			for (int j = x0; j <= x1; j++) {
-				if (map[i][j] != null) {
+				Block block = map[i][j]; 
+				if (block != null) {
 					pos.set(j, i);
 					Vector2 screenPos = viewport.toScreen(pos);
+					// 파괴 정도에 따라 투명도 조정
+					spriteBatch.setColor(1, 1, 1, 1 - block.getDestructionRatio());
 					spriteBatch.draw(blockTex, screenPos.x, screenPos.y);
 				}
 			}
