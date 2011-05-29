@@ -26,15 +26,15 @@ public class World {
 	 * 맵 배치를 초기화한다.
 	 */
 	private void initMap() {
-		for (int i = GROUND_ALTITUDE; i < HEIGHT; i++) {
-			map[i][i - GROUND_ALTITUDE + 1] = new Block();
-		}
-		
-		// TODO: 이것은 임시 코드임. 계단 만들기 -_-
 		for (int i = 0; i < GROUND_ALTITUDE; i++) {
 			for (int j = 0; j < WIDTH; j++) {
 				map[i][j] = new Block();
 			}
+		}
+		
+		// TODO: 이것은 임시 코드임. 계단 만들기 -_-
+		for (int i = GROUND_ALTITUDE; i < HEIGHT; i++) {
+			map[i][i - GROUND_ALTITUDE + 10] = new Block();
 		}
 	}
 
@@ -60,12 +60,24 @@ public class World {
 
 	/**
 	 * 해당 위치의 블럭 구하기
-	 * @param pos
+	 * @param pos 좌표 벡터
 	 * @return Block 오브젝트 (없을 경우 null)
 	 */
 	public Block getBlock(Vector2 pos) {
-		return null;
+		return getBlock((int)pos.x, (int)pos.y);
 	}
 	
-	 
+	/**
+	 * 해당 위치의 블럭 구하기
+	 * @param x x좌표
+	 * @param y y좌표
+	 * @return Block 오브젝트 (없을 경우 null)
+	 */
+	public Block getBlock(int x, int y) {
+		if (0 <= x && x < WIDTH && 0 <= y && y < HEIGHT)
+			// 잘못된 인덱스가 아니면
+			return map[y][x];
+		else
+			return null;
+	}
 }

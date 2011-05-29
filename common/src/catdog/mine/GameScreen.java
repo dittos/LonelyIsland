@@ -18,7 +18,7 @@ public class GameScreen implements Screen {
 			Vector2 touchPos = new Vector2(Gdx.input.getX(), viewport.screenHeight - Gdx.input.getY());
 			player.requestMove(viewport.fromScreen(touchPos));
 		}
-		
+		player.update(delta);
 		viewport.focusOn(player.position);
 		
 		Gdx.gl10.glClear(GL10.GL_COLOR_BUFFER_BIT);
@@ -35,7 +35,8 @@ public class GameScreen implements Screen {
 	@Override
 	public void show() {
 		world = new World();
-		player = new Player(50, World.GROUND_ALTITUDE, world);
+		player = new Player(world);
+		player.position.set(2, World.GROUND_ALTITUDE);
 		viewport = new Viewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 32, 32);
 		viewport.focusOn(player.position);
 	}
