@@ -144,9 +144,9 @@ public class Player {
 	}
 	
 	public boolean isNear(Vector2 touchPos){
-		if((Math.abs(position.x+ 0.5 - touchPos.x)<1) && Math.abs(position.y +1 - touchPos.y)<2)
+		if((Math.abs(position.x+ 0.5 - touchPos.x)<1.5) && Math.abs(position.y +1 - touchPos.y)<2)
 			return true;
-		else if(Math.abs(position.x+ 0.5 - touchPos.x)<1 && Math.abs(position.y +1 - touchPos.y)<1)
+		else if(Math.abs(position.x+ 0.5 - touchPos.x)<1.5 && Math.abs(position.y +1 - touchPos.y)<1)
 			return true;
 		else
 			return false;

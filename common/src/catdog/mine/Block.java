@@ -4,7 +4,7 @@ public class Block {
 	/**
 	 * 블럭 파괴 시간 (초)
 	 */
-	private float destroyTime = 2;
+	private float destroyTime = 1;
 	
 	/**
 	 * 블럭 파괴까지 남은 시간 (초)
