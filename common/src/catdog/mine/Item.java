@@ -38,4 +38,10 @@ public class Item implements Comparable<Item>
 	{
 		return itemID - target.itemID;
 	}
+	
+	@Override
+	public boolean equals(Object target)
+	{
+		return (target instanceof Item && ((Item)target).itemID == itemID);
+	}
 }

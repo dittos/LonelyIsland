@@ -20,7 +20,7 @@ public class ItemDB
 	/**
 	 * <code>itemID</code>에 해당하는 아이템 속성을 얻어옴
 	 * @param itemID 아이템 ID
-	 * @return 아이템의 속성
+	 * @return 아이템의 속성. 일치하는 아이템이 없다면 <code>null</code>.
 	 */
 	public static ItemProperty getItemProperty(int itemID)
 	{
