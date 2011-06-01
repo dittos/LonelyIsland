@@ -35,6 +35,7 @@ public class Player {
 	private static final int STATE_WALK = 1;
 	private static final int STATE_FALL = 2;
 	private static final int STATE_CLIMB = 3;
+	private static final int STATE_JUMP = 4;
 	private int state = STATE_STAND;
 	
 	/**
@@ -76,6 +77,8 @@ public class Player {
 		case STATE_WALK:
 			if (!hasStandingBlock())
 				state = STATE_FALL;
+			else if(collision())
+				state = STATE_STAND;
 			else if (arrived())
 				state = STATE_STAND;
 			else
@@ -92,6 +95,11 @@ public class Player {
 			
 		case STATE_CLIMB:
 			break;
+		case STATE_JUMP:
+			velocity.y -= GRAVITY*delta;
+			position.y += velocity.y*delta;
+			
+			
 		}
 	}
 	
@@ -119,6 +127,23 @@ public class Player {
 				|| world.getBlock((int) Math.ceil(position.x), below) != null;
 	}
 	
+	private boolean collision(){
+		int direction;
+		if (position.x < movepos.x) // ->
+			direction = +1;
+		else // <-
+			direction = -1;
+		int right = (int)Math.ceil(position.x);
+		int left = (int)Math.ceil(position.x-1);
+		int y = (int)Math.ceil(position.y);
+		if ((world.getBlock(right,y) != null || world.getBlock(right,y+1) != null)  && direction ==1)//
+			return true;
+		else if((world.getBlock(left,y) != null || world.getBlock(left,y+1) != null)  && direction == -1)//
+			return true;
+		else
+			return false;
+		
+	}
 	/**
 	 * 이동 중일 때 목적지에 도착했는지 확인
 	 * @return 도착했으면 true, 아니면 false
