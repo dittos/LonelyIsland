@@ -142,4 +142,14 @@ public class Player {
 		// TODO: 팔 수 있는 곳인지 확인
 		digging = block;
 	}
+	
+	public boolean isNear(Vector2 touchPos){
+		if((Math.abs(position.x+ 0.5 - touchPos.x)<1) && Math.abs(position.y +1 - touchPos.y)<2)
+			return true;
+		else if(Math.abs(position.x+ 0.5 - touchPos.x)<1 && Math.abs(position.y +1 - touchPos.y)<1)
+			return true;
+		else
+			return false;
+	}
+	
 }

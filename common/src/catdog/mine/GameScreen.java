@@ -20,7 +20,8 @@ public class GameScreen implements Screen {
 			);
 			
 			Block block = world.getBlock(touchPos);
-			if (block != null)
+			if (block != null && player.isNear(touchPos))
+				//발 아래에 블록인가?
 				player.startDig(block);
 			else
 				player.requestMove(touchPos);
