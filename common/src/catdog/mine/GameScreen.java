@@ -13,7 +13,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void render(float delta) {
-		if (Gdx.input.justTouched()) {
+		if (Gdx.input.isTouched()) {
 			// 터치 이벤트는 화면 왼쪽 위가 (0, 0)
 			Vector2 touchPos = viewport.fromScreen(
 					new Vector2(Gdx.input.getX(), viewport.screenHeight - Gdx.input.getY())
@@ -21,10 +21,10 @@ public class GameScreen implements Screen {
 			
 			Block block = world.getBlock(touchPos);
 			if (block != null && player.isNear(touchPos))
-				//발 아래에 블록인가?
-				player.startDig(block);
+				block.digged(delta);
 			else
-				player.requestMove(touchPos);
+				if (Gdx.input.justTouched())
+					player.requestMove(touchPos);
 		}
 		
 		player.update(delta);

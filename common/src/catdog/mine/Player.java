@@ -9,7 +9,6 @@ public class Player {
 	public Vector2 position = new Vector2();
 	private Vector2 movepos = new Vector2();
 	private Vector2 velocity = new Vector2(0, 0);
-	private Block digging = null;
 	
 	private Texture playerTex;
 	private SpriteBatch spriteBatch;
@@ -71,9 +70,6 @@ public class Player {
 		case STATE_STAND:
 			if (!hasStandingBlock())
 				state = STATE_FALL;
-			
-			if (digging != null)
-				digging.digged(delta);
 			break;
 			
 		case STATE_WALK:
@@ -132,15 +128,6 @@ public class Player {
 		spriteBatch.begin();
 		spriteBatch.draw(playerTex, screenPos.x, screenPos.y);
 		spriteBatch.end();
-	}
-
-	/**
-	 * 블럭 파기 시작
-	 * @param block 팔 블럭
-	 */
-	public void startDig(Block block) {
-		// TODO: 팔 수 있는 곳인지 확인
-		digging = block;
 	}
 	
 	public boolean isNear(Vector2 touchPos){

@@ -10,15 +10,19 @@ public class Block {
 	 * 블럭 파괴까지 남은 시간 (초)
 	 */
 	private float timeLeft = destroyTime;
+	
+	private boolean alive = true;
 
 	/**
 	 * delta초 동안 파임
 	 * @param delta 파인 시간
 	 */
 	public void digged(float delta) {
-		timeLeft -= delta;
-		if (timeLeft <= 0)
-			destroy();
+		if (alive) {
+			timeLeft -= delta;
+			if (timeLeft <= 0)
+				destroy();
+		}
 	}
 	
 	/**
@@ -26,6 +30,7 @@ public class Block {
 	 */
 	public void destroy() {
 		// TODO: World에 알려서 사라지기
+		alive = false;
 	}
 	
 	/**
