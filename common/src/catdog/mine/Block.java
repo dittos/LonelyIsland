@@ -40,4 +40,12 @@ public class Block {
 	public float getDestructionRatio() {
 		return 1 - Math.max(timeLeft, 0) / destroyTime;
 	}
+	
+	/**
+	 * 블럭이 파괴되었는가?
+	 * @return 아직 살아있으면 true, 아니면 false
+	 */
+	public boolean isAlive() {
+		return alive;
+	}
 }

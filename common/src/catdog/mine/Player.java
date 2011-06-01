@@ -3,6 +3,7 @@ package catdog.mine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Player {
@@ -84,6 +85,9 @@ public class Player {
 		case STATE_FALL:
 			velocity.y -= GRAVITY * delta;
 			position.y += velocity.y * delta;
+			
+			if (hasStandingBlock())
+				state = STATE_STAND;
 			break;
 			
 		case STATE_CLIMB:
@@ -110,7 +114,9 @@ public class Player {
 	 * @return 없으면 false, 있으면 true
 	 */
 	private boolean hasStandingBlock() {
-		return true;
+		int below = (int)Math.ceil(position.y - 1);
+		return world.getBlock((int) Math.floor(position.x), below) != null
+				|| world.getBlock((int) Math.ceil(position.x), below) != null;
 	}
 	
 	/**

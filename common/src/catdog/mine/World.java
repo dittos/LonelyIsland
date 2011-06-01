@@ -77,10 +77,12 @@ public class World {
 	 * @return Block 오브젝트 (없을 경우 null)
 	 */
 	public Block getBlock(int x, int y) {
-		if (0 <= x && x < WIDTH && 0 <= y && y < HEIGHT)
+		if (0 <= x && x < WIDTH && 0 <= y && y < HEIGHT) {
 			// 잘못된 인덱스가 아니면
-			return map[y][x];
-		else
-			return null;
+			Block block = map[y][x];
+			if (block != null && block.isAlive())
+				return block;
+		}
+		return null;
 	}
 }
