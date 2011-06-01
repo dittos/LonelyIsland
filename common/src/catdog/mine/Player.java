@@ -95,10 +95,6 @@ public class Player {
 			
 		case STATE_CLIMB:
 			break;
-		case STATE_JUMP:
-			velocity.y -= GRAVITY*delta;
-			position.y += velocity.y*delta;
-			
 			
 		}
 	}
