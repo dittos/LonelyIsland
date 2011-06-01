@@ -31,6 +31,11 @@ public class Player {
 	 */
 	private static final int JUMP_SPEED = 20;
 	
+	/**
+	 * 충돌범위
+	 */
+	private static final Rectangle hitbox = new Rectangle(-0.45f, -1.8f, 0.9f, 1.8f);
+	
 	private static final int STATE_STAND = 0;
 	private static final int STATE_WALK = 1;
 	private static final int STATE_FALL = 2;
@@ -77,12 +82,17 @@ public class Player {
 		case STATE_WALK:
 			if (!hasStandingBlock())
 				state = STATE_FALL;
-			else if(collision())
-				state = STATE_STAND;
+			//else if(collision())
+			//	state = STATE_STAND;
 			else if (arrived())
 				state = STATE_STAND;
-			else
-				position.x += velocity.x * delta;
+			else {
+				// 막히는 블럭이 없다면 이동
+				if(!blockInPath(velocity.x * delta))
+					position.x += velocity.x * delta;
+				// 막히는 블럭이 있다면 일단 STAND
+				else state = STATE_STAND;
+			}
 			break;
 			
 		case STATE_FALL:
@@ -119,11 +129,11 @@ public class Player {
 	 */
 	private boolean hasStandingBlock() {
 		int below = (int)Math.ceil(position.y - 1);
-		return world.getBlock((int) Math.floor(position.x), below) != null
-				|| world.getBlock((int) Math.ceil(position.x), below) != null;
+		return world.getBlock((int) Math.floor(position.x + 0.5 + hitbox.width / 2f), below) != null
+				|| world.getBlock((int) Math.floor(position.x + 0.5 - hitbox.width / 2f), below) != null;
 	}
 	
-	private boolean collision(){
+	/*private boolean collision(){
 		int direction;
 		if (position.x < movepos.x) // ->
 			direction = +1;
@@ -139,15 +149,39 @@ public class Player {
 		else
 			return false;
 		
+	}*/
+	
+	/**
+	 * 플레이어가 향하는 방향에 블럭이 있는지 (충돌체크)
+	 * @param xmovedist x축에서 움직일 거리
+	 * @return 있으면 true, 없으면 false
+	 */
+	private boolean blockInPath(float xmovedist) {
+		// 플레이어와 아래쪽에 있는 블럭 좌표
+		int blocky_bottom = (int)Math.ceil(position.y);
+		// 플레이어 위쪽에 있는 블럭 좌표
+		int blocky_top = (int) Math.floor(position.y + hitbox.height);
+		// 플레이어가 향한 방향, 바로 앞에 있는 블럭
+		int blockx;
+		
+		if(xmovedist >= 0)
+			blockx = (int)Math.floor(position.x + 0.5 + xmovedist + hitbox.width / 2f);
+		else
+			blockx = (int)Math.floor(position.x + 0.5 + xmovedist - hitbox.width /2f);
+		
+		
+		// 해당 위치에 블럭이 있으면 true
+		return world.getBlock(blockx, blocky_bottom) != null 
+				|| world.getBlock(blockx, blocky_top) != null;
 	}
+	
 	/**
 	 * 이동 중일 때 목적지에 도착했는지 확인
 	 * @return 도착했으면 true, 아니면 false
 	 */
 	private boolean arrived() {
 		// TODO: y좌표 확인
-		final float thres = 0.01f;
-		return Math.abs(position.x - movepos.x) < thres;
+		return Math.abs(position.x - movepos.x) < Game.epsilon;
 	}
 	
 	public void render(Viewport viewport) {

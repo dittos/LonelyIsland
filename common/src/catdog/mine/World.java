@@ -36,6 +36,9 @@ public class World {
 		for (int i = GROUND_ALTITUDE; i < HEIGHT; i++) {
 			map[i][i - GROUND_ALTITUDE + 10] = new Block();
 		}
+		
+		// 임시코드. 충돌체크 테스트용
+		map[GROUND_ALTITUDE][0] = new Block();
 	}
 
 	public void render(Viewport viewport) {
@@ -53,7 +56,10 @@ public class World {
 					pos.set(j, i);
 					Vector2 screenPos = viewport.toScreen(pos);
 					// 파괴 정도에 따라 투명도 조정
-					spriteBatch.setColor(1, 1, 1, 1 - block.getDestructionRatio());
+					// 블록이 알파값 0까지 투명해지면 거의 다 파괴된 블럭은 실체가 존재하는데도
+					// 잘 안보이는 문제가 있어서 값을 약간 수정. (거의 다 파괴된 것도 조금은 보이도록)
+					float desratio = block.getDestructionRatio();
+					spriteBatch.setColor(1, 1, 1, (desratio == 1f? 0 : 1-desratio * 0.5f));
 					spriteBatch.draw(blockTex, screenPos.x, screenPos.y);
 				}
 			}
