@@ -19,6 +19,12 @@ public class GameScreen implements Screen {
 					new Vector2(Gdx.input.getX(), viewport.screenHeight - Gdx.input.getY())
 			);
 			
+			// 터치한 곳에 따라 캐릭터 시선 방향을 정한다.
+			if (touchPos.x < player.position.x)
+				player.setDirection(Player.LEFT);
+			else
+				player.setDirection(Player.RIGHT);
+			
 			Block block = world.getBlock(touchPos);
 			if (block != null && player.isNear(touchPos))
 				block.digged(delta);

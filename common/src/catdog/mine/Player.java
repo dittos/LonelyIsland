@@ -16,6 +16,11 @@ public class Player {
 	
 	private World world;
 	
+	private boolean direction = LEFT;
+	
+	public static final boolean LEFT = false;
+	public static final boolean RIGHT = true;
+	
 	/**
 	 * 걷는 속도 (단위: 블럭/초)
 	 */
@@ -59,12 +64,11 @@ public class Player {
 	 */
 	public void requestMove(Vector2 newPos) {
 		movepos.set(newPos);
-		int direction;
 		if (position.x < movepos.x) // ->
-			direction = +1;
+			direction = RIGHT;
 		else // <-
-			direction = -1;
-		velocity.x = direction * WALK_SPEED;
+			direction = LEFT;
+		velocity.x = (direction == LEFT ? -1 : +1) * WALK_SPEED;
 		state = STATE_WALK;
 	}
 	
@@ -85,13 +89,13 @@ public class Player {
 			//else if(collision())
 			//	state = STATE_STAND;
 			else if (arrived())
-				state = STATE_STAND;
+				stand();
 			else {
 				// 막히는 블럭이 없다면 이동
 				if(!blockInPath(velocity.x * delta))
 					position.x += velocity.x * delta;
 				// 막히는 블럭이 있다면 일단 STAND
-				else state = STATE_STAND;
+				else stand();
 			}
 			break;
 			
@@ -100,13 +104,21 @@ public class Player {
 			position.y += velocity.y * delta;
 			
 			if (hasStandingBlock())
-				state = STATE_STAND;
+				stand();
 			break;
 			
 		case STATE_CLIMB:
 			break;
 			
 		}
+	}
+	
+	/**
+	 * 자리에 멈춰 선다.
+	 */
+	public void stand() {
+		state = STATE_STAND;
+		velocity.set(0, 0);
 	}
 	
 	/**
@@ -187,7 +199,8 @@ public class Player {
 	public void render(Viewport viewport) {
 		Vector2 screenPos = viewport.toScreen(position);
 		spriteBatch.begin();
-		spriteBatch.draw(playerTex, screenPos.x, screenPos.y);
+		spriteBatch.draw(playerTex, screenPos.x, screenPos.y, playerTex.getWidth(), playerTex.getHeight(),
+				0, 0, playerTex.getWidth(), playerTex.getHeight(), direction == RIGHT, false);
 		spriteBatch.end();
 	}
 	
@@ -198,6 +211,10 @@ public class Player {
 			return true;
 		else
 			return false;
+	}
+
+	public void setDirection(boolean direction) {
+		this.direction = direction;
 	}
 	
 }
