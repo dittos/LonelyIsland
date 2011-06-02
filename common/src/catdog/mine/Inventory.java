@@ -1,6 +1,7 @@
 package catdog.mine;
 
 import java.util.ArrayList;
+import java.util.List;
 
 class ItemEntry
 {
@@ -49,6 +50,8 @@ public class Inventory
 	public Inventory()
 	{
 		itemList = new ArrayList<ItemEntry>(MAX_ITEMS);
+		for (int i = 0; i < MAX_ITEMS; i++)
+			itemList.add(null);
 		items = 0;
 	}
 	

@@ -48,4 +48,12 @@ public class Block {
 	public boolean isAlive() {
 		return alive;
 	}
+	
+	/**
+	 * 부서졌을 때 튀어나오는 아이템을 돌려준다.
+	 * @return 블럭에 귀속된 Item 객체
+	 */
+	public Item getItem() {
+		return new Item(1);
+	}
 }

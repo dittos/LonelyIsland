@@ -16,6 +16,8 @@ public class Player {
 	
 	private World world;
 	
+	public Inventory inventory;
+	
 	private boolean direction = LEFT;
 	
 	public static final boolean LEFT = false;
@@ -55,6 +57,7 @@ public class Player {
 	public Player(World world) {
 		playerTex = new Texture(Gdx.files.internal("data/player.png"));
 		spriteBatch = new SpriteBatch();
+		inventory = new Inventory();
 		this.world = world;
 	}
 	
@@ -211,6 +214,12 @@ public class Player {
 			return true;
 		else
 			return false;
+	}
+
+	public void dig(Block block, float delta) {
+		block.digged(delta);
+		if (!block.isAlive())
+			inventory.addItem(block.getItem());
 	}
 
 	public void setDirection(boolean direction) {

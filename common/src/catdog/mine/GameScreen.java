@@ -10,6 +10,7 @@ public class GameScreen implements Screen {
 	private Viewport viewport;
 	private World world;
 	private Player player;
+	private InventoryView inventoryView;
 
 	@Override
 	public void render(float delta) {
@@ -27,7 +28,7 @@ public class GameScreen implements Screen {
 			
 			Block block = world.getBlock(touchPos);
 			if (block != null && player.isNear(touchPos))
-				block.digged(delta);
+				player.dig(block, delta);
 			else
 				if (Gdx.input.justTouched())
 					player.requestMove(touchPos);
@@ -39,6 +40,7 @@ public class GameScreen implements Screen {
 		Gdx.gl10.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		world.render(viewport);
 		player.render(viewport);
+		inventoryView.render();
 	}
 
 	@Override
@@ -52,6 +54,7 @@ public class GameScreen implements Screen {
 		world = new World();
 		player = new Player(world);
 		player.position.set(2, World.GROUND_ALTITUDE);
+		inventoryView = new InventoryView(player.inventory);
 		viewport = new Viewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 32, 32);
 		viewport.focusOn(player.position);
 	}
