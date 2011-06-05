@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+
 public class Player {
 	public Vector2 position = new Vector2();
 	private Vector2 movepos = new Vector2();
@@ -22,7 +24,7 @@ public class Player {
 	
 	public static final boolean LEFT = false;
 	public static final boolean RIGHT = true;
-	
+	private BitmapFont font;			// TEST
 	/**
 	 * 걷는 속도 (단위: 블럭/초)
 	 */
@@ -31,12 +33,16 @@ public class Player {
 	/**
 	 * 중력 상수 (단위: 블럭/초)
 	 */
-	private static final int GRAVITY = 20;
+	private static final int GRAVITY = 40;
 	
 	/**
 	 * 점프 초기 속도 (단위: 블럭/초)
 	 */
-	private static final int JUMP_SPEED = 20;
+	private static final int JUMP_SPEED = 10;
+	/**
+	 * 점프시 x축 속도 (단위: 블럭/초)
+	 */
+	private static final int JUMP_XSPEED = 4;
 	
 	/**
 	 * 충돌범위
@@ -59,13 +65,23 @@ public class Player {
 		spriteBatch = new SpriteBatch();
 		inventory = new Inventory();
 		this.world = world;
+		font = new BitmapFont();
 	}
 	
 	/**
 	 * 이동을 시도한다.
-	 * @param newPos 목적지 위치
+	 * @param newPos 목적지 위치 (터치한 곳)
 	 */
 	public void requestMove(Vector2 newPos) {
+		// 맵 좌표로 변환하여 walkto
+		walkto(new Vector2(newPos.x -= hitbox.width / 2f, newPos.y));
+	}
+	/**
+	 * 해당 위치로 이동하게 명령 (맵 좌표상으로)
+	 * 참고 : 맵 좌표는 오브젝트이 좌측 하단을 기준으로 하므로 터치한 곳과는 다름 
+	 * @param newPos
+	 */
+	private void walkto(Vector2 newPos) {
 		movepos.set(newPos);
 		if (position.x < movepos.x) // ->
 			direction = RIGHT;
@@ -84,6 +100,7 @@ public class Player {
 		case STATE_STAND:
 			if (!hasStandingBlock())
 				state = STATE_FALL;
+			
 			break;
 			
 		case STATE_WALK:
@@ -97,8 +114,16 @@ public class Player {
 				// 막히는 블럭이 없다면 이동
 				if(!blockInPath(velocity.x * delta))
 					position.x += velocity.x * delta;
-				// 막히는 블럭이 있다면 일단 STAND
-				else stand();
+				// 막히는 블럭이 있다면
+				else {
+					// 같은 높이에 블럭이 있고, 그 위에는 없다면 점프
+					float fx = position.x + ((velocity.x > 0)? 1 : -1);
+					if(world.getBlock(new Vector2(fx, position.y)) != null
+							&& world.getBlock(new Vector2(fx, position.y + 1)) == null) {
+						jump();
+					} else
+						stand();
+				}
 			}
 			break;
 			
@@ -106,10 +131,34 @@ public class Player {
 			velocity.y -= GRAVITY * delta;
 			position.y += velocity.y * delta;
 			
-			if (hasStandingBlock())
+			if (hasStandingBlock()) {
 				stand();
+				position.y = (float) Math.ceil(position.y);
+			}
 			break;
 			
+		case STATE_JUMP:
+			// 가속도 계산
+			velocity.y -= GRAVITY * delta;
+			// y축으로 이동
+			position.y += velocity.y * delta;
+			// 앞으로 움직일 수 있다면 x축으로도 이동
+			if(!blockInPath(velocity.x * delta))
+				position.x += velocity.x * delta;
+			
+			
+			// 떨어지는 중일 때 땅을 딛고 섰다면 계속 걷게
+			if(velocity.y < 0 && hasStandingBlock()) {
+				velocity.y = 0;
+				position.y = (float) Math.ceil(position.y);
+				// 만약 착지한 곳이 도착점과 얼마 떨어지지 않은 곳이라면 정지
+				// (착지 후 불안정한 움직임을 보정하기 위함)
+				if(Math.abs(position.x - movepos.x) < 1f)
+					stand();
+				else
+					walkto(movepos);
+			}
+			break;
 		case STATE_CLIMB:
 			break;
 			
@@ -128,7 +177,9 @@ public class Player {
 	 * 점프를 한다.
 	 */
 	public void jump() {
+		state = STATE_JUMP;
 		velocity.y = JUMP_SPEED;
+		velocity.x = (velocity.x > 0)? JUMP_XSPEED : -JUMP_XSPEED;
 	}
 	
 	/**
@@ -144,27 +195,9 @@ public class Player {
 	 */
 	private boolean hasStandingBlock() {
 		int below = (int)Math.ceil(position.y - 1);
-		return world.getBlock((int) Math.floor(position.x + 0.5 + hitbox.width / 2f), below) != null
-				|| world.getBlock((int) Math.floor(position.x + 0.5 - hitbox.width / 2f), below) != null;
+		return world.getBlock((int) Math.floor(position.x + hitbox.width), below) != null
+				|| world.getBlock((int) Math.floor(position.x), below) != null;
 	}
-	
-	/*private boolean collision(){
-		int direction;
-		if (position.x < movepos.x) // ->
-			direction = +1;
-		else // <-
-			direction = -1;
-		int right = (int)Math.ceil(position.x);
-		int left = (int)Math.ceil(position.x-1);
-		int y = (int)Math.ceil(position.y);
-		if ((world.getBlock(right,y) != null || world.getBlock(right,y+1) != null)  && direction ==1)//
-			return true;
-		else if((world.getBlock(left,y) != null || world.getBlock(left,y+1) != null)  && direction == -1)//
-			return true;
-		else
-			return false;
-		
-	}*/
 	
 	/**
 	 * 플레이어가 향하는 방향에 블럭이 있는지 (충돌체크)
@@ -173,21 +206,20 @@ public class Player {
 	 */
 	private boolean blockInPath(float xmovedist) {
 		// 플레이어와 아래쪽에 있는 블럭 좌표
-		int blocky_bottom = (int)Math.ceil(position.y);
+		int blocky_bottom = (int)Math.floor(position.y);
 		// 플레이어 위쪽에 있는 블럭 좌표
 		int blocky_top = (int) Math.floor(position.y + hitbox.height);
 		// 플레이어가 향한 방향, 바로 앞에 있는 블럭
-		int blockx;
 		
-		if(xmovedist >= 0)
-			blockx = (int)Math.floor(position.x + 0.5 + xmovedist + hitbox.width / 2f);
-		else
-			blockx = (int)Math.floor(position.x + 0.5 + xmovedist - hitbox.width /2f);
+		int blockx1 = (int)Math.floor(position.x + xmovedist + hitbox.width);
+		int blockx2 = (int)Math.floor(position.x + xmovedist);
 		
 		
 		// 해당 위치에 블럭이 있으면 true
-		return world.getBlock(blockx, blocky_bottom) != null 
-				|| world.getBlock(blockx, blocky_top) != null;
+		return world.getBlock(blockx1, blocky_bottom) != null 
+				|| world.getBlock(blockx1, blocky_top) != null
+				|| world.getBlock(blockx2, blocky_bottom) != null
+				|| world.getBlock(blockx2, blocky_top) != null;
 	}
 	
 	/**
@@ -204,6 +236,7 @@ public class Player {
 		spriteBatch.begin();
 		spriteBatch.draw(playerTex, screenPos.x, screenPos.y, playerTex.getWidth(), playerTex.getHeight(),
 				0, 0, playerTex.getWidth(), playerTex.getHeight(), direction == RIGHT, false);
+		font.draw(spriteBatch, String.format("%f, %f", position.x, position.y), 0, 100);
 		spriteBatch.end();
 	}
 	
