@@ -27,8 +27,12 @@ public class GameScreen implements Screen {
 				player.setDirection(Player.RIGHT);
 			
 			Block block = world.getBlock(touchPos);
-			if (block != null && player.isNear(touchPos))
-				player.dig(block, delta);
+			if (block != null) {
+				if (player.isNear(touchPos))
+					player.dig(block, delta);
+				//else
+					// TODO: ¼ÕÀÌ ¾È ´ê¾Æµµ ¹º°¡ ÆÄ´Â ½Ã´¿À»?
+			}
 			else
 				if (Gdx.input.justTouched())
 					player.requestMove(touchPos);

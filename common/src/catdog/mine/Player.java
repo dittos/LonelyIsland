@@ -20,6 +20,7 @@ public class Player {
 	
 	private boolean direction = LEFT;
 	private int state = STATE_STAND;
+	private boolean hasDest = false;
 	
 	// 상수
 	public static final boolean LEFT = false;
@@ -73,7 +74,7 @@ public class Player {
 	 * @param newPos 목적지 위치 (터치한 곳)
 	 */
 	public void requestMove(Vector2 newPos) {
-		// 맵 좌표로 변환하여 walkto
+		// 터치한 위치가 캐릭터 중앙이 되도록 걸어간다.
 		walkTo(new Vector2(newPos.x - hitbox.width / 2f, newPos.y));
 	}
 	
@@ -114,8 +115,11 @@ public class Player {
 			position.y += velocity.y * delta;
 			
 			if (hasStandingBlock()) {
-				stand();
-				position.y = (float) Math.ceil(position.y);
+				if (hasDest) {
+					stand();
+					walkTo(destPos);
+				} else
+					stand();
 			}
 			break;
 			
@@ -153,7 +157,9 @@ public class Player {
 	 */
 	public void stand() {
 		state = STATE_STAND;
+		hasDest = false;
 		velocity.set(0, 0);
+		position.y = (float) Math.ceil(position.y);
 	}
 	
 	/**
@@ -162,6 +168,7 @@ public class Player {
 	 * @param newPos
 	 */
 	private void walkTo(Vector2 newPos) {
+		hasDest = true;
 		destPos.set(newPos);
 		if (position.x < destPos.x) // ->
 			direction = RIGHT;
