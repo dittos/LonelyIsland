@@ -9,22 +9,22 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 public class Player {
-	public Vector2 position = new Vector2();
-	private Vector2 movepos = new Vector2();
-	private Vector2 velocity = new Vector2(0, 0);
-	
-	private Texture playerTex;
-	private SpriteBatch spriteBatch;
-	
+	// 관련 객체 레퍼런스
 	private World world;
-	
 	public Inventory inventory;
 	
-	private boolean direction = LEFT;
+	// 상태
+	public Vector2 position = new Vector2();
+	private Vector2 velocity = new Vector2(0, 0);
+	private Vector2 destPos = new Vector2();
 	
+	private boolean direction = LEFT;
+	private int state = STATE_STAND;
+	
+	// 상수
 	public static final boolean LEFT = false;
 	public static final boolean RIGHT = true;
-	private BitmapFont font;			// TEST
+
 	/**
 	 * 걷는 속도 (단위: 블럭/초)
 	 */
@@ -39,6 +39,7 @@ public class Player {
 	 * 점프 초기 속도 (단위: 블럭/초)
 	 */
 	private static final int JUMP_SPEED = 10;
+	
 	/**
 	 * 점프시 x축 속도 (단위: 블럭/초)
 	 */
@@ -54,7 +55,6 @@ public class Player {
 	private static final int STATE_FALL = 2;
 	private static final int STATE_CLIMB = 3;
 	private static final int STATE_JUMP = 4;
-	private int state = STATE_STAND;
 	
 	/**
 	 * 생성자
@@ -74,21 +74,7 @@ public class Player {
 	 */
 	public void requestMove(Vector2 newPos) {
 		// 맵 좌표로 변환하여 walkto
-		walkto(new Vector2(newPos.x -= hitbox.width / 2f, newPos.y));
-	}
-	/**
-	 * 해당 위치로 이동하게 명령 (맵 좌표상으로)
-	 * 참고 : 맵 좌표는 오브젝트이 좌측 하단을 기준으로 하므로 터치한 곳과는 다름 
-	 * @param newPos
-	 */
-	private void walkto(Vector2 newPos) {
-		movepos.set(newPos);
-		if (position.x < movepos.x) // ->
-			direction = RIGHT;
-		else // <-
-			direction = LEFT;
-		velocity.x = (direction == LEFT ? -1 : +1) * WALK_SPEED;
-		state = STATE_WALK;
+		walkTo(new Vector2(newPos.x - hitbox.width / 2f, newPos.y));
 	}
 	
 	/**
@@ -106,24 +92,20 @@ public class Player {
 		case STATE_WALK:
 			if (!hasStandingBlock())
 				state = STATE_FALL;
-			//else if(collision())
-			//	state = STATE_STAND;
 			else if (arrived())
 				stand();
-			else {
+			else if(!blockInPath(velocity.x * delta))
 				// 막히는 블럭이 없다면 이동
-				if(!blockInPath(velocity.x * delta))
-					position.x += velocity.x * delta;
+				position.x += velocity.x * delta;
+			else {
 				// 막히는 블럭이 있다면
-				else {
-					// 같은 높이에 블럭이 있고, 그 위에는 없다면 점프
-					float fx = position.x + ((velocity.x > 0)? 1 : -1);
-					if(world.getBlock(new Vector2(fx, position.y)) != null
-							&& world.getBlock(new Vector2(fx, position.y + 1)) == null) {
-						jump();
-					} else
-						stand();
-				}
+				// 같은 높이에 블럭이 있고, 그 위에는 없다면 점프
+				float fx = position.x + ((velocity.x > 0)? 1 : -1);
+				if(world.getBlock(new Vector2(fx, position.y)) != null
+						&& world.getBlock(new Vector2(fx, position.y + 1)) == null) {
+					jump();
+				} else
+					stand();
 			}
 			break;
 			
@@ -153,12 +135,13 @@ public class Player {
 				position.y = (float) Math.ceil(position.y);
 				// 만약 착지한 곳이 도착점과 얼마 떨어지지 않은 곳이라면 정지
 				// (착지 후 불안정한 움직임을 보정하기 위함)
-				if(Math.abs(position.x - movepos.x) < 1f)
+				if(Math.abs(position.x - destPos.x) < 1f)
 					stand();
 				else
-					walkto(movepos);
+					walkTo(destPos);
 			}
 			break;
+			
 		case STATE_CLIMB:
 			break;
 			
@@ -171,6 +154,21 @@ public class Player {
 	public void stand() {
 		state = STATE_STAND;
 		velocity.set(0, 0);
+	}
+	
+	/**
+	 * 해당 위치로 이동하게 명령 (맵 좌표상으로)
+	 * 참고 : 맵 좌표는 오브젝트이 좌측 하단을 기준으로 하므로 터치한 곳과는 다름 
+	 * @param newPos
+	 */
+	private void walkTo(Vector2 newPos) {
+		destPos.set(newPos);
+		if (position.x < destPos.x) // ->
+			direction = RIGHT;
+		else // <-
+			direction = LEFT;
+		velocity.x = (direction == LEFT ? -1 : +1) * WALK_SPEED;
+		state = STATE_WALK;
 	}
 	
 	/**
@@ -228,16 +226,7 @@ public class Player {
 	 */
 	private boolean arrived() {
 		// TODO: y좌표 확인
-		return Math.abs(position.x - movepos.x) < Game.epsilon;
-	}
-	
-	public void render(Viewport viewport) {
-		Vector2 screenPos = viewport.toScreen(position);
-		spriteBatch.begin();
-		spriteBatch.draw(playerTex, screenPos.x, screenPos.y, playerTex.getWidth(), playerTex.getHeight(),
-				0, 0, playerTex.getWidth(), playerTex.getHeight(), direction == RIGHT, false);
-		font.draw(spriteBatch, String.format("%f, %f", position.x, position.y), 0, 100);
-		spriteBatch.end();
+		return Math.abs(position.x - destPos.x) < Game.epsilon;
 	}
 	
 	public boolean isNear(Vector2 touchPos){
@@ -257,6 +246,20 @@ public class Player {
 
 	public void setDirection(boolean direction) {
 		this.direction = direction;
+	}
+
+	// 그리기 관련 코드
+	private Texture playerTex;
+	private SpriteBatch spriteBatch;
+	private BitmapFont font;			// TEST
+	
+	public void render(Viewport viewport) {
+		Vector2 screenPos = viewport.toScreen(position);
+		spriteBatch.begin();
+		spriteBatch.draw(playerTex, screenPos.x, screenPos.y, playerTex.getWidth(), playerTex.getHeight(),
+				0, 0, playerTex.getWidth(), playerTex.getHeight(), direction == RIGHT, false);
+		font.draw(spriteBatch, String.format("%f, %f", position.x, position.y), 0, 100);
+		spriteBatch.end();
 	}
 	
 }
