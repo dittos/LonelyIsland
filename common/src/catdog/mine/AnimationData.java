@@ -99,7 +99,7 @@ public class AnimationData {
 	public void loadFromFile(String filename) {
 		// 라인 단위로 끊어서 파일 읽어오기
 		String[] data = Gdx.files.internal(filename).readString()
-					.split(System.getProperty("line.separator"));
+					.split("\r\n");
 		
 		// 첫 라인 : 루프 여부
 		loop = Boolean.valueOf(data[0]);

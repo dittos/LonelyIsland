@@ -29,7 +29,7 @@ public abstract class DataDictionary<T> {
 	protected void Load(String listfile) {
 		// 리스트 파일을 읽어서 라인 단위로 쪼개기
 		String[] lines = Gdx.files.internal(listfile).readString()
-						.split(System.getProperty("line.separator"));
+						.split("\r\n");
 		
 		for(int i = 0; i < lines.length; i++) {
 			// 한 라인에 데이터 : ID[탭문자]파일명
