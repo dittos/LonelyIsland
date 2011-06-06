@@ -108,4 +108,14 @@ public class Item implements Comparable<Item>
 	{
 		return (target instanceof Item && ((Item)target).itemID == itemID);
 	}
+	
+	/**
+	 * 현재 층에서 나올 확률값 구하기
+	 * @param y 층
+	 * @return 확률값
+	 */
+	public int getFoundWeightForLevel(int y) {
+		return Math.max(0, getMostfoundweight() - 
+				Math.abs(getMostfoundlevel() - y) * getFoundweightdecrease());
+	}
 }

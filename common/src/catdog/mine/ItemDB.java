@@ -97,7 +97,7 @@ public class ItemDB
 		itemDic.put(1, new Item(1, "Dirt", "data/texture/block/dirt.png", .5f,
 				true, World.GROUND_ALTITUDE, 100, 10));
 		itemDic.put(2, new Item(2, "Stone", "data/texture/block/stone.png", 1f,
-				true, World.GROUND_ALTITUDE - 5, 50, 5));
+				true, 0, 300, 10));
 		
 		combDic = new TreeMap<Combination, Item>();
 		
