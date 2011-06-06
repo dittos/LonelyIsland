@@ -233,7 +233,7 @@ public class Player {
 			playerAnim = new Animation(playeranimdata.getReference(PlayerAnimDataDict.ID_WALK));
 			break;
 		case STATE_CLIMB:
-			playerAnim = new Animation(playeranimdata.getReference(PlayerAnimDataDict.ID_STAND));
+			playerAnim = new Animation(playeranimdata.getReference(PlayerAnimDataDict.ID_CLIMB));
 			//±â´Â°É·Î ¹Ù²ã¾ßµÊ.
 			break;
 		case STATE_STAND:

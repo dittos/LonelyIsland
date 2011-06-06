@@ -1,0 +1,3 @@
+true
+data/texture/player/climb1.png	0.3
+data/texture/player/climb2.png	0.3

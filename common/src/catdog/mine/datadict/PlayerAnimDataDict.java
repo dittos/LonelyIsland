@@ -16,6 +16,10 @@ public class PlayerAnimDataDict extends DataDictionary<AnimationData> {
 	 * 걸을 때
 	 */
 	public static final String ID_WALK = "walk";
+	/**
+	 * 기어올라갈 때
+	 */
+	public static final String ID_CLIMB = "climb";
 
 	/**
 	 * 리스트 파일
