@@ -1,0 +1,2 @@
+false
+data/texture/monster/lonely_zombie2.png	1

@@ -1,0 +1,2 @@
+zombie_stand	data/animations/zombie_stand.txt
+zombie_walk	data/animations/zombie_stand.txt
