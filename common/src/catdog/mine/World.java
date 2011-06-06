@@ -3,11 +3,12 @@ package catdog.mine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 public class World {
 	
-	private Texture blockTex;
+	private Texture blockTex, nightBgTex, dayBgTex;
 	private SpriteBatch spriteBatch;
 	private Block[][] map;
 	
@@ -17,6 +18,8 @@ public class World {
 	
 	public World() {
 		blockTex = new Texture(Gdx.files.internal("data/block.png"));
+		nightBgTex = new Texture(Gdx.files.internal("data/texture/bg_night.png"));
+		dayBgTex = new Texture(Gdx.files.internal("data/texture/bg_day.png"));
 		spriteBatch = new SpriteBatch();
 		map = new Block[HEIGHT][WIDTH];
 		initMap();
@@ -43,6 +46,16 @@ public class World {
 
 	public void render(Viewport viewport) {
 		spriteBatch.begin();
+		float opacity = (1.0f + (float)Math.cos(Clock.getElapsed() * MathUtils.PI * 2 / Clock.DAY)) / 2f;
+		spriteBatch.setColor(1, 1, 1, opacity);
+		spriteBatch.draw(dayBgTex, 0, 0, viewport.screenWidth,
+				viewport.screenHeight, 0, 0, dayBgTex.getWidth(),
+				dayBgTex.getHeight(), false, false);
+		spriteBatch.setColor(1, 1, 1, 1-opacity);
+		spriteBatch.draw(nightBgTex, 0, 0, viewport.screenWidth,
+				viewport.screenHeight, 0, 0, nightBgTex.getWidth(),
+				nightBgTex.getHeight(), false, false);
+		
 		Vector2 pos = new Vector2();
 		int x0, y0, x1, y1;
 		x0 = Math.max(0, (int)viewport.startX);

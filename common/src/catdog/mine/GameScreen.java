@@ -85,7 +85,7 @@ public class GameScreen implements Screen {
 		viewport = new Viewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 32, 32);
 		viewport.focusOn(player.position);
 		ItemDB.loadTextures();
-		
+		Clock.reset();
 	}
 
 	@Override
