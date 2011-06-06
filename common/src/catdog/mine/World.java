@@ -10,11 +10,25 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
+class BlockEntry
+{
+	public int x, y;
+	public Block block;
+	
+	public BlockEntry(int x, int y, Block block)
+	{
+		this.x = x;
+		this.y = y;
+		this.block = block;
+	}
+}
+
 public class World {
 	
 	private Texture blockTex, nightBgTex, dayBgTex;
 	private SpriteBatch spriteBatch;
 	private Block[][] map;
+	private ArrayList<BlockEntry> interactable;
 	
 	public static final int WIDTH = 100;
 	public static final int HEIGHT = 50;
@@ -26,6 +40,7 @@ public class World {
 		dayBgTex = new Texture(Gdx.files.internal("data/texture/bg_day.png"));
 		spriteBatch = new SpriteBatch();
 		map = new Block[HEIGHT][WIDTH];
+		interactable = new ArrayList<Block>();
 		initMap();
 	}
 	
@@ -34,6 +49,8 @@ public class World {
 	 */
 	private void initMap() {
 		calculateBlockFoundWeight();
+		
+		// TODO: Interactable
 		
 		for (int i = 0; i < GROUND_ALTITUDE; i++) {
 			for (int j = 0; j < WIDTH; j++) {
@@ -81,7 +98,7 @@ public class World {
 			}
 		}
 		
-		map[y][x] = new Block(newitem);
+		putBlock(x, y, new Block(newitem));
 	}
 	
 	private ArrayList<Integer> blockweightlist;
@@ -193,6 +210,8 @@ public class World {
 	 * 블럭을 새로 놓는다.
 	 */
 	public void putBlock(int x, int y, Block block) {
+		if(block.getItem().getInteract() != null)
+			interactable.add(new BlockEntry(x, y, block));
 		map[y][x] = block;
 	}
 }
