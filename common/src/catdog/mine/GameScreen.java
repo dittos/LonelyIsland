@@ -1,5 +1,7 @@
 package catdog.mine;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
@@ -9,7 +11,8 @@ public class GameScreen implements Screen {
 	
 	private Viewport viewport;
 	private World world;
-	private Player player;
+	private Life player;
+	private ArrayList<Mob> monsters;
 	private InventoryView inventoryView;
 
 	@Override
@@ -27,9 +30,9 @@ public class GameScreen implements Screen {
 				
 				// 터치한 곳에 따라 캐릭터 시선 방향을 정한다.
 				if (mapPos.x < player.position.x)
-					player.setDirection(Player.LEFT);
+					player.setDirection(Life.LEFT);
 				else
-					player.setDirection(Player.RIGHT);
+					player.setDirection(Life.RIGHT);
 				
 				Item selectedItem = inventoryView.getSelectedItem();
 				if (selectedItem != null) {
@@ -57,11 +60,15 @@ public class GameScreen implements Screen {
 		}
 		
 		player.update(delta);
+		for (Mob mob : monsters)
+			mob.update(delta);
 		viewport.focusOn(player.position);
 		
 		Gdx.gl10.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		world.render(viewport);
 		player.render(viewport);
+		for (Mob mob : monsters)
+			mob.render(viewport);
 		inventoryView.render();
 	}
 
@@ -74,10 +81,14 @@ public class GameScreen implements Screen {
 	@Override
 	public void show() {
 		// 데이터 로딩
-		Player.loadData();
+		Life.loadData();
 		
 		world = new World();
-		player = new Player(world);
+		monsters = new ArrayList<Mob>();
+		Mob mob = new Mob(world);
+		mob.position.set(5, 50);
+		monsters.add(mob);
+		player = new Life(world);
 		player.position.set(2, World.GROUND_ALTITUDE);
 		inventoryView = new InventoryView(player.inventory);
 		viewport = new Viewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 32, 32);
