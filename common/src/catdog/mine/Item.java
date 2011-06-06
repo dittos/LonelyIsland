@@ -1,13 +1,14 @@
 package catdog.mine;
 
+import java.util.Collection;
+
 import com.badlogic.gdx.graphics.Texture;
 
 public class Item implements Comparable<Item>
 {
 	public interface Interaction
 	{
-		// TODO: NPC 클래스나 비슷한 것 적용
-		public void interact(Object npc, int blockX, int blockY);
+		public void interact(Collection<Life> mob, int blockX, int blockY);
 	}
 
 	private Texture iconTex;
