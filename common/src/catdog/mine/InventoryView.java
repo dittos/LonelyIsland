@@ -15,14 +15,13 @@ public class InventoryView {
 	private TextureRegion bgTex;
 	public Item selectedItem = null;
 	
-	private float x = 800 - WIDTH;
-	public static float WIDTH = 48;
-	public static int ENTRY_HEIGHT = 48;
+	private final float x = 800 - WIDTH;
+	public static final int WIDTH = 46;
+	public static final int ENTRY_HEIGHT = 48;
 	
 	public InventoryView(Inventory model) {
 		this.model = model;
 		font = new BitmapFont();
-		font.setColor(Color.BLACK);
 		spriteBatch = new SpriteBatch();
 		bgTex = new TextureRegion(new Texture(Gdx.files.internal("data/inventory_bg.png")), 0, 0, WIDTH, 480);
 	}
@@ -33,9 +32,10 @@ public class InventoryView {
 		for (int i = 0; i < Inventory.MAX_ITEMS; i++) {
 			Item item = model.getItem(i);
 			if (item != null) {
-				int y = (Inventory.MAX_ITEMS - i + 1) * ENTRY_HEIGHT;
+				int y = (Inventory.MAX_ITEMS - i + 1) * ENTRY_HEIGHT + (ENTRY_HEIGHT - 32)/2;
 				spriteBatch.draw(item.getProp().getIconTex(), x + (WIDTH-32)/2, y);
-				font.draw(spriteBatch, item.getProp().getName() + " (" + model.getItemCount(i) + ")", x, y);
+				String count = Integer.toString(model.getItemCount(i));
+				font.draw(spriteBatch, count, x + WIDTH - 10 - font.getBounds(count).width, y+22);
 			}
 		}
 		spriteBatch.end();
