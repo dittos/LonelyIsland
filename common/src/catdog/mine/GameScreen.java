@@ -11,7 +11,7 @@ public class GameScreen implements Screen {
 	
 	private Viewport viewport;
 	private World world;
-	private Life player;
+	private Player player;
 	private ArrayList<Mob> monsters;
 	private InventoryView inventoryView;
 
@@ -80,16 +80,13 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
-		// 데이터 로딩
-		Life.loadData();
-		
 		world = new World();
-		monsters = new ArrayList<Mob>();
-		Mob mob = new Mob(world);
-		mob.position.set(5, 50);
-		monsters.add(mob);
-		player = new Life(world);
+		player = new Player(world);
 		player.position.set(2, World.GROUND_ALTITUDE);
+		monsters = new ArrayList<Mob>();
+		Mob mob = new Mob(world, player);
+		mob.position.set(15, 50);
+		monsters.add(mob);
 		inventoryView = new InventoryView(player.inventory);
 		viewport = new Viewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 32, 32);
 		viewport.focusOn(player.position);

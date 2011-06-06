@@ -1,12 +1,10 @@
 package catdog.mine;
 
-import catdog.mine.datadict.PlayerAnimDataDict;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public class Life {
+public abstract class Life {
 	// 관련 객체 레퍼런스
 	private World world;
 	public Inventory inventory;
@@ -27,7 +25,7 @@ public class Life {
 	/**
 	 * 걷는 속도 (단위: 블럭/초)
 	 */
-	private static final int WALK_SPEED = 10;
+	protected int WALK_SPEED;
 	
 	private static final int CLIMB_SPEED = 5;
 	/**
@@ -71,8 +69,10 @@ public class Life {
 		inventory = new Inventory();
 		this.world = world;
 		
+		loadAnimationData();
+		
 		// 애니메이션 초기화
-		playerAnim = new Animation(playeranimdata.getReference(PlayerAnimDataDict.ID_STAND));
+		currentAni = new Animation(standAni);
 	}
 	
 	/**
@@ -176,7 +176,7 @@ public class Life {
 		}
 		
 		// 애니메이션 업데이트
-		playerAnim.update(delta);
+		currentAni.update(delta);
 	}
 	
 	/**
@@ -224,16 +224,16 @@ public class Life {
 		switch(state) {
 		case STATE_WALK:
 			// 걷기
-			playerAnim = new Animation(playeranimdata.getReference(PlayerAnimDataDict.ID_WALK));
+			currentAni = new Animation(walkAni);
 			break;
 		case STATE_CLIMB:
-			playerAnim = new Animation(playeranimdata.getReference(PlayerAnimDataDict.ID_CLIMB));
+			currentAni = new Animation(climbAni);
 			//기는걸로 바꿔야됨.
 			break;
 		case STATE_STAND:
 		default:
 			// 기본 : 서있기
-			playerAnim = new Animation(playeranimdata.getReference(PlayerAnimDataDict.ID_STAND));
+			currentAni = new Animation(standAni);
 		}
 	}
 	
@@ -313,27 +313,19 @@ public class Life {
 
 	// 그리기 관련 코드
 	//private Texture playerTex;
-	private Animation playerAnim;
+	private Animation currentAni;
 	private SpriteBatch spriteBatch;
+	
+	protected AnimationData standAni, walkAni, climbAni;
+	
+	protected abstract void loadAnimationData();
 	
 	public void render(Viewport viewport) {
 		Vector2 screenPos = viewport.toScreen(position);
 		spriteBatch.begin();
-		playerAnim.render(spriteBatch, screenPos, direction == RIGHT, false);
+		currentAni.render(spriteBatch, screenPos, direction == RIGHT, false);
 		//spriteBatch.draw(playerTex, screenPos.x, screenPos.y, playerTex.getWidth(), playerTex.getHeight(),
 		//		0, 0, playerTex.getWidth(), playerTex.getHeight(), direction == RIGHT, false);
 		spriteBatch.end();
-	}
-	
-	/**
-	 * 플레이어 애니메이션 데이터
-	 */
-	private static PlayerAnimDataDict playeranimdata;
-	/**
-	 * 데이터 로드하기
-	 */
-	public static void loadData() {
-		playeranimdata = new PlayerAnimDataDict();
-		playeranimdata.Load();
 	}
 }
