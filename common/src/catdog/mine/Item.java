@@ -9,12 +9,9 @@ public class Item implements Comparable<Item>
 	private String icon;
 	private Texture iconTex;
 	
-	public Texture getIconTex() {
-		return iconTex;
-	}
-
-	public void setIconTex(Texture iconTex) {
-		this.iconTex = iconTex;
+	public int getItemID()
+	{
+		return itemID;
 	}
 
 	public String getName()
@@ -26,20 +23,30 @@ public class Item implements Comparable<Item>
 	{
 		return icon;
 	}
-	
+
+	public Texture getIconTex()
+	{
+		return iconTex;
+	}
+
+	public void setIconTex(Texture iconTex)
+	{
+		this.iconTex = iconTex;
+	}
+
 	public Item(int itemID, String name, String icon)
 	{
 		this.itemID = itemID;
 		this.name = name;
 		this.icon = icon;
 	}
-	
+
 	@Override
 	public int compareTo(Item target)
 	{
 		return itemID - target.itemID;
 	}
-	
+
 	@Override
 	public boolean equals(Object target)
 	{
