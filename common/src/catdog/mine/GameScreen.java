@@ -61,6 +61,7 @@ public class GameScreen implements Screen {
 		inventoryView = new InventoryView(player.inventory);
 		viewport = new Viewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 32, 32);
 		viewport.focusOn(player.position);
+		ItemDB.loadTextures();
 	}
 
 	@Override

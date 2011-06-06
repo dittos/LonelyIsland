@@ -2,6 +2,9 @@ package catdog.mine;
 
 import java.util.*;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+
 public class ItemDB
 {
 	/**
@@ -14,7 +17,7 @@ public class ItemDB
 		itemDic = new TreeMap<Integer, ItemProperty>();
 		
 		// 아이템 ID와 구체적인 아이템 속성을 연결
-		itemDic.put(1, new ItemProperty("Item 1", "data/item1.png"));
+		itemDic.put(1, new ItemProperty("Dirt", "data/block.png"));
 	}
 	
 	/**
@@ -45,5 +48,14 @@ public class ItemDB
 		}
 		
 		return -1;
+	}
+	
+	/**
+	 * 아이템 아이콘 텍스쳐를 불러온다.
+	 */
+	public static void loadTextures() {
+		for (ItemProperty p : itemDic.values()) {
+			p.setIconTex(new Texture(Gdx.files.internal(p.getIcon())));
+		}
 	}
 }
