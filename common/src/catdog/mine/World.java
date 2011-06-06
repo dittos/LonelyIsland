@@ -68,11 +68,16 @@ public class World {
 			
 			// 모든 블럭을 다 체크할 때까지
 			for(Item item : ItemDB.getAllItems()) {
-				// 해당 블럭이 나올 상황이면 아이템 대입하고 루프 종료 
-				if(randweight <= item.getFoundWeightForLevel(y)) {
+				// 해당 블럭이 나올 상황이면 아이템 대입하고 루프 종료
+				int curweight = item.getFoundWeightForLevel(y);
+				if(randweight <= curweight) {
 					newitem = item;
 					break;
 				}
+				// 현재 확률값만큼 빼준다
+				randweight -= curweight;
+				
+				if(randweight <= 0) break;
 			}
 		}
 		

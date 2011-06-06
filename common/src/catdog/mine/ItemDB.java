@@ -101,7 +101,23 @@ public class ItemDB
 		itemDic.put(2, new Item(2, "Stone", "data/texture/block/stone.png",
 				null, 0,
 				1f,
-				true, 0, 300, 10));
+				true, 0, 300, 14));
+		itemDic.put(3, new Item(3, "Coal", "data/texture/block/coal.png",
+				null, 0,
+				0.8f,
+				true, World.GROUND_ALTITUDE - 7, 20, 5));
+		itemDic.put(4, new Item(4, "Iron", "data/texture/block/iron.png",
+				null, 0,
+				2f,
+				true, World.GROUND_ALTITUDE - 14, 15, 3));
+		itemDic.put(5, new Item(5, "Bronze", "data/texture/block/bronze.png",
+				null, 0,
+				1.5f,
+				true, World.GROUND_ALTITUDE - 10, 18, 3));
+		itemDic.put(6, new Item(6, "Gold", "data/texture/block/gold.png",
+				null, 0,
+				2.5f,
+				true, World.GROUND_ALTITUDE - 19, 10, 2));
 		
 		combDic = new TreeMap<Combination, Item>();
 		
