@@ -1,7 +1,6 @@
 package catdog.mine;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -15,27 +14,24 @@ public class InventoryView {
 	private TextureRegion bgTex;
 	public Item selectedItem = null;
 	
-	private final float x = 800 - WIDTH;
-	public static final int WIDTH = 46;
-	public static final int ENTRY_HEIGHT = 48;
+	public static final int HEIGHT = 48;
 	
 	public InventoryView(Inventory model) {
 		this.model = model;
 		font = new BitmapFont();
 		spriteBatch = new SpriteBatch();
-		bgTex = new TextureRegion(new Texture(Gdx.files.internal("data/inventory_bg.png")), 0, 0, WIDTH, 480);
+		bgTex = new TextureRegion(new Texture(Gdx.files.internal("data/inventory_bg.png")), 0, 0, 512, 48);
 	}
 
 	public void render() {
 		spriteBatch.begin();
-		spriteBatch.draw(bgTex, x, 0);
+		spriteBatch.draw(bgTex, 0, 0);
 		for (int i = 0; i < Inventory.MAX_ITEMS; i++) {
 			Item item = model.getItem(i);
 			if (item != null) {
-				int y = (Inventory.MAX_ITEMS - i + 1) * ENTRY_HEIGHT + (ENTRY_HEIGHT - 32)/2;
-				spriteBatch.draw(item.getIconTex(), x + (WIDTH-32)/2, y);
+				spriteBatch.draw(item.getIconTex(), i * 48 + 8, 8);
 				String count = Integer.toString(model.getItemCount(i));
-				font.draw(spriteBatch, count, x + WIDTH - 10 - font.getBounds(count).width, y+22);
+				font.draw(spriteBatch, count, (i + 1) * 48 - 10 - font.getBounds(count).width, 30);
 			}
 		}
 		spriteBatch.end();
@@ -43,7 +39,7 @@ public class InventoryView {
 	
 	public void onClick(Vector2 pos) {
 		// 위쪽에서부터 i번째 칸이 눌렸음
-		int i = (int)((480 - pos.y) / ENTRY_HEIGHT);
+		int i = 0;// (int)((480 - pos.y) / ENTRY_HEIGHT);
 		if (i < Inventory.MAX_ITEMS) {
 			// 아이템을 눌렀음
 			selectedItem = model.getItem(i);

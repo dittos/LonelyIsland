@@ -18,7 +18,7 @@ public class GameScreen implements Screen {
 			// 터치 이벤트는 화면 왼쪽 위가 (0, 0)
 			Vector2 touchPos = new Vector2(Gdx.input.getX(), viewport.screenHeight - Gdx.input.getY());
 			
-			if (touchPos.x >= viewport.screenWidth - InventoryView.WIDTH) {
+			if (touchPos.y <= InventoryView.HEIGHT) {
 				// 인벤토리를 터치했을 경우
 				inventoryView.onClick(touchPos);
 			} else {
