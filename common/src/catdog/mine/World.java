@@ -40,7 +40,7 @@ public class World {
 		dayBgTex = new Texture(Gdx.files.internal("data/texture/bg_day.png"));
 		spriteBatch = new SpriteBatch();
 		map = new Block[HEIGHT][WIDTH];
-		interactable = new ArrayList<Block>();
+		interactable = new ArrayList<BlockEntry>();
 		initMap();
 	}
 	
@@ -75,26 +75,32 @@ public class World {
 	 * @param y
 	 */
 	private void newBlock(int x, int y) {
-		// 새로 생성될 아이템 - 기본 아이템
-		Item newitem = ItemDB.getItem(1);
-		
-		// 해당 층에서 weight가 0이 아니면
-		if(blockweightlist.get(y) != 0) {
-			// 범위가 1에서 최대 weight값인 랜덤 int값 생성
-			int randweight = randobj.nextInt(blockweightlist.get(y)) + 1;
+		Item newitem;
+		// 맨 아래층일 때는 베드락
+		if(y == 0) {
+			newitem = ItemDB.getItem(8);
+		} else {
+			// 새로 생성될 아이템 - 기본 아이템
+			newitem = ItemDB.getItem(1);
 			
-			// 모든 블럭을 다 체크할 때까지
-			for(Item item : ItemDB.getAllItems()) {
-				// 해당 블럭이 나올 상황이면 아이템 대입하고 루프 종료
-				int curweight = item.getFoundWeightForLevel(y);
-				if(randweight <= curweight) {
-					newitem = item;
-					break;
-				}
-				// 현재 확률값만큼 빼준다
-				randweight -= curweight;
+			// 해당 층에서 weight가 0이 아니면
+			if(blockweightlist.get(y) != 0) {
+				// 범위가 1에서 최대 weight값인 랜덤 int값 생성
+				int randweight = randobj.nextInt(blockweightlist.get(y)) + 1;
 				
-				if(randweight <= 0) break;
+				// 모든 블럭을 다 체크할 때까지
+				for(Item item : ItemDB.getAllItems()) {
+					// 해당 블럭이 나올 상황이면 아이템 대입하고 루프 종료
+					int curweight = item.getFoundWeightForLevel(y);
+					if(randweight <= curweight) {
+						newitem = item;
+						break;
+					}
+					// 현재 확률값만큼 빼준다
+					randweight -= curweight;
+					
+					if(randweight <= 0) break;
+				}
 			}
 		}
 		

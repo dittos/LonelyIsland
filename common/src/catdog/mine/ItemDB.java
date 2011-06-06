@@ -122,6 +122,10 @@ public class ItemDB
 				null, 0,
 				4f,
 				true, World.GROUND_ALTITUDE - 23, 8, 3));
+		itemDic.put(8, new Item(8, "BedRock", "data/texture/block/bedrock.png",
+				null, 0,
+				444444444444f,
+				false, 0, 0, 0));
 		
 		combDic = new TreeMap<Combination, Item>();
 		
