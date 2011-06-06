@@ -1,3 +1,0 @@
-stand	data/animation/player_stand.txt
-walk	data/animation/player_walk.txt
-climb	data/animation/player_climb.txt

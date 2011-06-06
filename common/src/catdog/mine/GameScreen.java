@@ -38,8 +38,8 @@ public class GameScreen implements Screen {
 				if (selectedItem != null) {
 					// 아이템 놓는 모드
 					if (Gdx.input.justTouched() && player.isNear(mapPos) &&
+							player.canPutBlock((int)mapPos.x, (int)mapPos.y) &&
 							world.canPutBlock((int)mapPos.x, (int)mapPos.y)) {
-						// TODO: 플레이어와 겹치는 부분에 아이템 못 놓도록
 						world.putBlock((int)mapPos.x, (int)mapPos.y, new Block(selectedItem));
 						player.inventory.removeItem(player.inventory.findItem(selectedItem));
 					}

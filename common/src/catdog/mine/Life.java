@@ -51,7 +51,7 @@ public abstract class Life {
 	/**
 	 * 충돌범위
 	 */
-	private static final Rectangle hitbox = new Rectangle(-0.3f, -1.8f, 0.6f, 1.8f);
+	protected Rectangle hitbox = new Rectangle(-0.3f, -1.8f, 0.6f, 1.8f);
 	
 	private static final int STATE_STAND = 0;
 	private static final int STATE_WALK = 1;
@@ -305,14 +305,8 @@ public abstract class Life {
 	public void setDirection(boolean direction) {
 		this.direction = direction;
 	}
-	
-	  
-		public void canPutBlock() {
-		
-	}
 
 	// 그리기 관련 코드
-	//private Texture playerTex;
 	private Animation currentAni;
 	private SpriteBatch spriteBatch;
 	
