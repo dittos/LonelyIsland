@@ -1,6 +1,7 @@
 package catdog.mine;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -12,10 +13,10 @@ public class InventoryView {
 	private BitmapFont font;
 	private SpriteBatch spriteBatch;
 	private TextureRegion bgTex;
-	public Item selectedItem = null;
+	private Item selectedItem = null;
 	
 	public static final int HEIGHT = 48;
-	private static final int ENTRY_WIDTH = 48;
+	private static final int ENTRY_WIDTH = 32 + 8;
 	
 	public InventoryView(Inventory model) {
 		this.model = model;
@@ -32,7 +33,11 @@ public class InventoryView {
 			if (item != null) {
 				spriteBatch.draw(item.getIconTex(), i * ENTRY_WIDTH + 8, 8);
 				String count = Integer.toString(model.getItemCount(i));
-				font.draw(spriteBatch, count, (i + 1) * ENTRY_WIDTH - 10 - font.getBounds(count).width, 30);
+				if (item == selectedItem)
+					font.setColor(Color.RED);
+				else
+					font.setColor(Color.WHITE);
+				font.draw(spriteBatch, count, (i + 1) * ENTRY_WIDTH - 3 - font.getBounds(count).width, 30);
 			}
 		}
 		spriteBatch.end();
@@ -48,5 +53,12 @@ public class InventoryView {
 			// 버튼을 눌렀음
 			selectedItem = null;
 		}
+	}
+	
+	public Item getSelectedItem() {
+		if (model.findItem(selectedItem) < 0)
+			selectedItem = null;
+		
+		return selectedItem;
 	}
 }

@@ -31,16 +31,14 @@ public class GameScreen implements Screen {
 				else
 					player.setDirection(Player.RIGHT);
 				
-				if (inventoryView.selectedItem != null) {
+				Item selectedItem = inventoryView.getSelectedItem();
+				if (selectedItem != null) {
 					// 아이템 놓는 모드
 					if (Gdx.input.justTouched() && player.isNear(mapPos) &&
 							world.canPutBlock((int)mapPos.x, (int)mapPos.y)) {
-						// TODO:
-						// - 플레이어와 겹치는 부분에 아이템 못 놓도록
-						// - 아이템이 0개가 되면 selectedItem 해제
-						// - 블럭 객체를 현재 선택 아이템에 맞게 생성
-						world.putBlock((int)mapPos.x, (int)mapPos.y, new Block(ItemDB.getItem(1)));
-						player.inventory.removeItem(player.inventory.findItem(inventoryView.selectedItem));
+						// TODO: 플레이어와 겹치는 부분에 아이템 못 놓도록
+						world.putBlock((int)mapPos.x, (int)mapPos.y, new Block(selectedItem));
+						player.inventory.removeItem(player.inventory.findItem(selectedItem));
 					}
 				} else {
 					// 이동 모드
