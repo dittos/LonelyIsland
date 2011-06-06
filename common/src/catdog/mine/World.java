@@ -28,17 +28,17 @@ public class World {
 	private void initMap() {
 		for (int i = 0; i < GROUND_ALTITUDE; i++) {
 			for (int j = 0; j < WIDTH; j++) {
-				map[i][j] = new Block();
+				map[i][j] = new Block(ItemDB.getItem(1));
 			}
 		}
 		
 		// TODO: 이것은 임시 코드임. 계단 만들기 -_-
 		for (int i = GROUND_ALTITUDE; i < HEIGHT; i++) {
-			map[i][i - GROUND_ALTITUDE + 10] = new Block();
+			map[i][i - GROUND_ALTITUDE + 10] = new Block(ItemDB.getItem(1));
 		}
 		
 		// 임시코드. 충돌체크 테스트용
-		map[GROUND_ALTITUDE][0] = new Block();
+		map[GROUND_ALTITUDE][0] = new Block(ItemDB.getItem(1));
 	}
 
 	public void render(Viewport viewport) {

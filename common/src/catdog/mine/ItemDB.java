@@ -94,7 +94,8 @@ public class ItemDB
 		itemDic = new TreeMap<Integer, Item>();
 		
 		// 아이템 ID와 구체적인 아이템 속성을 연결
-		itemDic.put(1, new Item(1, "Dirt", "data/block.png"));
+		itemDic.put(1, new Item(1, "Dirt", "data/texture/block/dirt.png", .5f));
+		itemDic.put(2, new Item(2, "Stone", "data/texture/block/stone.png", 1f));
 		
 		combDic = new TreeMap<Combination, Item>();
 		

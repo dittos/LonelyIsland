@@ -1,15 +1,16 @@
 package catdog.mine;
 
 public class Block {
-	/**
-	 * 블럭 파괴 시간 (초)
-	 */
-	private float destroyTime = 1;
 	
 	/**
 	 * 블럭 파괴까지 남은 시간 (초)
 	 */
-	private float timeLeft = destroyTime;
+	private float timeLeft;
+	
+	/**
+	 * 아이템 객체
+	 */
+	private Item item;
 	
 	private boolean alive = true;
 
@@ -38,7 +39,7 @@ public class Block {
 	 * @return 파괴 비율 (0부터 1 사이)
 	 */
 	public float getDestructionRatio() {
-		return 1 - Math.max(timeLeft, 0) / destroyTime;
+		return 1 - Math.max(timeLeft, 0) / item.getDestroytime();
 	}
 	
 	/**
@@ -54,6 +55,12 @@ public class Block {
 	 * @return 블럭에 귀속된 Item 객체
 	 */
 	public Item getItem() {
-		return ItemDB.getItem(1);
+		return item;
+	}
+	
+	public Block(Item item) {
+		this.item = item;
+		
+		this.timeLeft = item.getDestroytime();
 	}
 }
