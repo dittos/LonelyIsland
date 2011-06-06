@@ -16,26 +16,46 @@ public class GameScreen implements Screen {
 	public void render(float delta) {
 		if (Gdx.input.isTouched()) {
 			// 터치 이벤트는 화면 왼쪽 위가 (0, 0)
-			Vector2 touchPos = viewport.fromScreen(
-					new Vector2(Gdx.input.getX(), viewport.screenHeight - Gdx.input.getY())
-			);
+			Vector2 touchPos = new Vector2(Gdx.input.getX(), viewport.screenHeight - Gdx.input.getY());
 			
-			// 터치한 곳에 따라 캐릭터 시선 방향을 정한다.
-			if (touchPos.x < player.position.x)
-				player.setDirection(Player.LEFT);
-			else
-				player.setDirection(Player.RIGHT);
-			
-			Block block = world.getBlock(touchPos);
-			if (block != null) {
-				if (player.isNear(touchPos))
-					player.dig(block, delta);
-				//else
-					// TODO: 손이 안 닿아도 뭔가 파는 시늉을?
+			if (touchPos.x >= viewport.screenWidth - InventoryView.WIDTH) {
+				// 인벤토리를 터치했을 경우
+				inventoryView.onClick(touchPos);
+			} else {
+				// 맵을 터치했을 경우
+				Vector2 mapPos = viewport.fromScreen(touchPos);
+				
+				// 터치한 곳에 따라 캐릭터 시선 방향을 정한다.
+				if (mapPos.x < player.position.x)
+					player.setDirection(Player.LEFT);
+				else
+					player.setDirection(Player.RIGHT);
+				
+				if (inventoryView.selectedItem != null) {
+					// 아이템 놓는 모드
+					if (Gdx.input.justTouched() && player.isNear(mapPos) &&
+							world.canPutBlock((int)mapPos.x, (int)mapPos.y)) {
+						// TODO:
+						// - 플레이어와 겹치는 부분에 아이템 못 놓도록
+						// - 아이템이 0개가 되면 selectedItem 해제
+						// - 블럭 객체를 현재 선택 아이템에 맞게 생성
+						world.putBlock((int)mapPos.x, (int)mapPos.y, new Block());
+						player.inventory.removeItem(player.inventory.findItem(inventoryView.selectedItem));
+					}
+				} else {
+					// 이동 모드
+					Block block = world.getBlock(mapPos);
+					if (block != null) {
+						if (player.isNear(mapPos))
+							player.dig(block, delta);
+						//else
+							// TODO: 손이 안 닿아도 뭔가 파는 시늉을?
+					}
+					else
+						if (Gdx.input.justTouched())
+							player.requestMove(mapPos);
+				}
 			}
-			else
-				if (Gdx.input.justTouched())
-					player.requestMove(touchPos);
 		}
 		
 		player.update(delta);
