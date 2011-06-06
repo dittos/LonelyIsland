@@ -1,5 +1,7 @@
 package catdog.mine;
 
+import catdog.mine.datadict.PlayerAnimDataDict;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -67,11 +69,14 @@ public class Player {
 	 * @param world 맵 객체
 	 */
 	public Player(World world) {
-		playerTex = new Texture(Gdx.files.internal("data/player.png"));
+		//playerTex = new Texture(Gdx.files.internal("data/player.png"));
 		spriteBatch = new SpriteBatch();
 		inventory = new Inventory();
 		this.world = world;
 		font = new BitmapFont();
+		
+		// 애니메이션 초기화
+		playerAnim = new Animation(playeranimdata.getReference(PlayerAnimDataDict.ID_STAND));
 	}
 	
 	/**
@@ -155,6 +160,9 @@ public class Player {
 			break;
 			
 		}
+		
+		// 애니메이션 업데이트
+		playerAnim.update(delta);
 	}
 	
 	/**
@@ -261,17 +269,30 @@ public class Player {
 	}
 
 	// 그리기 관련 코드
-	private Texture playerTex;
+	//private Texture playerTex;
+	private Animation playerAnim;
 	private SpriteBatch spriteBatch;
 	private BitmapFont font;			// TEST
 	
 	public void render(Viewport viewport) {
 		Vector2 screenPos = viewport.toScreen(position);
 		spriteBatch.begin();
-		spriteBatch.draw(playerTex, screenPos.x, screenPos.y, playerTex.getWidth(), playerTex.getHeight(),
-				0, 0, playerTex.getWidth(), playerTex.getHeight(), direction == RIGHT, false);
+		playerAnim.render(spriteBatch, screenPos, direction == RIGHT, false);
+		//spriteBatch.draw(playerTex, screenPos.x, screenPos.y, playerTex.getWidth(), playerTex.getHeight(),
+		//		0, 0, playerTex.getWidth(), playerTex.getHeight(), direction == RIGHT, false);
 		font.draw(spriteBatch, String.format("%f, %f", position.x, position.y), 0, 100);
 		spriteBatch.end();
 	}
 	
+	/**
+	 * 플레이어 애니메이션 데이터
+	 */
+	private static PlayerAnimDataDict playeranimdata;
+	/**
+	 * 데이터 로드하기
+	 */
+	public static void loadData() {
+		playeranimdata = new PlayerAnimDataDict();
+		playeranimdata.Load();
+	}
 }

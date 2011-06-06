@@ -75,6 +75,9 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
+		// 데이터 로딩
+		Player.loadData();
+		
 		world = new World();
 		player = new Player(world);
 		player.position.set(2, World.GROUND_ALTITUDE);
@@ -82,6 +85,7 @@ public class GameScreen implements Screen {
 		viewport = new Viewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 32, 32);
 		viewport.focusOn(player.position);
 		ItemDB.loadTextures();
+		
 	}
 
 	@Override

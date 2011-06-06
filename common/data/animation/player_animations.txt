@@ -1,0 +1,1 @@
+stand	data/animation/player_stand.txt
