@@ -47,9 +47,14 @@ public class Player {
 	private static final int JUMP_XSPEED = 4;
 	
 	/**
+	 * 목적지에 도착한 것으로 처리할 거리값 (단위: 블럭)
+	 */
+	private static final float ARRIVE_THRES = 0.1f;
+	
+	/**
 	 * 충돌범위
 	 */
-	private static final Rectangle hitbox = new Rectangle(-0.45f, -1.8f, 0.9f, 1.8f);
+	private static final Rectangle hitbox = new Rectangle(-0.3f, -1.8f, 0.6f, 1.8f);
 	
 	private static final int STATE_STAND = 0;
 	private static final int STATE_WALK = 1;
@@ -101,7 +106,7 @@ public class Player {
 			else {
 				// 막히는 블럭이 있다면
 				// 같은 높이에 블럭이 있고, 그 위에는 없다면 점프
-				float fx = position.x + ((velocity.x > 0)? 1 : -1);
+				float fx = position.x + hitbox.width / 2 + ((velocity.x > 0)? 1 : -1);
 				if(world.getBlock(new Vector2(fx, position.y)) != null
 						&& world.getBlock(new Vector2(fx, position.y + 1)) == null) {
 					jump();
@@ -233,7 +238,7 @@ public class Player {
 	 */
 	private boolean arrived() {
 		// TODO: y좌표 확인
-		return Math.abs(position.x - destPos.x) < Game.epsilon;
+		return Math.abs(position.x - destPos.x) < ARRIVE_THRES;
 	}
 	
 	public boolean isNear(Vector2 touchPos){
