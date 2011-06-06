@@ -33,7 +33,7 @@ public abstract class DataDictionary<T> {
 		
 		for(int i = 0; i < lines.length; i++) {
 			// 한 라인에 데이터 : ID[탭문자]파일명
-			String [] splitdata = lines[i].split("굏");
+			String [] splitdata = lines[i].split("\t");
 			this.loadFile(splitdata[0], splitdata[1]);
 		}
 	}

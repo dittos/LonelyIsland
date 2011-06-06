@@ -15,6 +15,7 @@ public class InventoryView {
 	public Item selectedItem = null;
 	
 	public static final int HEIGHT = 48;
+	private static final int ENTRY_WIDTH = 48;
 	
 	public InventoryView(Inventory model) {
 		this.model = model;
@@ -29,9 +30,9 @@ public class InventoryView {
 		for (int i = 0; i < Inventory.MAX_ITEMS; i++) {
 			Item item = model.getItem(i);
 			if (item != null) {
-				spriteBatch.draw(item.getIconTex(), i * 48 + 8, 8);
+				spriteBatch.draw(item.getIconTex(), i * ENTRY_WIDTH + 8, 8);
 				String count = Integer.toString(model.getItemCount(i));
-				font.draw(spriteBatch, count, (i + 1) * 48 - 10 - font.getBounds(count).width, 30);
+				font.draw(spriteBatch, count, (i + 1) * ENTRY_WIDTH - 10 - font.getBounds(count).width, 30);
 			}
 		}
 		spriteBatch.end();
@@ -39,7 +40,7 @@ public class InventoryView {
 	
 	public void onClick(Vector2 pos) {
 		// 위쪽에서부터 i번째 칸이 눌렸음
-		int i = 0;// (int)((480 - pos.y) / ENTRY_HEIGHT);
+		int i = (int)(pos.x / ENTRY_WIDTH);
 		if (i < Inventory.MAX_ITEMS) {
 			// 아이템을 눌렀음
 			selectedItem = model.getItem(i);
