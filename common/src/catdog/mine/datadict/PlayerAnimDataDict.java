@@ -12,6 +12,10 @@ public class PlayerAnimDataDict extends DataDictionary<AnimationData> {
 	 * 서있을 때
 	 */
 	public static final String ID_STAND = "stand";
+	/**
+	 * 걸을 때
+	 */
+	public static final String ID_WALK = "walk";
 
 	/**
 	 * 리스트 파일

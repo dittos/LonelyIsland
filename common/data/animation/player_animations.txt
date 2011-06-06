@@ -1,1 +1,2 @@
 stand	data/animation/player_stand.txt
+walk	data/animation/player_walk.txt

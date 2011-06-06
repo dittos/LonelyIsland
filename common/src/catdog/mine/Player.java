@@ -96,13 +96,13 @@ public class Player {
 		switch (state) {
 		case STATE_STAND:
 			if (!hasStandingBlock())
-				state = STATE_FALL;
+				changestate(STATE_FALL);
 			
 			break;
 			
 		case STATE_WALK:
 			if (!hasStandingBlock())
-				state = STATE_FALL;
+				changestate(STATE_FALL);
 			else if (arrived())
 				stand();
 			else if(!blockInPath(velocity.x * delta))
@@ -169,7 +169,7 @@ public class Player {
 	 * 자리에 멈춰 선다.
 	 */
 	public void stand() {
-		state = STATE_STAND;
+		changestate(STATE_STAND);
 		hasDest = false;
 		velocity.set(0, 0);
 		position.y = (float) Math.ceil(position.y);
@@ -188,16 +188,35 @@ public class Player {
 		else // <-
 			direction = LEFT;
 		velocity.x = (direction == LEFT ? -1 : +1) * WALK_SPEED;
-		state = STATE_WALK;
+		changestate(STATE_WALK);
 	}
 	
 	/**
 	 * 점프를 한다.
 	 */
 	public void jump() {
-		state = STATE_JUMP;
+		changestate(STATE_JUMP);
 		velocity.y = JUMP_SPEED;
 		velocity.x = (velocity.x > 0)? JUMP_XSPEED : -JUMP_XSPEED;
+	}
+	
+	/**
+	 * 현재 state 바꾸고 그에 맞는 애니메이션 넣기
+	 * @param state
+	 */
+	private void changestate(int state) {
+		this.state = state;
+		
+		switch(state) {
+		case STATE_WALK:
+			// 걷기
+			playerAnim = new Animation(playeranimdata.getReference(PlayerAnimDataDict.ID_WALK));
+			break;
+		case STATE_STAND:
+		default:
+			// 기본 : 서있기
+			playerAnim = new Animation(playeranimdata.getReference(PlayerAnimDataDict.ID_STAND));
+		}
 	}
 	
 	/**

@@ -1,3 +1,2 @@
-true
+false
 data/player.png	0.5
-data/player-test.png	0.5

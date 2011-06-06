@@ -1,0 +1,5 @@
+true
+data/texture/player/walk1.png	0.12
+data/texture/player/walk3.png	0.12
+data/texture/player/walk2.png	0.12
+data/texture/player/walk3.png	0.12
