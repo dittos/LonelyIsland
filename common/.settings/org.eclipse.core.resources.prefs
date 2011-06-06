@@ -1,17 +1,17 @@
 #Mon Jun 06 15:10:13 KST 2011
 eclipse.preferences.version=1
-encoding//src/catdog/mine/Animation.java=CP949
-encoding//src/catdog/mine/AnimationData.java=CP949
-encoding//src/catdog/mine/Block.java=CP949
+encoding//src/catdog/mine/Animation.java=MS949
+encoding//src/catdog/mine/AnimationData.java=MS949
+encoding//src/catdog/mine/Block.java=MS949
 encoding//src/catdog/mine/Desktop.java=UTF-8
 encoding//src/catdog/mine/Game.java=UTF-8
-encoding//src/catdog/mine/GameScreen.java=CP949
+encoding//src/catdog/mine/GameScreen.java=MS949
 encoding//src/catdog/mine/Inventory.java=UTF-8
-encoding//src/catdog/mine/InventoryView.java=CP949
+encoding//src/catdog/mine/InventoryView.java=MS949
 encoding//src/catdog/mine/Item.java=UTF-8
 encoding//src/catdog/mine/ItemDB.java=UTF-8
-encoding//src/catdog/mine/Player.java=CP949
-encoding//src/catdog/mine/Viewport.java=CP949
-encoding//src/catdog/mine/World.java=CP949
-encoding//src/catdog/mine/datadict/DataDictionary.java=CP949
-encoding//src/catdog/mine/datadict/PlayerAnimDataDict.java=CP949
+encoding//src/catdog/mine/Player.java=MS949
+encoding//src/catdog/mine/Viewport.java=MS949
+encoding//src/catdog/mine/World.java=MS949
+encoding//src/catdog/mine/datadict/DataDictionary.java=MS949
+encoding//src/catdog/mine/datadict/PlayerAnimDataDict.java=MS949
