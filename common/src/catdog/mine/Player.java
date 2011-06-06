@@ -2,8 +2,6 @@ package catdog.mine;
 
 import catdog.mine.datadict.PlayerAnimDataDict;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -41,12 +39,12 @@ public class Player {
 	/**
 	 * 점프 초기 속도 (단위: 블럭/초)
 	 */
-	private static final int JUMP_SPEED = 10;
+	private static final int JUMP_SPEED = 11;
 	
 	/**
 	 * 점프시 x축 속도 (단위: 블럭/초)
 	 */
-	private static final int JUMP_XSPEED = 4;
+	private static final int JUMP_XSPEED = 3;
 	
 	/**
 	 * 목적지에 도착한 것으로 처리할 거리값 (단위: 블럭)
