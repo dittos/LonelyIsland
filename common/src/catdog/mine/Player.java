@@ -96,7 +96,6 @@ public class Player {
 		case STATE_STAND:
 			if (!hasStandingBlock())
 				changestate(STATE_FALL);
-			
 			break;
 			
 		case STATE_WALK:
@@ -112,8 +111,9 @@ public class Player {
 				// 같은 높이에 블럭이 있고, 그 위에는 없다면 점프
 				float fx = position.x + hitbox.width / 2 + ((velocity.x > 0)? 1 : -1);
 				if(world.getBlock(new Vector2(fx, position.y)) != null
-						&& world.getBlock(new Vector2(fx, position.y + 1)) == null) {
-					jump();
+						&& world.getBlock(new Vector2(fx, position.y + 1)) == null
+						&& world.getBlock(new Vector2(position.x, position.y+2))==null) {
+					 jump();
 				} 
 				else if(world.getBlock(new Vector2(fx,position.y)) !=null 
 						&& world.getBlock(new Vector2(fx,position.y+1)) !=null)
@@ -144,7 +144,6 @@ public class Player {
 			// 앞으로 움직일 수 있다면 x축으로도 이동
 			if(!blockInPath(velocity.x * delta))
 				position.x += velocity.x * delta;
-			
 			// 떨어지는 중일 때 땅을 딛고 섰다면 계속 걷게
 			if(velocity.y < 0 && hasStandingBlock()) {
 				velocity.y = 0;
@@ -313,6 +312,11 @@ public class Player {
 
 	public void setDirection(boolean direction) {
 		this.direction = direction;
+	}
+	
+	  
+		public void canPutBlock() {
+		
 	}
 
 	// 그리기 관련 코드
