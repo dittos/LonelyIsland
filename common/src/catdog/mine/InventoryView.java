@@ -33,7 +33,7 @@ public class InventoryView {
 			Item item = model.getItem(i);
 			if (item != null) {
 				int y = (Inventory.MAX_ITEMS - i + 1) * ENTRY_HEIGHT + (ENTRY_HEIGHT - 32)/2;
-				spriteBatch.draw(item.getProp().getIconTex(), x + (WIDTH-32)/2, y);
+				spriteBatch.draw(item.getIconTex(), x + (WIDTH-32)/2, y);
 				String count = Integer.toString(model.getItemCount(i));
 				font.draw(spriteBatch, count, x + WIDTH - 10 - font.getBounds(count).width, y+22);
 			}

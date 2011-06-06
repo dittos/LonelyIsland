@@ -1,13 +1,15 @@
-#Wed Jun 01 23:58:06 KST 2011
+#Mon Jun 06 14:38:31 KST 2011
 eclipse.preferences.version=1
+encoding//src/catdog/mine/Animation.java=CP949
 encoding//src/catdog/mine/Block.java=CP949
 encoding//src/catdog/mine/Desktop.java=UTF-8
 encoding//src/catdog/mine/Game.java=UTF-8
 encoding//src/catdog/mine/GameScreen.java=CP949
 encoding//src/catdog/mine/Inventory.java=UTF-8
+encoding//src/catdog/mine/InventoryView.java=CP949
 encoding//src/catdog/mine/Item.java=UTF-8
 encoding//src/catdog/mine/ItemDB.java=UTF-8
-encoding//src/catdog/mine/ItemProperty.java=UTF-8
 encoding//src/catdog/mine/Player.java=CP949
 encoding//src/catdog/mine/Viewport.java=CP949
 encoding//src/catdog/mine/World.java=CP949
+encoding//src/catdog/mine/datadict/DataDictionary.java=CP949

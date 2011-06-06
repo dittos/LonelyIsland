@@ -54,6 +54,6 @@ public class Block {
 	 * @return ºí·°¿¡ ±Í¼ÓµÈ Item °´Ã¼
 	 */
 	public Item getItem() {
-		return new Item(1);
+		return ItemDB.getItem(1);
 	}
 }

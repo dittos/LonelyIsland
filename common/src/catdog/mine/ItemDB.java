@@ -10,14 +10,14 @@ public class ItemDB
 	/**
 	 * 아이템 사전
 	 */
-	private static TreeMap<Integer, ItemProperty> itemDic;
+	private static TreeMap<Integer, Item> itemDic;
 	
 	static
 	{
-		itemDic = new TreeMap<Integer, ItemProperty>();
+		itemDic = new TreeMap<Integer, Item>();
 		
 		// 아이템 ID와 구체적인 아이템 속성을 연결
-		itemDic.put(1, new ItemProperty("Dirt", "data/block.png"));
+		itemDic.put(1, new Item(1, "Dirt", "data/block.png"));
 	}
 	
 	/**
@@ -25,7 +25,7 @@ public class ItemDB
 	 * @param itemID 아이템 ID
 	 * @return 아이템의 속성. 일치하는 아이템이 없다면 <code>null</code>.
 	 */
-	public static ItemProperty getItemProperty(int itemID)
+	public static Item getItem(int itemID)
 	{
 		return itemDic.get(itemID);
 	}
@@ -37,12 +37,12 @@ public class ItemDB
 	 */
 	public static int getItemID(String itemName)
 	{
-		Set<Map.Entry<Integer, ItemProperty>> items = itemDic.entrySet();
-		Iterator<Map.Entry<Integer, ItemProperty>> it = items.iterator();
+		Set<Map.Entry<Integer, Item>> items = itemDic.entrySet();
+		Iterator<Map.Entry<Integer, Item>> it = items.iterator();
 		
 		while(it.hasNext())
 		{
-			Map.Entry<Integer, ItemProperty> e = it.next();
+			Map.Entry<Integer, Item> e = it.next();
 			if(e.getValue().getName().equals(itemName))
 				return e.getKey();
 		}
@@ -54,7 +54,7 @@ public class ItemDB
 	 * 아이템 아이콘 텍스쳐를 불러온다.
 	 */
 	public static void loadTextures() {
-		for (ItemProperty p : itemDic.values()) {
+		for (Item p : itemDic.values()) {
 			p.setIconTex(new Texture(Gdx.files.internal(p.getIcon())));
 		}
 	}

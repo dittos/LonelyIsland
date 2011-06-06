@@ -1,38 +1,39 @@
 package catdog.mine;
 
+import com.badlogic.gdx.graphics.Texture;
+
 public class Item implements Comparable<Item>
 {
 	private int itemID;
-	private ItemProperty prop;
+	private String name;
+	private String icon;
+	private Texture iconTex;
 	
-	public int getItemID()
-	{
-		return itemID;
+	public Texture getIconTex() {
+		return iconTex;
 	}
 
-	public void setItemID(int itemID)
-	{
-		this.itemID = itemID;
-		prop = ItemDB.getItemProperty(itemID);
+	public void setIconTex(Texture iconTex) {
+		this.iconTex = iconTex;
 	}
 
-	public ItemProperty getProp()
+	public String getName()
 	{
-		return prop;
+		return name;
 	}
 
-	public Item(int itemID)
+	public String getIcon()
 	{
-		this.itemID = itemID;
-		prop = ItemDB.getItemProperty(itemID);
+		return icon;
 	}
 	
-	public Item(Item item)
+	public Item(int itemID, String name, String icon)
 	{
-		itemID = item.itemID;
-		prop = item.prop;
+		this.itemID = itemID;
+		this.name = name;
+		this.icon = icon;
 	}
-
+	
 	@Override
 	public int compareTo(Item target)
 	{
