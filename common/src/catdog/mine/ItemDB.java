@@ -118,6 +118,10 @@ public class ItemDB
 				null, 0,
 				2.5f,
 				true, World.GROUND_ALTITUDE - 19, 10, 2));
+		itemDic.put(7, new Item(7, "Uranium", "data/texture/block/uranium.png",
+				null, 0,
+				4f,
+				true, World.GROUND_ALTITUDE - 23, 8, 3));
 		
 		combDic = new TreeMap<Combination, Item>();
 		
