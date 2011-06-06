@@ -1,9 +1,11 @@
 package catdog.mine;
 
 import java.util.ArrayList;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.Gdx;
 
 /**
  * 애니메이션 클래스
@@ -105,8 +107,26 @@ public class Animation {
 		 * 프레임 추가하기
 		 * @param frame : Frame 오브젝트
 		 */
-		public void addFrame(Frame frame) {
+		private void addFrame(Frame frame) {
 			framelist.add(frame);
+		}
+		
+		/** 
+		 * 파일에서 데이터 읽어오기
+		 * @param filename : 파일 이름(경로)
+		 */
+		public void loadFromFile(String filename) {
+			// 라인 단위로 끊어서 파일 읽어오기
+			String[] data = Gdx.files.internal(filename).readString()
+						.split(System.getProperty("line.separator"));
+			
+			// 라인당 처리
+			for(int i = 0; i < data.length; i++) {
+				// 한 라인은 텍스쳐 경로[탭]프레임시간(float)으로 나뉘어짐
+				// 잘 나눈 다음 Frame을 생성하여 추가하기
+				String [] linespl = data[i].split("\t");
+				addFrame(new Frame(new Texture(linespl[0]), Float.valueOf(linespl[1])));
+			}
 		}
 	}
 	
