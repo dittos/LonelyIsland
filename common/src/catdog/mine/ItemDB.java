@@ -95,23 +95,11 @@ public class ItemDB
 		
 		// 아이템 ID와 구체적인 아이템 속성을 연결
 		itemDic.put(1, new Item(1, "Dirt", "data/texture/block/dirt.png",
-				new Item.Interaction()
-				{
-					@Override
-					public void interact(Object npc, int blockX, int blockY)
-					{
-					}
-				},
+				null, 0,
 				.5f,
 				true, World.GROUND_ALTITUDE, 100, 10));
 		itemDic.put(2, new Item(2, "Stone", "data/texture/block/stone.png",
-				new Item.Interaction()
-				{
-					@Override
-					public void interact(Object npc, int blockX, int blockY)
-					{
-					}
-				},
+				null, 0,
 				1f,
 				true, 0, 300, 10));
 		
