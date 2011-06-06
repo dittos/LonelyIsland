@@ -31,6 +31,7 @@ public class Player {
 	 */
 	private static final int WALK_SPEED = 10;
 	
+	private static final int CLIMB_SPEED = 5;
 	/**
 	 * 중력 상수 (단위: 블럭/초)
 	 */
@@ -113,7 +114,11 @@ public class Player {
 				if(world.getBlock(new Vector2(fx, position.y)) != null
 						&& world.getBlock(new Vector2(fx, position.y + 1)) == null) {
 					jump();
-				} else
+				} 
+				else if(world.getBlock(new Vector2(fx,position.y)) !=null 
+						&& world.getBlock(new Vector2(fx,position.y+1)) !=null)
+					climb();
+				else	
 					stand();
 			}
 			break;
@@ -140,7 +145,6 @@ public class Player {
 			if(!blockInPath(velocity.x * delta))
 				position.x += velocity.x * delta;
 			
-			
 			// 떨어지는 중일 때 땅을 딛고 섰다면 계속 걷게
 			if(velocity.y < 0 && hasStandingBlock()) {
 				velocity.y = 0;
@@ -155,7 +159,26 @@ public class Player {
 			break;
 			
 		case STATE_CLIMB:
-			break;
+			float fx = position.x + hitbox.width / 2 + ((velocity.x > 0)? 1 : -1);
+			position.y += velocity.y*delta;
+	
+			if(!blockInPath(velocity.x * delta))
+				{position.x += velocity.x * delta;
+					velocity.y = 0;
+				walkTo(destPos);	
+				}
+			if(world.getBlock(new Vector2(position.x, position.y)) != null
+					&& world.getBlock(new Vector2(fx, position.y + 1)) == null) {
+				jump();
+				velocity.y = 0;
+				stand();
+				walkTo(destPos);
+			} 	
+			else if(world.getBlock(new Vector2(position.x, position.y+2)) != null)
+			{
+				velocity.y=0;
+				
+			}
 			
 		}
 		
@@ -210,6 +233,10 @@ public class Player {
 			// 걷기
 			playerAnim = new Animation(playeranimdata.getReference(PlayerAnimDataDict.ID_WALK));
 			break;
+		case STATE_CLIMB:
+			playerAnim = new Animation(playeranimdata.getReference(PlayerAnimDataDict.ID_STAND));
+			//기는걸로 바꿔야됨.
+			break;
 		case STATE_STAND:
 		default:
 			// 기본 : 서있기
@@ -221,6 +248,9 @@ public class Player {
 	 * 기어오른다.
 	 */
 	public void climb() {
+		changestate(STATE_CLIMB);
+		velocity.y = CLIMB_SPEED;
+		velocity.x = (velocity.x > 0)? JUMP_XSPEED : -JUMP_XSPEED;
 		
 	}
 	
