@@ -112,21 +112,19 @@ public class Player {
 				float fx = position.x + hitbox.width / 2 + ((velocity.x > 0)? 1 : -1);
 				if(world.getBlock(new Vector2(fx, position.y)) != null
 						&& world.getBlock(new Vector2(fx, position.y + 1)) == null
-						&& world.getBlock(new Vector2(position.x, position.y+2))==null) {
+						&& world.getBlock(new Vector2(fx, position.y+2))== null){
 					 jump();
 				} 
-				else if(world.getBlock(new Vector2(fx,position.y)) !=null 
-						&& world.getBlock(new Vector2(fx,position.y+1)) !=null)
+				else if(world.getBlock(new Vector2(position.x+1,position.y+1)) !=null ||
+						world.getBlock(new Vector2(position.x-1,position.y+1))!=null)
 					climb();
 				else	
 					stand();
 			}
 			break;
-			
 		case STATE_FALL:
 			velocity.y -= GRAVITY * delta;
 			position.y += velocity.y * delta;
-			
 			if (hasStandingBlock()) {
 				if (hasDest) {
 					stand();
@@ -160,25 +158,24 @@ public class Player {
 		case STATE_CLIMB:
 			float fx = position.x + hitbox.width / 2 + ((velocity.x > 0)? 1 : -1);
 			position.y += velocity.y*delta;
-	
 			if(!blockInPath(velocity.x * delta))
-				{position.x += velocity.x * delta;
-					velocity.y = 0;
+				{
+				position.x += velocity.x * delta;	
+				velocity.y = 0;
 				walkTo(destPos);	
 				}
-			if(world.getBlock(new Vector2(position.x, position.y)) != null
-					&& world.getBlock(new Vector2(fx, position.y + 1)) == null) {
-				jump();
+			if(world.getBlock(new Vector2(position.x, position.y+1)) != null
+					//&& world.getBlock(new Vector2(fx, position.y + 2)) == null
+					) {
+				//jump();
 				velocity.y = 0;
 				stand();
-				walkTo(destPos);
+				//walkTo(destPos);
 			} 	
 			else if(world.getBlock(new Vector2(position.x, position.y+2)) != null)
 			{
-				velocity.y=0;
-				
+				velocity.y=0;	
 			}
-			
 		}
 		
 		// 애니메이션 업데이트
@@ -249,8 +246,6 @@ public class Player {
 	public void climb() {
 		changestate(STATE_CLIMB);
 		velocity.y = CLIMB_SPEED;
-		velocity.x = (velocity.x > 0)? JUMP_XSPEED : -JUMP_XSPEED;
-		
 	}
 	
 	/**
