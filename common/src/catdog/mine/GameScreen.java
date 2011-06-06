@@ -14,9 +14,26 @@ public class GameScreen implements Screen {
 	private Player player;
 	private ArrayList<Mob> monsters;
 	private InventoryView inventoryView;
+	private boolean lastTickWasNight = false;
 
 	@Override
 	public void render(float delta) {
+		boolean isNight = Clock.isNight();
+		if (lastTickWasNight != isNight) {
+			if (isNight) {
+				// 방금 밤이 되었음
+				// 몹이 젠!!
+				Mob mob = new Mob(world, player);
+				mob.position.set(15, 50);
+				monsters.add(mob);
+			} else {
+				// 방금 아침이 되었음
+				// 몹이 펑!!
+				monsters.clear();
+			}
+		}
+		lastTickWasNight = isNight;
+		
 		if (Gdx.input.isTouched()) {
 			// 터치 이벤트는 화면 왼쪽 위가 (0, 0)
 			Vector2 touchPos = new Vector2(Gdx.input.getX(), viewport.screenHeight - Gdx.input.getY());
@@ -84,9 +101,6 @@ public class GameScreen implements Screen {
 		player = new Player(world);
 		player.position.set(2, World.GROUND_ALTITUDE);
 		monsters = new ArrayList<Mob>();
-		Mob mob = new Mob(world, player);
-		mob.position.set(15, 50);
-		monsters.add(mob);
 		inventoryView = new InventoryView(player.inventory);
 		viewport = new Viewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 32, 32);
 		viewport.focusOn(player.position);
