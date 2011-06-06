@@ -29,6 +29,7 @@ public class World {
 	private SpriteBatch spriteBatch;
 	private Block[][] map;
 	private ArrayList<BlockEntry> interactable;
+	private ArrayList<Tree> treelayer;
 	
 	public static final int WIDTH = 100;
 	public static final int HEIGHT = 50;
@@ -41,6 +42,8 @@ public class World {
 		spriteBatch = new SpriteBatch();
 		map = new Block[HEIGHT][WIDTH];
 		interactable = new ArrayList<BlockEntry>();
+		treelayer = new ArrayList<Tree>();
+		Tree.LoadTexture();
 		initMap();
 	}
 	
@@ -67,6 +70,14 @@ public class World {
 		
 		// 임시코드. 충돌체크 테스트용
 		map[GROUND_ALTITUDE][0] = new Block(ItemDB.getItem(1));
+		
+		
+		// 나무
+		// 일단 아무렇게나...
+		//treelayer.add(new Tree(new Vector2(3, 25)));
+		for(int i = 0; i < 10; i++) {
+			newRandomTree();
+		}
 	}
 	
 	/**
@@ -107,6 +118,21 @@ public class World {
 		putBlock(x, y, new Block(newitem));
 	}
 	
+	/**
+	 * 적합한 위치 중에서 랜덤하게 나무 하나 생성
+	 */
+	private void newRandomTree() {
+		int xpos = randobj.nextInt(WIDTH);
+		// 위에서부터 훑어내려간다. 처음 발견한 블럭이 흙이면 거기에 나무 생성
+		
+		for(int ypos = HEIGHT - 1; ypos >= 0; ypos--) {
+			if(map[ypos][xpos] != null && map[ypos][xpos].getItem().getItemID() == 1) {
+				treelayer.add(new Tree(new Vector2(xpos, ypos+1)));
+				break;
+			}
+		}
+	}
+	
 	private ArrayList<Integer> blockweightlist;
 	private Random randobj;
 	
@@ -138,6 +164,8 @@ public class World {
 
 	public void render(Viewport viewport) {
 		spriteBatch.begin();
+		
+		// 하늘 그리기
 		float opacity = (1.0f + (float)Math.cos(Clock.getElapsed() * MathUtils.PI * 2 / Clock.DAY)) / 2f;
 		spriteBatch.setColor(1, 1, 1, opacity);
 		spriteBatch.draw(dayBgTex, 0, 0, viewport.screenWidth,
@@ -148,6 +176,7 @@ public class World {
 				viewport.screenHeight, 0, 0, nightBgTex.getWidth(),
 				nightBgTex.getHeight(), false, false);
 		
+		// 블럭 그리기
 		Vector2 pos = new Vector2();
 		int x0, y0, x1, y1;
 		x0 = Math.max(0, (int)viewport.startX);
@@ -168,6 +197,11 @@ public class World {
 					spriteBatch.draw(block.getItem().getIconTex(), screenPos.x, screenPos.y);
 				}
 			}
+		}
+		
+		// 나무 그리기
+		for(Tree tree : treelayer) {
+			tree.render(spriteBatch, viewport);
 		}
 		spriteBatch.end();
 	}
