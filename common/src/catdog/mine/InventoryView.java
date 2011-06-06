@@ -8,8 +8,8 @@ public class InventoryView {
 	private BitmapFont font;
 	private SpriteBatch spriteBatch;
 	
-	private float x = 600;
-	private float y = 350;
+	private float x = 800 - WIDTH;
+	private static float WIDTH = 48;
 	
 	public InventoryView(Inventory model) {
 		this.model = model;
@@ -19,14 +19,11 @@ public class InventoryView {
 
 	public void render() {
 		spriteBatch.begin();
-		int index = 0;
-		for (int row = 0; row < Inventory.INVENTORY_HEIGHT; row++)
-			for (int col = 0; col < Inventory.INVENTORY_WIDTH; col++) {
-				Item item = model.getItem(index);
-				if (item != null)
-					font.draw(spriteBatch, item.getProp().getName() + " (" + model.getItemCount(index) + ")", x, y);
-				index++;
-			}
+		for (int i = 0; i < Inventory.MAX_ITEMS; i++) {
+			Item item = model.getItem(i);
+			if (item != null)
+				font.draw(spriteBatch, item.getProp().getName() + " (" + model.getItemCount(i) + ")", x, (Inventory.MAX_ITEMS - i) * 48);
+		}
 		spriteBatch.end();
 	}
 }

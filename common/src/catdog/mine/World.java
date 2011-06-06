@@ -47,7 +47,7 @@ public class World {
 		int x0, y0, x1, y1;
 		x0 = Math.max(0, (int)viewport.startX);
 		y0 = Math.max(0, (int)viewport.startY);
-		x1 = Math.min(WIDTH - 1, (int)(viewport.startX + viewport.width));
+		x1 = Math.min(WIDTH - 1, (int)(viewport.startX + viewport.width) + 1);
 		y1 = Math.min(HEIGHT - 1, (int)(viewport.startY + viewport.height));
 		for (int i = y0; i <= y1; i++) {
 			for (int j = x0; j <= x1; j++) {
@@ -90,5 +90,27 @@ public class World {
 				return block;
 		}
 		return null;
+	}
+	
+	/**
+	 * 새로운 블럭을 놓을 수 있는 위치인지 확인하기
+	 * @param x x좌표
+	 * @param y y좌표
+	 * @return 놓을 수 있으면 true, 아니면 false
+	 */
+	public boolean canPutBlock(int x, int y) {
+		return getBlock(x, y) == null && (
+				getBlock(x - 1, y) != null || // 왼쪽
+				getBlock(x + 1, y) != null || // 오른쪽
+				getBlock(x, y - 1) != null || // 아래
+				getBlock(x, y + 1) != null // 위
+				);
+	}
+	
+	/**
+	 * 블럭을 새로 놓는다.
+	 */
+	public void putBlock(int x, int y, Block block) {
+		map[y][x] = block;
 	}
 }

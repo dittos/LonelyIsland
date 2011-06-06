@@ -35,17 +35,9 @@ public class Inventory
 	private int items;
 	
 	/**
-	 * 인벤토리의 횡폭
-	 */
-	public static final int INVENTORY_WIDTH = 5;
-	/**
-	 * 인벤토리의 종폭
-	 */
-	public static final int INVENTORY_HEIGHT = 3;
-	/**
 	 * 인벤토리의 실제 크기
 	 */
-	public static final int MAX_ITEMS = INVENTORY_WIDTH * INVENTORY_HEIGHT;
+	public static final int MAX_ITEMS = 8;
 	
 	public Inventory()
 	{
