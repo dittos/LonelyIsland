@@ -264,6 +264,8 @@ public class World {
 				mob = mobClass.getConstructor(World.class, Player.class).newInstance(this, player);
 				mob.position.set(randobj.nextInt(WIDTH), 30);
 				monsters.add(mob);
+				for(ArrayList<Float> a: inTime)
+					a.add(0f);
 			}
 		} catch (Exception e) {
 			// ignore
@@ -279,14 +281,10 @@ public class World {
 				// ¸÷ÀÌ Á¨!!
 				//Mob mob = new Mob(world, player);
 				genMobs(player);
-				
-				for(ArrayList<Float> a: inTime)
-					a.add(0f);
 			} else {
 				// ¹æ±Ý ¾ÆÄ§ÀÌ µÇ¾úÀ½
 				// ¸÷ÀÌ Æã!!
 				monsters.clear();
-				
 				for(ArrayList<Float> a: inTime)
 					a.clear();
 			}
