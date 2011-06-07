@@ -253,8 +253,11 @@ public class World {
 	 * 블럭을 새로 놓는다.
 	 */
 	public void putBlock(int x, int y, Block block) {
-		if(block.getItem().getInteract() != null)
-			interactable.add(new BlockEntry(x, y, block));
-		map[y][x] = block;
+		if (0 <= x && x < WIDTH && 0 <= y && y < HEIGHT) {
+			// 잘못된 인덱스가 아니면
+			if(block.getItem().getInteract() != null)
+				interactable.add(new BlockEntry(x, y, block));
+			map[y][x] = block;
+		}
 	}
 }

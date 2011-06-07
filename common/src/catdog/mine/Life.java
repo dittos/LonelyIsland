@@ -22,6 +22,9 @@ public abstract class Life {
 		return direction;
 	}
 	private int state = STATE_STAND;
+	public int getState() {
+		return state;
+	}
 	private boolean hasDest = false;
 	
 	// 상수
@@ -59,11 +62,11 @@ public abstract class Life {
 	 */
 	protected Rectangle hitbox = new Rectangle(-0.3f, -1.8f, 0.6f, 1.8f);
 	
-	private static final int STATE_STAND = 0;
-	private static final int STATE_WALK = 1;
-	private static final int STATE_FALL = 2;
-	private static final int STATE_CLIMB = 3;
-	private static final int STATE_JUMP = 4;
+	public static final int STATE_STAND = 0;
+	public static final int STATE_WALK = 1;
+	public static final int STATE_FALL = 2;
+	public static final int STATE_CLIMB = 3;
+	public static final int STATE_JUMP = 4;
 	
 	/**
 	 * 생성자

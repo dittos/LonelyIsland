@@ -2,6 +2,7 @@ package catdog.mine;
 
 import java.util.ArrayList;
 
+import catdog.mine.monster.Constructor;
 import catdog.mine.monster.Destructor;
 import catdog.mine.monster.Mob;
 
@@ -28,7 +29,7 @@ public class GameScreen implements Screen {
 				// ¹æ±Ý ¹ãÀÌ µÇ¾úÀ½
 				// ¸÷ÀÌ Á¨!!
 				//Mob mob = new Mob(world, player);
-				Mob mob = new Destructor(world, player);
+				Mob mob = new Constructor(world, player);
 				mob.position.set(1, 50);
 				monsters.add(mob);
 			} else {
