@@ -33,6 +33,7 @@ public class World {
 	private Block[][] map;
 	private ArrayList<BlockEntry> interactable;
 	private ArrayList<Mob> monsters;
+	private ArrayList<ArrayList<Float>> inTime;
 	private boolean lastTickWasNight = false;
 	//private ArrayList<Tree> treelayer;
 	
@@ -48,6 +49,7 @@ public class World {
 		map = new Block[HEIGHT][WIDTH];
 		interactable = new ArrayList<BlockEntry>();
 		monsters = new ArrayList<Mob>();
+		inTime = new ArrayList<ArrayList<Float>>();
 		//treelayer = new ArrayList<Tree>();
 		Tree.LoadTexture();
 		initMap();
@@ -239,24 +241,52 @@ public class World {
 				Mob mob = new Ghost(this, player);
 				mob.position.set(1, 30);
 				monsters.add(mob);
+				
+				for(ArrayList<Float> a: inTime)
+					a.add(0f);
 			} else {
 				// 방금 아침이 되었음
 				// 몹이 펑!!
 				monsters.clear();
+				
+				for(ArrayList<Float> a: inTime)
+					a.clear();
 			}
 		}
 		lastTickWasNight = isNight;
 		
 		for(Mob mob: monsters)
 			mob.update(delta);
+			
+		float elapsed = Clock.getElapsed();
 		
-		for(BlockEntry block: interactable)
+		int i, j, ib = interactable.size(), jb = monsters.size();
+		BlockEntry block;
+		Mob mob;
+		float lastInteract;
+		
+		for(i = 0; i < ib; ++ i)
 		{
-			for(Mob mob: monsters)
+			block = interactable.get(i);
+			for(j = 0; j < jb; ++ j)
 			{
+				mob = monsters.get(j);
+				lastInteract = inTime.get(i).get(j);
 				if(Math.abs(block.x - mob.position.x) + Math.abs(block.y - mob.position.y) <= block.block.getItem().getInteractDist())
 				{
-					block.block.getItem().getInteract().interact(monsters, block.x, block.y);
+					if(lastInteract == 0f)
+						block.block.getItem().getInteract().boundIn(mob, block.x, block.y, 0f);
+					else
+						block.block.getItem().getInteract().boundIn(mob, block.x, block.y, elapsed - lastInteract);
+					inTime.get(i).set(j, elapsed);
+				}
+				else
+				{
+					if(lastInteract != 0f)
+					{
+						block.block.getItem().getInteract().boundOut(mob, block.x, block.y, elapsed - lastInteract);
+						inTime.get(i).set(j, 0f);
+					}
 				}
 			}
 		}
@@ -309,7 +339,10 @@ public class World {
 		if (0 <= x && x < WIDTH && 0 <= y && y < HEIGHT) {
 			// 잘못된 인덱스가 아니면
 			if(block.getItem().getInteract() != null)
+			{
 				interactable.add(new BlockEntry(x, y, block));
+				inTime.add(new ArrayList<Float>(monsters.size()));
+			}
 			map[y][x] = block;
 		}
 	}
