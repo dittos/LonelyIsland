@@ -130,11 +130,16 @@ public class ItemDB
 				null, 0,
 				1f,
 				false, 0, 0, 0));
+		itemDic.put(10, new Item(10, "Magnet", "data/texture/block/magnet.png",
+				null, 0,
+				1f,
+				false, 0, 0, 0));
 		
 		combDic = new TreeMap<Combination, Item>();
 		
 		// 조합할 아이템 ID와 조합된 아이템 ID를 연결 (조합할 아이템이 2개만 있으면 나머지 ID를 0으로 부여)
-		combDic.put(new Combination(2, 3, 0), getItem(1)); // Item 2 + Item 3 = Item 1
+		// Iron + Dirt + Stone = Magnet 
+		combDic.put(new Combination(4, 1, 2), getItem(10));
 	}
 	
 	/**
