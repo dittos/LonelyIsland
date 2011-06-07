@@ -6,7 +6,7 @@ import catdog.mine.Item.Interaction;
 import catdog.mine.monster.Mob;
 
 public class Magnet implements Interaction {
-	
+	// TODO: 테스트 수치. 릴리즈 전 수정 필요
 	private static float MULTIPLIER = 0.1f;
 
 	@Override
