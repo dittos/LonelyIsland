@@ -62,7 +62,8 @@ public class GameScreen implements Screen {
 					// 아이템 놓는 모드
 					if (Gdx.input.justTouched() && player.isNear(mapPos) &&
 							player.canPutBlock((int)mapPos.x, (int)mapPos.y) &&
-							world.canPutBlock((int)mapPos.x, (int)mapPos.y)) {
+							world.canPutBlock((int)mapPos.x, (int)mapPos.y) &&
+							(player.position.x-0.5f != mapPos.x)) {
 						world.putBlock((int)mapPos.x, (int)mapPos.y, new Block(selectedItem));
 						player.inventory.removeItem(player.inventory.findItem(selectedItem));
 					}

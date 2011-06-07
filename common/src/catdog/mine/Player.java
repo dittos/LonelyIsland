@@ -26,10 +26,8 @@ public class Player extends Life {
 			inventory.addItem(ItemDB.getItem(9));
 		}
 	}
-	
 	public void dig(Block block, float delta) {
 		super.dig(block, delta);
-		
 		if (!block.isAlive())
 			inventory.addItem(block.getItem());
 	}

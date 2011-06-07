@@ -46,7 +46,6 @@ public class Tree {
 		Vector2 screenpos = viewport.toScreen(pos);
 		// 나무 텍스쳐를 고려하여 좌표 변경
 		screenpos.x += 16 - treetexture.getWidth() / 2;
-		
 		// 파괴 정도에 따라 알파값 감소하여 그리기
 		float alpha = (timeleft / destroyTime) / 2f + 0.5f;
 		Color oldcolor = sprbatch.getColor();
