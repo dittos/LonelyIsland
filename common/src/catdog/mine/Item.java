@@ -10,8 +10,8 @@ public class Item implements Comparable<Item>
 {
 	public interface Interaction
 	{
-		public void boundIn(Mob mob, int blockX, int blockY, float delta);
-		public void boundOut(Mob mob, int blockX, int blockY, float delta);
+		public void boundIn(Mob mob, Collection<Mob> allMobs, int blockX, int blockY, float delta);
+		public void boundOut(Mob mob, Collection<Mob> allMobs, int blockX, int blockY, float delta);
 	}
 
 	private Texture iconTex;
