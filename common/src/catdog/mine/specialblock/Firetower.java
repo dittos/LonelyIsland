@@ -8,15 +8,23 @@ import catdog.mine.monster.Mob;
 
 public class Firetower implements Interaction{
 
-	private float damage = 1.0f;
+	private static final float DAMAGE = 1.0f;
 	
 	@Override
 	public void boundIn(Mob mob, Collection<Mob> allMobs, Block targetBlock, int blockX, int blockY, float delta) {
-	mob.hit(damage*delta);
+		int mobs = 0, range = targetBlock.getItem().getInteractDist();
+		
+		for(Mob other: allMobs)
+		{
+			if(Math.abs(other.position.x - blockX) + Math.abs(other.position.y - blockY) <= range)
+				++ mobs;
+		}
+		
+		mob.hit(DAMAGE * delta / mobs);
 	}
+	
 	@Override
 	public void boundOut(Mob mob, Collection<Mob> allMobs, Block targetBlock, int blockX, int blockY, float delta) {
-		;
 	}
 	
 }
