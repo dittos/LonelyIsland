@@ -112,7 +112,7 @@ public class GameScreen implements Screen {
 		spriteBatch = new SpriteBatch();
 		world = new World();
 		player = new Player(world);
-		player.position.set(2, World.GROUND_ALTITUDE);
+		player.position.set(World.WIDTH / 2, World.GROUND_ALTITUDE);
 		inventoryView = new InventoryView(player.inventory);
 		craftDialog = new CraftDialog(player.inventory);
 		inventoryView.addOnItemSelectedHandler(craftDialog);

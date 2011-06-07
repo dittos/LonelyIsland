@@ -44,6 +44,7 @@ public class World {
 	public static final int WIDTH = 100;
 	public static final int HEIGHT = 50;
 	public static final int GROUND_ALTITUDE = 25;
+	public static final int MARGIN = 5;
 	
 	public World() {
 		blockTex = new Texture(Gdx.files.internal("data/block.png"));
@@ -66,7 +67,7 @@ public class World {
 		calculateBlockFoundWeight();
 		
 		for (int i = 0; i < GROUND_ALTITUDE; i++) {
-			for (int j = 0; j < WIDTH; j++) {
+			for (int j = MARGIN; j < WIDTH - MARGIN; j++) {
 				newBlock(j, i);
 			}
 		}
@@ -362,13 +363,15 @@ public class World {
 	 * @return 놓을 수 있으면 true, 아니면 false
 	 */
 	public boolean canPutBlock(int x, int y) {
-		return getBlock(x, y) == null && (
-				getBlock(x - 1, y) != null || // 왼쪽
-				getBlock(x + 1, y) != null || // 오른쪽
-				getBlock(x, y - 1) != null || // 아래
-				getBlock(x, y + 1) != null ||
-				y<50// 위
-				);
+		// 정상 범위일 때
+		if (0 <= x && x < WIDTH && 0 <= y && y < HEIGHT)
+			return getBlock(x, y) == null && (
+					getBlock(x - 1, y) != null || // 왼쪽
+					getBlock(x + 1, y) != null || // 오른쪽
+					getBlock(x, y - 1) != null || // 아래
+					getBlock(x, y + 1) != null);
+		else
+			return false;
 	}
 	
 	/**

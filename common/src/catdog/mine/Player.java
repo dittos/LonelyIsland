@@ -17,8 +17,8 @@ public class Player extends Life {
 	public void update(float delta) {
 		super.update(delta);
 		
-		// 추락하면
-		if (position.y < 0 || position.y >50)
+		// 추락하거나 산소가 희박하면
+		if (position.y < 0 || position.y > World.HEIGHT)
 			killed();
 	}
 	
