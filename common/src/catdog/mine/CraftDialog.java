@@ -60,12 +60,20 @@ public class CraftDialog implements InventoryView.OnItemSelected {
 
 	@Override
 	public void onItemSelected(Item selectedItem) {
-		for (int i = 0; i < selectedItems.length; i++) {
+		int i;
+		for(i = 0; i < selectedItems.length; ++ i)
+		{
+			if(selectedItems[i].equals(selectedItem))
+				return;
+		}
+		
+		for (i = 0; i < selectedItems.length; i++) {
 			if (selectedItems[i] == null) {
 				selectedItems[i] = selectedItem;
 				break;
 			}
 		}
+		
 		combineItem();
 	}
 	
@@ -82,8 +90,11 @@ public class CraftDialog implements InventoryView.OnItemSelected {
 		}
 		
 		if(i < 3)
+		{
 			selectedItems[i] = null;
-		else if(combinedItem != null)
+			combineItem();
+		}
+		else if(i == 3 && combinedItem != null)
 		{
 			for(i = 0; i < 3; ++ i)
 			{
@@ -96,6 +107,8 @@ public class CraftDialog implements InventoryView.OnItemSelected {
 			}
 			
 			inventory.addItem(combinedItem);
+			
+			combineItem();
 		}
 	}
 }
