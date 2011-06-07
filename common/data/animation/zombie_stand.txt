@@ -1,2 +1,2 @@
 false
-data/texture/monster/lonely_zombie2.png	1
+data/texture/monster/mob.png	1

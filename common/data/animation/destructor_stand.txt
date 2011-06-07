@@ -1,0 +1,2 @@
+false
+data/texture/monster/destroy.png	1

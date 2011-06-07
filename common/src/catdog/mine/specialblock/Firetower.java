@@ -9,7 +9,7 @@ public class Firetower implements Interaction{
 	
 	@Override
 	public void boundIn(Mob mob, int blockX, int blockY, float delta) {
-	mob.hit(damage);
+	mob.hit(damage*delta);
 	}
 	@Override
 	public void boundOut(Mob mob, int blockX, int blockY, float delta) {

@@ -1,0 +1,2 @@
+false
+data/texture/monster/Ghost.png	1

@@ -1,5 +1,6 @@
 package catdog.mine.monster;
 
+import catdog.mine.AnimationDB;
 import catdog.mine.Block;
 import catdog.mine.Life;
 import catdog.mine.Player;
@@ -22,6 +23,9 @@ public class Destructor extends Mob {
 	
 	public void loadAnimationData() {
 		// TODO : 개별 애니메이션 로드하기 (상위 클래스 사용하지 않고)
+			standAni = AnimationDB.get("destructor_stand");
+			walkAni = standAni;
+			climbAni = standAni;
 		super.loadAnimationData();
 	}
 	
@@ -68,4 +72,5 @@ public class Destructor extends Mob {
 			// 다른 처리가 없으면 상위 오브젝트 처리를
 			super.update(delta);
 	}
+	
 }

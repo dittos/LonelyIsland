@@ -85,7 +85,8 @@ public class Mob extends Life {
 			onDie();
 	}
 	
-	protected void onDie() {
+	public void onDie() {
 		// TODO : 죽을 때 추가처리
+		
 	}
 }

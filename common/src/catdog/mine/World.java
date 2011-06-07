@@ -262,7 +262,7 @@ public class World {
 		try {
 			for (int i = 0; i < n; i++) {
 				mob = mobClass.getConstructor(World.class, Player.class).newInstance(this, player);
-				mob.position.set(randobj.nextInt(WIDTH), 30);
+				mob.position.set(player.position.x+randobj.nextInt(WIDTH/2), 30);
 				monsters.add(mob);
 				for(ArrayList<Float> a: inTime)
 					a.add(0f);
@@ -281,6 +281,7 @@ public class World {
 				// ΈχΐΜ Α¨!!
 				//Mob mob = new Mob(world, player);
 				genMobs(player);
+			
 			} else {
 				// Ήζ±έ ΎΖΔ§ΐΜ µΗΎϊΐ½
 				// ΈχΐΜ Ζγ!!

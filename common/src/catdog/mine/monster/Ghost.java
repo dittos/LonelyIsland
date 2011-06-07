@@ -2,6 +2,7 @@ package catdog.mine.monster;
 
 import com.badlogic.gdx.math.Vector2;
 
+import catdog.mine.AnimationDB;
 import catdog.mine.Player;
 import catdog.mine.World;
 
@@ -54,4 +55,11 @@ public class Ghost extends Mob {
 		if(isAlive())
 			hit(damagePerSecondFactor * delta);
 	}
+	@Override
+	protected void loadAnimationData() {
+		standAni = AnimationDB.get("ghost_stand");
+		walkAni = standAni;
+		climbAni = standAni;
+	}
+	
 }
