@@ -91,7 +91,13 @@ public abstract class Life {
 	 */
 	public void requestMove(Vector2 newPos) {
 		// 터치한 위치가 캐릭터 중앙이 되도록 걸어간다.
-		walkTo(new Vector2(newPos.x - hitbox.width / 2f, newPos.y));
+		Vector2 dest = new Vector2(newPos.x - hitbox.width / 2f, newPos.y);
+		if (state == STATE_CLIMB) {
+			// 기어올라가는 중에는 목적지만 바꾼다.
+			destPos.set(dest);
+		} else {
+			walkTo(dest);
+		}
 	}
 	
 	/**
@@ -174,7 +180,7 @@ public abstract class Life {
 			if(world.getBlock(new Vector2(position.x+0.2f,position.y+1)) != null
 					|| world.getBlock(new Vector2(position.x+0.2f,position.y+2)) != null)
 			{
-				velocity.y = 0;
+				stand();
 			}
 		}
 		// 애니메이션 업데이트
