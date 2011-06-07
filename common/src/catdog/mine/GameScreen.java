@@ -66,12 +66,19 @@ public class GameScreen implements Screen {
 					if (block != null) {
 						if (player.isNear(mapPos))
 							player.dig(block, delta);
-						//else
-							// TODO: 손이 안 닿아도 뭔가 파는 시늉을?
+					} else {
+						// 나무가 있는지 확인
+						Block baseblock = world.getBlock((int)mapPos.x, (int)mapPos.y - 1);
+						if(baseblock != null && baseblock.isAlive()
+								&& baseblock.getAttachedTree()!= null
+								&& baseblock.getAttachedTree().isAlive()
+								&& player.isNear(mapPos)) {
+							// TODO : 나무를 캐는 코드
+							player.chopTree(baseblock.getAttachedTree(), delta);
+						} else
+							if (Gdx.input.justTouched())
+								player.requestMove(mapPos);
 					}
-					else
-						if (Gdx.input.justTouched())
-							player.requestMove(mapPos);
 				}
 			}
 		}

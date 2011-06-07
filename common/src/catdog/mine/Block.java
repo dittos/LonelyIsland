@@ -13,6 +13,19 @@ public class Block {
 	private Item item;
 	
 	private boolean alive = true;
+	
+	/**
+	 * 블록에 붙은 나무
+	 */
+	private Tree attachedtree = null;
+
+	public Tree getAttachedTree() {
+		return attachedtree;
+	}
+
+	public void setAttachedTree(Tree attachedtree) {
+		this.attachedtree = attachedtree;
+	}
 
 	/**
 	 * delta초 동안 파임

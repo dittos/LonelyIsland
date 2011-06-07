@@ -29,5 +29,25 @@ public class Player extends Life {
 				(x == blockx1 && y == blocky_top) ||
 				(x == blockx2 && y == blocky_top));
 	}
+	
+	/**
+	 * 나무 캐기
+	 * @param tree 나무 오브젝트
+	 * @param delta 캐는 시간
+	 */
+	public void chopTree(Tree tree, float delta) {
+		tree.chopped(delta);
+		// 나무가 죽었다면 나무 아이템을 인벤토리에 추가
+		if(!tree.isAlive()) {
+			inventory.addItem(ItemDB.getItem(9));
+		}
+	}
+	
+	public void dig(Block block, float delta) {
+		super.dig(block, delta);
+		
+		if (!block.isAlive())
+			inventory.addItem(block.getItem());
+	}
 
 }

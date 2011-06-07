@@ -287,8 +287,6 @@ public abstract class Life {
 
 	public void dig(Block block, float delta) {
 		block.digged(delta);
-		if (!block.isAlive())
-			inventory.addItem(block.getItem());
 	}
 
 	public void setDirection(boolean direction) {

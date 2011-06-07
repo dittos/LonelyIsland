@@ -96,15 +96,15 @@ public class ItemDB
 		// 아이템 ID와 구체적인 아이템 속성을 연결
 		itemDic.put(1, new Item(1, "Dirt", "data/texture/block/dirt.png",
 				null, 0,
-				.5f,
+				.3f,
 				true, World.GROUND_ALTITUDE, 100, 10));
 		itemDic.put(2, new Item(2, "Stone", "data/texture/block/stone.png",
 				null, 0,
-				1f,
+				0.8f,
 				true, 0, 300, 14));
 		itemDic.put(3, new Item(3, "Coal", "data/texture/block/coal.png",
 				null, 0,
-				0.8f,
+				0.6f,
 				true, World.GROUND_ALTITUDE - 7, 20, 5));
 		itemDic.put(4, new Item(4, "Iron", "data/texture/block/iron.png",
 				null, 0,
@@ -112,7 +112,7 @@ public class ItemDB
 				true, World.GROUND_ALTITUDE - 14, 15, 3));
 		itemDic.put(5, new Item(5, "Bronze", "data/texture/block/bronze.png",
 				null, 0,
-				1.5f,
+				1.4f,
 				true, World.GROUND_ALTITUDE - 10, 18, 3));
 		itemDic.put(6, new Item(6, "Gold", "data/texture/block/gold.png",
 				null, 0,
@@ -125,6 +125,10 @@ public class ItemDB
 		itemDic.put(8, new Item(8, "BedRock", "data/texture/block/bedrock.png",
 				null, 0,
 				444444444444f,
+				false, 0, 0, 0));
+		itemDic.put(9, new Item(9, "Tree", "data/texture/block/tree.png",
+				null, 0,
+				1f,
 				false, 0, 0, 0));
 		
 		combDic = new TreeMap<Combination, Item>();
