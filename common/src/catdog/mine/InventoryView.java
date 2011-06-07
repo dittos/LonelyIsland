@@ -19,7 +19,7 @@ public class InventoryView {
 	private ArrayList<OnItemSelected> onItemSelectedHandlers = new ArrayList<OnItemSelected>();
 	private CraftDialog craftDialog;
 	
-	public static final int HEIGHT = 48;
+	public static final int HEIGHT = 46;
 	private static final int ENTRY_WIDTH = 32 + 8;
 	
 	public interface OnItemSelected {
@@ -30,7 +30,7 @@ public class InventoryView {
 		this.model = model;
 		font = new BitmapFont();
 		spriteBatch = new SpriteBatch();
-		bgTex = new TextureRegion(new Texture(Gdx.files.internal("data/inventory_bg.png")), 0, 0, 512, 48);
+		bgTex = new TextureRegion(new Texture(Gdx.files.internal("data/inventory_bg.png")), 0, 0, 512, HEIGHT);
 	}
 
 	public void render() {
@@ -39,13 +39,13 @@ public class InventoryView {
 		for (int i = 0; i < Inventory.MAX_ITEMS; i++) {
 			Item item = model.getItem(i);
 			if (item != null) {
-				spriteBatch.draw(item.getIconTex(), i * ENTRY_WIDTH + 8, 8);
+				spriteBatch.draw(item.getIconTex(), i * ENTRY_WIDTH + 8, 6);
 				String count = Integer.toString(model.getItemCount(i));
 				if (item == selectedItem)
 					font.setColor(Color.RED);
 				else
 					font.setColor(Color.WHITE);
-				font.draw(spriteBatch, count, (i + 1) * ENTRY_WIDTH - 3 - font.getBounds(count).width, 30);
+				font.draw(spriteBatch, count, (i + 1) * ENTRY_WIDTH - 3 - font.getBounds(count).width, 28);
 			}
 		}
 		spriteBatch.end();

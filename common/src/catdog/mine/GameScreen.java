@@ -38,7 +38,7 @@ public class GameScreen implements Screen {
 				inventoryView.onClick(touchPos);
 				
 				// 조합 창 토글 버튼
-				if(touchPos.x >= 433 && touchPos.x <= 472)
+				if(touchPos.x >= 463 && touchPos.x <= 502)
 					craftDialog.shown = !craftDialog.shown;
 			} else if(craftDialog.isInDialog(touchPos) && Gdx.input.justTouched()) {
 				craftDialog.onClick(touchPos);

@@ -36,7 +36,7 @@ public class Inventory
 	/**
 	 * 인벤토리의 실제 크기
 	 */
-	public static final int MAX_ITEMS = 8;
+	public static final int MAX_ITEMS = 10;
 	
 	public Inventory()
 	{
