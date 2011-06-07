@@ -13,7 +13,7 @@ public class CraftDialog implements InventoryView.OnItemSelected {
 	private Item combinedItem;
 	
 	private int x, y;
-	private int[] xoffsets = {57, 177, 297, 417};
+	private int[] xoffsets = {57, 177, 297, 424};
 	
 	public boolean shown = false;
 	
@@ -63,7 +63,7 @@ public class CraftDialog implements InventoryView.OnItemSelected {
 		int i;
 		for(i = 0; i < selectedItems.length; ++ i)
 		{
-			if(selectedItems[i].equals(selectedItem))
+			if(selectedItems[i] != null && selectedItems[i].equals(selectedItem))
 				return;
 		}
 		
