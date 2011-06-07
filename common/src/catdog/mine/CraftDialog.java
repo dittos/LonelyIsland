@@ -61,6 +61,10 @@ public class CraftDialog implements InventoryView.OnItemSelected {
 	@Override
 	public void onItemSelected(Item selectedItem) {
 		int i;
+		
+		if(!shown)
+			return;
+		
 		for(i = 0; i < selectedItems.length; ++ i)
 		{
 			if(selectedItems[i] != null && selectedItems[i].equals(selectedItem))
