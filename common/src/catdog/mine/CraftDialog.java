@@ -20,6 +20,9 @@ public class CraftDialog implements InventoryView.OnItemSelected {
 	public static final int WIDTH = 512;
 	public static final int HEIGHT = 128;
 	
+	private static final int ENTRY_WIDTH = 32;
+	private static final int ENTRY_HEIGHT = 32;
+	
 	public CraftDialog(Inventory inventory) {
 		this.inventory = inventory;
 		bgTex = new Texture("data/craft_bg.png");
@@ -63,9 +66,36 @@ public class CraftDialog implements InventoryView.OnItemSelected {
 				break;
 			}
 		}
+		combineItem();
 	}
 	
 	public void onClick(Vector2 pos)
 	{
+		if(pos.y < y + 47 || pos.y > y + 47 + ENTRY_HEIGHT)
+			return;
+		
+		int i;
+		for(i = 0; i < 4; ++ i)
+		{
+			if(pos.x >= x + xoffsets[i] && pos.x <= x + xoffsets[i] + ENTRY_WIDTH)
+				break;
+		}
+		
+		if(i < 3)
+			selectedItems[i] = null;
+		else if(combinedItem != null)
+		{
+			for(i = 0; i < 3; ++ i)
+			{
+				if(selectedItems[i] != null)
+				{
+					inventory.removeItem(inventory.findItem(selectedItems[i]));
+					if(inventory.findItem(selectedItems[i]) == -1)
+						selectedItems[i] = null;
+				}
+			}
+			
+			inventory.addItem(combinedItem);
+		}
 	}
 }
