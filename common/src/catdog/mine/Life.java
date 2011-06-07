@@ -7,6 +7,9 @@ import com.badlogic.gdx.math.Vector2;
 public abstract class Life {
 	// 관련 객체 레퍼런스
 	private World world;
+	protected World getWorld() {
+		return world;
+	}
 	public Inventory inventory;
 	
 	// 상태
@@ -15,6 +18,9 @@ public abstract class Life {
 	private Vector2 destPos = new Vector2();
 	
 	private boolean direction = LEFT;
+	public boolean getDirection() {
+		return direction;
+	}
 	private int state = STATE_STAND;
 	private boolean hasDest = false;
 	
@@ -183,7 +189,7 @@ public abstract class Life {
 	 * 참고 : 맵 좌표는 오브젝트이 좌측 하단을 기준으로 하므로 터치한 곳과는 다름 
 	 * @param newPos
 	 */
-	private void walkTo(Vector2 newPos) {
+	protected void walkTo(Vector2 newPos) {
 		hasDest = true;
 		destPos.set(newPos);
 		if (position.x < destPos.x) // ->
@@ -238,7 +244,7 @@ public abstract class Life {
 	 * 블럭을 딛고 서있나?
 	 * @return 없으면 false, 있으면 true
 	 */
-	private boolean hasStandingBlock() {
+	protected boolean hasStandingBlock() {
 		int below = (int)Math.ceil(position.y - 1);
 		return world.getBlock((int) Math.floor(position.x + hitbox.width), below) != null
 				|| world.getBlock((int) Math.floor(position.x), below) != null;
@@ -249,7 +255,7 @@ public abstract class Life {
 	 * @param xmovedist x축에서 움직일 거리
 	 * @return 있으면 true, 없으면 false
 	 */
-	private boolean blockInPath(float xmovedist) {
+	protected boolean blockInPath(float xmovedist) {
 		// 플레이어와 아래쪽에 있는 블럭 좌표
 		int blocky_bottom = (int)Math.floor(position.y);
 		// 플레이어 위쪽에 있는 블럭 좌표
@@ -271,7 +277,7 @@ public abstract class Life {
 	 * 이동 중일 때 목적지에 도착했는지 확인
 	 * @return 도착했으면 true, 아니면 false
 	 */
-	private boolean arrived() {
+	protected boolean arrived() {
 		// TODO: y좌표 확인
 		return Math.abs(position.x - destPos.x) < ARRIVE_THRES;
 	}
@@ -308,5 +314,27 @@ public abstract class Life {
 		//spriteBatch.draw(playerTex, screenPos.x, screenPos.y, playerTex.getWidth(), playerTex.getHeight(),
 		//		0, 0, playerTex.getWidth(), playerTex.getHeight(), direction == RIGHT, false);
 		spriteBatch.end();
+	}
+	
+	/**
+	 * 오브젝트가 있는 위치를 고려해 블럭을 놓을 수 있는지 체크 
+	 * @param x 블럭을 놓을 x좌표
+	 * @param y 블럭을 놓을 y좌표
+	 * @return 놓을 수 있으면 true
+	 */
+	public boolean canPutBlock(int x, int y) {
+		// 플레이어와 아래쪽에 있는 블럭 좌표
+		int blocky_bottom = (int)Math.floor(position.y);
+		// 플레이어 위쪽에 있는 블럭 좌표
+		int blocky_top = (int) Math.floor(position.y + hitbox.height);
+		// 플레이어가 향한 방향, 바로 앞에 있는 블럭
+		
+		int blockx1 = (int)Math.floor(position.x + hitbox.width);
+		int blockx2 = (int)Math.floor(position.x);
+		
+		return!((x == blockx1 && y == blocky_bottom) ||
+				(x == blockx2 && y == blocky_bottom) ||
+				(x == blockx1 && y == blocky_top) ||
+				(x == blockx2 && y == blocky_top));
 	}
 }

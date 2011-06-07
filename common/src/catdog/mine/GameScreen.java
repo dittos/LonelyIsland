@@ -2,6 +2,9 @@ package catdog.mine;
 
 import java.util.ArrayList;
 
+import catdog.mine.monster.Destructor;
+import catdog.mine.monster.Mob;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
@@ -23,8 +26,9 @@ public class GameScreen implements Screen {
 			if (isNight) {
 				// 방금 밤이 되었음
 				// 몹이 젠!!
-				Mob mob = new Mob(world, player);
-				mob.position.set(15, 50);
+				//Mob mob = new Mob(world, player);
+				Mob mob = new Destructor(world, player);
+				mob.position.set(1, 50);
 				monsters.add(mob);
 			} else {
 				// 방금 아침이 되었음

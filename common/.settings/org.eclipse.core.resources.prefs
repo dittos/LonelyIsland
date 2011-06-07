@@ -1,4 +1,4 @@
-#Mon Jun 06 19:59:38 KST 2011
+#Tue Jun 07 14:07:03 KST 2011
 eclipse.preferences.version=1
 encoding//src/catdog/mine/Animation.java=MS949
 encoding//src/catdog/mine/AnimationData.java=MS949
@@ -12,7 +12,7 @@ encoding//src/catdog/mine/InventoryView.java=MS949
 encoding//src/catdog/mine/Item.java=UTF-8
 encoding//src/catdog/mine/ItemDB.java=UTF-8
 encoding//src/catdog/mine/Life.java=MS949
-encoding//src/catdog/mine/Mob.java=MS949
 encoding//src/catdog/mine/Player.java=MS949
 encoding//src/catdog/mine/Viewport.java=MS949
 encoding//src/catdog/mine/World.java=MS949
+encoding//src/catdog/mine/monster/Mob.java=MS949
