@@ -7,7 +7,7 @@ import catdog.mine.monster.Mob;
 
 public class Magnet implements Interaction {
 	
-	private static float MULTIPLIER = 0.7f;
+	private static float MULTIPLIER = 0.1f;
 
 	@Override
 	public void boundIn(Mob mob, int blockX, int blockY, float delta) {

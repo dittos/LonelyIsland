@@ -33,6 +33,10 @@ public class Ghost extends Mob {
 
 	public void update(float delta) {
 		//기본 처리 그런거 업ㅂ다 무조건 날아가기
+		
+		// TODO: Ghost도 느려지게?
+		delta *= getDeltaMul();
+		
 		Vector2 movevector = new Vector2(getPlayer().position.x - this.pseudoPos.x, 
 												getPlayer().position.y - this.pseudoPos.y).nor();
 		
