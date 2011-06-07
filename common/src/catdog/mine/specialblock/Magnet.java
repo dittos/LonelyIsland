@@ -11,13 +11,12 @@ public class Magnet implements Interaction {
 
 	@Override
 	public void boundIn(Mob mob, int blockX, int blockY, float delta) {
-		mob.velocity.x = mob.WALK_SPEED * MULTIPLIER;
+		mob.setDeltaMul(MULTIPLIER);
 	}
 	
 	@Override
 	public void boundOut(Mob mob, int blockX, int blockY, float delta) {
-		;
+		mob.setDeltaMul(1f);
 	}
 
 }
-

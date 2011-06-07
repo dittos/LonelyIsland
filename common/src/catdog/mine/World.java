@@ -341,7 +341,10 @@ public class World {
 			if(block.getItem().getInteract() != null)
 			{
 				interactable.add(new BlockEntry(x, y, block));
-				inTime.add(new ArrayList<Float>(monsters.size()));
+				ArrayList<Float> a = new ArrayList<Float>();
+				for(int i = 0; i < monsters.size(); ++ i)
+					a.add(0f);
+				inTime.add(a);
 			}
 			map[y][x] = block;
 		}

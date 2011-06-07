@@ -12,6 +12,7 @@ public class Mob extends Life {
 		return player;
 	}
 	private int nticks = 0;
+	private float deltaMul = 1f;
 	/** 
 	 * 최대 체력
 	 */
@@ -20,6 +21,16 @@ public class Mob extends Life {
 	 * 현재 체력
 	 */
 	private float life = maxLife;
+
+	public float getDeltaMul()
+	{
+		return deltaMul;
+	}
+
+	public void setDeltaMul(float deltaMul)
+	{
+		this.deltaMul = deltaMul;
+	}
 
 	public Mob(World world, Player player) {
 		super(world);
@@ -36,6 +47,7 @@ public class Mob extends Life {
 	
 	@Override
 	public void update(float delta) {
+		delta *= deltaMul;
 		super.update(delta);
 		if (nticks++ % 30 == 0) // 일정 시간마다 플레이어 쪽으로 향하게 함
 			walkTo(player.position);
