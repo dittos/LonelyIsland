@@ -99,7 +99,7 @@ public abstract class Life {
 	 * @param delta 지나간 시간
 	 */
 	public void update(float delta) {
-		float fx = position.x + ((velocity.x > 0)? hitbox.width/2 : -(hitbox.width/2)) + ((velocity.x > 0)? 1 : -1);
+		float fx = position.x + hitbox.width + ((velocity.x > 0)? 1 : -1);
 		switch (state) {
 		
 		case STATE_STAND:
@@ -119,7 +119,9 @@ public abstract class Life {
 				// 같은 높이에 블럭이 있고, 그 위에는 없다면 점프
 				if(world.getBlock(new Vector2(fx, position.y)) != null
 						&& world.getBlock(new Vector2(fx, position.y + 1)) == null
-						&& world.getBlock(new Vector2(fx, position.y+2))== null){
+						&& world.getBlock(new Vector2(fx, position.y+2) )== null
+						)
+				{
 					 jump();
 				} 
 				else if(world.getBlock(new Vector2(fx,position.y+1)) !=null)
@@ -159,7 +161,6 @@ public abstract class Life {
 					walkTo(destPos);
 			}
 			break;
-			
 		case STATE_CLIMB:
 			position.y += velocity.y*delta;
 			if(!blockInPath(velocity.x * delta)){
@@ -168,15 +169,14 @@ public abstract class Life {
 				}
 			if(world.getBlock(new Vector2(fx, position.y)) == null && world.getBlock(new Vector2(fx, position.y+1)) == null) {
 				velocity.y = 0;
-				walkTo(destPos);	
+				walkTo(destPos);
 			}//위에 블럭으로 막혔을때
-			if(world.getBlock(new Vector2(position.x+0.1f,position.y+2)) != null
-					|| world.getBlock(new Vector2(position.x+0.1f,position.y+1)) != null)
+			if(world.getBlock(new Vector2(position.x+0.2f,position.y+1)) != null
+					|| world.getBlock(new Vector2(position.x+0.2f,position.y+2)) != null)
 			{
 				velocity.y = 0;
 			}
 		}
-		
 		// 애니메이션 업데이트
 		currentAni.update(delta);
 	}

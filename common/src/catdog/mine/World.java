@@ -75,7 +75,7 @@ public class World {
 		// 나무
 		// 일단 아무렇게나...
 		//treelayer.add(new Tree(new Vector2(3, 25)));
-		for(int i = 0; i < 20; i++) {
+		for(int i = 0; i < 10; i++) {
 			newRandomTree();
 		}
 	}
@@ -126,7 +126,7 @@ public class World {
 		// 위에서부터 훑어내려간다. 처음 발견한 블럭이 흙이면 거기에 나무 생성
 		
 		for(int ypos = HEIGHT - 1; ypos >= 0; ypos--) {
-			if(map[ypos][xpos] != null && map[ypos][xpos].isAlive() 
+			if(map[ypos][xpos] != null && map[ypos][xpos].isAlive() && map[ypos][xpos-1] != null 
 					&& map[ypos][xpos].getItem().getItemID() == 1) {
 				Tree newtree = new Tree(new Vector2(xpos, ypos+1));
 				//treelayer.add(newtree);
