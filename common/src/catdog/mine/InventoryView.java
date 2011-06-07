@@ -17,6 +17,7 @@ public class InventoryView {
 	private TextureRegion bgTex;
 	private Item selectedItem = null;
 	private ArrayList<OnItemSelected> onItemSelectedHandlers = new ArrayList<OnItemSelected>();
+	private CraftDialog craftDialog;
 	
 	public static final int HEIGHT = 48;
 	private static final int ENTRY_WIDTH = 32 + 8;

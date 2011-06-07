@@ -52,6 +52,9 @@ public class GameScreen implements Screen {
 			if (touchPos.y <= InventoryView.HEIGHT && Gdx.input.justTouched()) {
 				// 인벤토리를 터치했을 경우
 				inventoryView.onClick(touchPos);
+				
+				if(touchPos.x >= 433 && touchPos.x <= 472)
+					craftDialog.shown = true;
 			} else {
 				// 맵을 터치했을 경우
 				Vector2 mapPos = viewport.fromScreen(touchPos);

@@ -53,8 +53,6 @@ public class World {
 	private void initMap() {
 		calculateBlockFoundWeight();
 		
-		// TODO: Interactable
-		
 		for (int i = 0; i < GROUND_ALTITUDE; i++) {
 			for (int j = 0; j < WIDTH; j++) {
 				//map[i][j] = new Block(ItemDB.getItem(1));
