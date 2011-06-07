@@ -25,7 +25,7 @@ public class CraftDialog implements InventoryView.OnItemSelected {
 	
 	public CraftDialog(Inventory inventory) {
 		this.inventory = inventory;
-		bgTex = new Texture("data/craft_bg.png");
+		bgTex = TextureDict.load("data/craft_bg.png");
 		spriteBatch = new SpriteBatch();
 		selectedItems = new Item[3];
 		x = (533 - bgTex.getWidth()) / 2;

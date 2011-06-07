@@ -12,7 +12,7 @@ public class Tree {
 	private float timeleft = destroyTime;
 	
 	public static void LoadTexture() {
-		treetexture = new Texture("data/texture/tree/tree.png");
+		treetexture = TextureDict.load("data/texture/tree/tree.png");
 	}
 	
 	/**

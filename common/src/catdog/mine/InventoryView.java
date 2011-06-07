@@ -17,7 +17,6 @@ public class InventoryView {
 	private TextureRegion bgTex;
 	private Item selectedItem = null;
 	private ArrayList<OnItemSelected> onItemSelectedHandlers = new ArrayList<OnItemSelected>();
-	private CraftDialog craftDialog;
 	
 	public static final int HEIGHT = 46;
 	private static final int ENTRY_WIDTH = 32 + 8;
@@ -30,7 +29,7 @@ public class InventoryView {
 		this.model = model;
 		font = new BitmapFont();
 		spriteBatch = new SpriteBatch();
-		bgTex = new TextureRegion(new Texture(Gdx.files.internal("data/inventory_bg.png")), 0, 0, 512, HEIGHT);
+		bgTex = new TextureRegion(TextureDict.load("data/inventory_bg.png"), 0, 0, 512, HEIGHT);
 	}
 
 	public void render() {

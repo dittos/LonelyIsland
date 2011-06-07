@@ -170,6 +170,7 @@ public class ItemDB
 		combDic = new TreeMap<Combination, Item>();
 		
 		// 조합할 아이템 ID와 조합된 아이템 ID를 연결 (조합할 아이템이 2개만 있으면 나머지 ID를 0으로 부여)
+		combDic.put(new Combination(4, 5, 6), getItem(16)); // Copper + Iron + Gold = Machine
 		combDic.put(new Combination(4, 1, 2), getItem(10)); // Iron + Dirt + Stone = Magnet
 		combDic.put(new Combination(2, 3, 0), getItem(11)); // Stone + Coal = Hot Stone
 		combDic.put(new Combination(11, 4, 7), getItem(12)); // Hot Stone + Iron + Uranium = TNT
@@ -241,7 +242,7 @@ public class ItemDB
 	 */
 	public static void loadTextures() {
 		for (Item p : itemDic.values()) {
-			p.setIconTex(new Texture(Gdx.files.internal(p.getIcon())));
+			p.setIconTex(TextureDict.load(p.getIcon()));
 		}
 	}
 }

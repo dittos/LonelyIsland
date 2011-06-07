@@ -1,8 +1,6 @@
 package catdog.mine;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Random;
 
@@ -11,7 +9,6 @@ import catdog.mine.monster.Destructor;
 import catdog.mine.monster.Ghost;
 import catdog.mine.monster.Mob;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
@@ -32,7 +29,7 @@ class BlockEntry
 
 public class World {
 	
-	private Texture blockTex, nightBgTex, dayBgTex;
+	private Texture nightBgTex, dayBgTex;
 	private SpriteBatch spriteBatch;
 	private Block[][] map;
 	private ArrayList<BlockEntry> interactable;
@@ -47,9 +44,8 @@ public class World {
 	public static final int MARGIN = 5;
 	
 	public World() {
-		blockTex = new Texture(Gdx.files.internal("data/block.png"));
-		nightBgTex = new Texture(Gdx.files.internal("data/texture/bg_night.png"));
-		dayBgTex = new Texture(Gdx.files.internal("data/texture/bg_day.png"));
+		nightBgTex = TextureDict.load("data/texture/bg_night.png");
+		dayBgTex = TextureDict.load("data/texture/bg_day.png");
 		spriteBatch = new SpriteBatch();
 		map = new Block[HEIGHT][WIDTH];
 		interactable = new ArrayList<BlockEntry>();
