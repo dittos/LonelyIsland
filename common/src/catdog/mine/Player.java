@@ -18,7 +18,7 @@ public class Player extends Life {
 		super.update(delta);
 		
 		// 추락하면
-		if (position.y < 0)
+		if (position.y < 0 || position.y >50)
 			killed();
 	}
 	
