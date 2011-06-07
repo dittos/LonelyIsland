@@ -121,8 +121,7 @@ public abstract class Life {
 						&& world.getBlock(new Vector2(fx, position.y+2))== null){
 					 jump();
 				} 
-				else if(world.getBlock(new Vector2(fx,position.y+1)) !=null 
-						)
+				else if(world.getBlock(new Vector2(fx,position.y+1)) !=null)
 					climb();
 				else	
 					stand();
@@ -139,7 +138,6 @@ public abstract class Life {
 					stand();
 			}
 			break;
-			
 		case STATE_JUMP:
 			// 가속도 계산
 			velocity.y -= GRAVITY * delta;
@@ -170,7 +168,12 @@ public abstract class Life {
 			if(world.getBlock(new Vector2(fx, position.y)) == null && world.getBlock(new Vector2(fx, position.y+1)) == null) {
 				velocity.y = 0;
 				walkTo(destPos);	
-			} 	
+			}//위에 블럭으로 막혔을때
+			if(world.getBlock(new Vector2(position.x+0.1f,position.y+2)) != null
+					|| world.getBlock(new Vector2(position.x+0.1f,position.y+1)) != null)
+			{
+				velocity.y = 0;
+			}
 		}
 		
 		// 애니메이션 업데이트
@@ -239,7 +242,6 @@ public abstract class Life {
 	 */
 	public void climb() {
 		changestate(STATE_CLIMB);
-		position.y += 0.1;
 		velocity.y = CLIMB_SPEED;
 	}
 	
