@@ -56,7 +56,7 @@ public class Mob extends Life {
 		if(Math.abs(player.position.x - position.x)+Math.abs(player.position.y - position.y)<1 && isAlive())
 		{
 			//Ä³¸¯ÅÍ°¡ Á×¾ú½¿´Ù--;
-			//player.killed();
+			player.killed();
 		}
 	}
 	
