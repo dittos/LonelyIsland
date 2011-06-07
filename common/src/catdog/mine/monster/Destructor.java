@@ -8,7 +8,7 @@ import catdog.mine.World;
 
 public class Destructor extends Mob {
 	
-	public static final float maxLife = 1.5f;
+	//public static final float maxLife = 1.5f;
 	
 	/**
 	 * 블럭 파괴 속도 비율
@@ -19,6 +19,8 @@ public class Destructor extends Mob {
 	public Destructor(World world, Player player) {
 		super(world, player);
 		// TODO Auto-generated constructor stub
+		maxLife = 1.5f;
+		WALK_SPEED = 1f;
 	}
 	
 	public void loadAnimationData() {

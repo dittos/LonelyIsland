@@ -35,7 +35,7 @@ public abstract class Life {
 	/**
 	 * 걷는 속도 (단위: 블럭/초)
 	 */
-	public int WALK_SPEED;
+	protected float WALK_SPEED = 1;
 	
 	private static final int CLIMB_SPEED = 5;
 	/**

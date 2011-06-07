@@ -7,7 +7,6 @@ import catdog.mine.Player;
 import catdog.mine.World;
 
 public class Ghost extends Mob {
-	public static final float maxLife = 1f;
 	
 	/**
 	 * 시간당 데미지 배율
@@ -29,6 +28,7 @@ public class Ghost extends Mob {
 	public Ghost(World world, Player player) {
 		super(world, player);
 		
+		maxLife = 1f;
 		pseudoPos = position;
 	}
 	

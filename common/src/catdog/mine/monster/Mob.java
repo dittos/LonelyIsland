@@ -16,7 +16,7 @@ public class Mob extends Life {
 	/** 
 	 * 최대 체력
 	 */
-	public static final float maxLife = 1f;
+	public float maxLife = 1f;
 	/**
 	 * 현재 체력
 	 */
@@ -31,11 +31,11 @@ public class Mob extends Life {
 	{
 		this.deltaMul = deltaMul;
 	}
-
+	
 	public Mob(World world, Player player) {
 		super(world);
 		this.player = player;
-		WALK_SPEED = 2;
+		WALK_SPEED = 1.2f;
 	}
 
 	@Override
@@ -56,7 +56,7 @@ public class Mob extends Life {
 		if(Math.abs(player.position.x - position.x)+Math.abs(player.position.y - position.y)<1)
 		{
 			//캐릭터가 죽었슴다--;
-			player.killed();
+			//player.killed();
 		}
 	}
 	

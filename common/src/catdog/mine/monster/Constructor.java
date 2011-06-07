@@ -9,12 +9,13 @@ import catdog.mine.Player;
 import catdog.mine.World;
 
 public class Constructor extends Mob {
-	public static final float maxLife = 2f;
 	public static Item placeItem = ItemDB.getItem(1);
 
 	public Constructor(World world, Player player) {
 		super(world, player);
 		// TODO Auto-generated constructor stub
+		maxLife = 2f;
+		WALK_SPEED = 0.8f;
 	}
 	
 	public void loadAnimationData() {

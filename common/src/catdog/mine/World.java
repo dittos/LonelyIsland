@@ -232,17 +232,17 @@ public class World {
 		// 기본 몹 (n일 째에 n마리)
 		nmob = Math.min(20, day+1);
 		
-		// 생성자 (4일 째부터)
+		// 파괴자 (4일 째부터)
 		if (4 <= day)
-			nctor = (int)Math.ceil((double)(day-3) / 5.);
+			ndtor = (int)Math.ceil((double)(day-3) / 4.);
 		
-		// 파괴자 (8일 째부터)
-		if (8 <= day)
-			ndtor = (int)Math.ceil((double)(day-7) / 3.);
+		// 생성자 (7일 째부터)
+		if (7 <= day)
+			nctor = (int)Math.ceil((double)(day-6) / 4.);
 		
 		// 유령 (12일 째부터)
 		if (12 <= day)
-			nghost = (int)Math.ceil((double)(day-13) / 2.);
+			nghost = (int)Math.ceil((double)(day-11) / 2.);
 		
 			
 		genMobs(Mob.class, nmob, player);
@@ -259,8 +259,8 @@ public class World {
 				int randx = (randobj.nextInt(WIDTH/2)-WIDTH/4);
 				randx += (randx > 0)? 10 : -10;
 				randx += player.position.x;
-				randx = Math.min(randx, WIDTH-1);
-				randx = Math.max(randx, 0);
+				randx = Math.min(randx, WIDTH-MARGIN-1);
+				randx = Math.max(randx, MARGIN);
 				mob.position.set(randx, 30);
 				monsters.add(mob);
 				for(ArrayList<Float> a: inTime)
