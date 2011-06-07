@@ -2,6 +2,7 @@ package catdog.mine;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 
 public class CraftDialog implements InventoryView.OnItemSelected {
 	private Inventory inventory;
@@ -16,6 +17,9 @@ public class CraftDialog implements InventoryView.OnItemSelected {
 	
 	public boolean shown = false;
 	
+	public static final int WIDTH = 512;
+	public static final int HEIGHT = 128;
+	
 	public CraftDialog(Inventory inventory) {
 		this.inventory = inventory;
 		bgTex = new Texture("data/craft_bg.png");
@@ -23,6 +27,13 @@ public class CraftDialog implements InventoryView.OnItemSelected {
 		selectedItems = new Item[3];
 		x = (533 - bgTex.getWidth()) / 2;
 		y = (320 - bgTex.getHeight()) / 2;
+	}
+	
+	public boolean isInDialog(Vector2 pos)
+	{
+		if(!shown)
+			return false;
+		return (pos.x >= x && pos.x <= x + WIDTH && pos.y >= y && pos.y <= y + HEIGHT);
 	}
 
 	public void render() {
@@ -52,5 +63,9 @@ public class CraftDialog implements InventoryView.OnItemSelected {
 				break;
 			}
 		}
+	}
+	
+	public void onClick(Vector2 pos)
+	{
 	}
 }

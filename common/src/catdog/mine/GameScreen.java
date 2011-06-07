@@ -56,6 +56,8 @@ public class GameScreen implements Screen {
 				// 조합 창 토글 버튼
 				if(touchPos.x >= 433 && touchPos.x <= 472)
 					craftDialog.shown = !craftDialog.shown;
+			} else if(craftDialog.isInDialog(touchPos) && Gdx.input.justTouched()) {
+				craftDialog.onClick(touchPos);
 			} else {
 				// 맵을 터치했을 경우
 				Vector2 mapPos = viewport.fromScreen(touchPos);
