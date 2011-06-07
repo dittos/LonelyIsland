@@ -2,6 +2,8 @@ package catdog.mine;
 
 import java.util.*;
 
+import catdog.mine.specialblock.Magnet;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
@@ -130,8 +132,9 @@ public class ItemDB
 				null, 0,
 				1f,
 				false, 0, 0, 0));
+		
 		itemDic.put(10, new Item(10, "Magnet", "data/texture/block/magnet.png",
-				null, 0,
+				new Magnet(), 5,
 				1f,
 				false, 0, 0, 0));
 		itemDic.put(11, new Item(11, "Hot Stone", "data/texture/block/hotstone.png",

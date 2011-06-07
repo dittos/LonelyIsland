@@ -14,7 +14,7 @@ public abstract class Life {
 	
 	// 상태
 	public Vector2 position = new Vector2();
-	private Vector2 velocity = new Vector2(0, 0);
+	public Vector2 velocity = new Vector2(0, 0);
 	private Vector2 destPos = new Vector2();
 	
 	private boolean direction = LEFT;
@@ -35,7 +35,7 @@ public abstract class Life {
 	/**
 	 * 걷는 속도 (단위: 블럭/초)
 	 */
-	protected int WALK_SPEED;
+	public int WALK_SPEED;
 	
 	private static final int CLIMB_SPEED = 5;
 	/**
