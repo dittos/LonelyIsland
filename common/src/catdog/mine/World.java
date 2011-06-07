@@ -318,16 +318,16 @@ public class World {
 				if(Math.abs(block.x - mob.position.x) + Math.abs(block.y - mob.position.y) <= block.block.getItem().getInteractDist())
 				{
 					if(lastInteract == 0f)
-						block.block.getItem().getInteract().boundIn(mob, monsters, block.x, block.y, 0f);
+						block.block.getItem().getInteract().boundIn(mob, monsters, block.block, block.x, block.y, 0f);
 					else
-						block.block.getItem().getInteract().boundIn(mob, monsters, block.x, block.y, elapsed - lastInteract);
+						block.block.getItem().getInteract().boundIn(mob, monsters, block.block, block.x, block.y, elapsed - lastInteract);
 					inTime.get(i).set(j, elapsed);
 				}
 				else
 				{
 					if(lastInteract != 0f)
 					{
-						block.block.getItem().getInteract().boundOut(mob, monsters, block.x, block.y, elapsed - lastInteract);
+						block.block.getItem().getInteract().boundOut(mob, monsters, block.block, block.x, block.y, elapsed - lastInteract);
 						inTime.get(i).set(j, 0f);
 					}
 				}
