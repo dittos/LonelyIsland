@@ -73,7 +73,7 @@ public class World {
 		}
 		
 		// 나무
-		for(int i = 0; i < 10; i++) {
+		for(int i = 0; i < 15; i++) {
 			newRandomTree();
 		}
 	}
@@ -229,28 +229,21 @@ public class World {
 		int day = Clock.getDay();
 		int nmob, nctor = 0, ndtor = 0, nghost = 0;
 		
-		if (day <= 21) {
-			// 기본 몹 (n일 째에 n마리)
-			nmob = day;
-			
-			// 생성자 (6일 째부터)
-			if (6 <= day)
-				nctor = 1;
-			
-			// 파괴자 (11일 째부터)
-			if (11 <= day)
-				ndtor = 1;
-			
-			// 유령 (16일 째부터)
-			if (16 <= day)
-				nghost = 1;
-		} else {
-			// 21일 째부터
-			nghost = day - 20;
-			nmob = 4;
-			nctor = 1;
-			ndtor = 2;
-		}
+		// 기본 몹 (n일 째에 n마리)
+		nmob = Math.min(20, day+1);
+		
+		// 생성자 (4일 째부터)
+		if (4 <= day)
+			nctor = (int)Math.ceil((double)(day-3) / 5.);
+		
+		// 파괴자 (8일 째부터)
+		if (8 <= day)
+			ndtor = (int)Math.ceil((double)(day-7) / 3.);
+		
+		// 유령 (12일 째부터)
+		if (12 <= day)
+			nghost = (int)Math.ceil((double)(day-13) / 2.);
+		
 			
 		genMobs(Mob.class, nmob, player);
 		genMobs(Constructor.class, nctor, player);
@@ -263,7 +256,12 @@ public class World {
 		try {
 			for (int i = 0; i < n; i++) {
 				mob = mobClass.getConstructor(World.class, Player.class).newInstance(this, player);
-				mob.position.set(player.position.x+(randobj.nextInt(WIDTH/2)-WIDTH/4), 30);
+				int randx = (randobj.nextInt(WIDTH/2)-WIDTH/4);
+				randx += (randx > 0)? 10 : -10;
+				randx += player.position.x;
+				randx = Math.min(randx, WIDTH-1);
+				randx = Math.max(randx, 0);
+				mob.position.set(randx, 30);
 				monsters.add(mob);
 				for(ArrayList<Float> a: inTime)
 					a.add(0f);
@@ -289,6 +287,10 @@ public class World {
 				monsters.clear();
 				for(ArrayList<Float> a: inTime)
 					a.clear();
+				// 나무 새로 만들기
+				for(int i = 0; i < 7; i++) {
+					newRandomTree();
+				}
 			}
 		}
 		lastTickWasNight = isNight;

@@ -104,7 +104,7 @@ public class ItemDB
 		itemDic.put(1, new Item(1, "Dirt", "data/texture/block/dirt.png",
 				null, 0,
 				.3f,
-				true, World.GROUND_ALTITUDE, 100, 10));
+				true, World.GROUND_ALTITUDE, 100, 9));
 		itemDic.put(2, new Item(2, "Stone", "data/texture/block/stone.png",
 				null, 0,
 				0.8f,
@@ -112,39 +112,39 @@ public class ItemDB
 		itemDic.put(3, new Item(3, "Coal", "data/texture/block/coal.png",
 				null, 0,
 				0.6f,
-				true, World.GROUND_ALTITUDE - 7, 20, 5));
+				true, World.GROUND_ALTITUDE - 7, 24, 8));
 		itemDic.put(4, new Item(4, "Iron", "data/texture/block/iron.png",
 				null, 0,
 				2f,
-				true, World.GROUND_ALTITUDE - 14, 15, 3));
+				true, World.GROUND_ALTITUDE - 14, 17, 3));
 		itemDic.put(5, new Item(5, "Bronze", "data/texture/block/bronze.png",
 				null, 0,
 				1.4f,
-				true, World.GROUND_ALTITUDE - 10, 18, 3));
+				true, World.GROUND_ALTITUDE - 10, 18, 4));
 		itemDic.put(6, new Item(6, "Gold", "data/texture/block/gold.png",
 				null, 0,
 				2.5f,
-				true, World.GROUND_ALTITUDE - 19, 10, 2));
+				true, World.GROUND_ALTITUDE - 19, 13, 2));
 		itemDic.put(7, new Item(7, "Uranium", "data/texture/block/uranium.png",
 				null, 0,
 				4f,
-				true, World.GROUND_ALTITUDE - 23, 8, 3));
+				true, World.GROUND_ALTITUDE - 23, 9, 3));
 		itemDic.put(8, new Item(8, "BedRock", "data/texture/block/bedrock.png",
 				null, 0,
 				444444444444f,
 				false, 0, 0, 0));
 		itemDic.put(9, new Item(9, "Wood", "data/texture/block/tree.png",
 				null, 0,
-				1f,
+				0.7f,
 				false, 0, 0, 0));
 		
 		itemDic.put(10, new Item(10, "Magnet", "data/texture/block/magnet.png",
 				new Magnet(), 5,
-				1f,
+				5f,
 				false, 0, 0, 0));
 		itemDic.put(11, new Item(11, "Hot Stone", "data/texture/block/hotstone.png",		
 				new Hotstone(),3,
-				1f,
+				4f,
 				false, 0, 0, 0));
 		itemDic.put(12, new Item(12, "TNT", "data/texture/block/tnt.png",
 				null, 0,
@@ -152,19 +152,19 @@ public class ItemDB
 				false, 0, 0, 0));
 		itemDic.put(13, new Item(13, "Barricade", "data/texture/block/barricade.png",
 				null, 0,
-				1f,
+				8f,
 				false, 0, 0, 0));
 		itemDic.put(14, new Item(14, "Electric Tower", "data/texture/block/electower.png",
 				new Electower(), 5,
-				1f,
+				3f,
 				false, 0, 0, 0));
 		itemDic.put(15, new Item(15, "Fire Tower", "data/texture/block/firetower.png",
 				new Firetower(), 0,
-				1f,
+				3f,
 				false, 0, 0, 0));
 		itemDic.put(16, new Item(16, "Machine", "data/texture/block/machine.png",
 				null, 0,
-				1f,
+				0.2f,
 				false, 0, 0, 0));
 		
 		combDic = new TreeMap<Combination, Item>();
