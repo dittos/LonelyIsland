@@ -19,32 +19,13 @@ public class GameScreen implements Screen {
 	private Viewport viewport;
 	private World world;
 	private Player player;
-	private ArrayList<Mob> monsters;
 	private InventoryView inventoryView;
 	private CraftDialog craftDialog;
-	private boolean lastTickWasNight = false;
 	private BitmapFont font = new BitmapFont();
 	private SpriteBatch spriteBatch;
 
 	@Override
 	public void render(float delta) {
-		boolean isNight = Clock.isNight();
-		if (lastTickWasNight != isNight) {
-			if (isNight) {
-				// 방금 밤이 되었음
-				// 몹이 젠!!
-				//Mob mob = new Mob(world, player);
-				Mob mob = new Ghost(world, player);
-				mob.position.set(1, 30);
-				monsters.add(mob);
-			} else {
-				// 방금 아침이 되었음
-				// 몹이 펑!!
-				monsters.clear();
-			}
-		}
-		lastTickWasNight = isNight;
-		
 		if (Gdx.input.isTouched()) {
 			// 터치 이벤트는 화면 왼쪽 위가 (0, 0)
 			Vector2 touchPos = new Vector2(Gdx.input.getX(), viewport.screenHeight - Gdx.input.getY());
@@ -102,15 +83,12 @@ public class GameScreen implements Screen {
 		}
 		
 		player.update(delta);
-		for (Mob mob : monsters)
-			mob.update(delta);
+		world.update(delta, player);
 		viewport.focusOn(player.position);
 		
 		Gdx.gl10.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		world.render(viewport);
 		player.render(viewport);
-		for (Mob mob : monsters)
-			mob.render(viewport);
 		inventoryView.render();
 		if (craftDialog.shown)
 			craftDialog.render();
@@ -132,7 +110,6 @@ public class GameScreen implements Screen {
 		world = new World();
 		player = new Player(world);
 		player.position.set(2, World.GROUND_ALTITUDE);
-		monsters = new ArrayList<Mob>();
 		inventoryView = new InventoryView(player.inventory);
 		craftDialog = new CraftDialog(player.inventory);
 		inventoryView.addOnItemSelectedHandler(craftDialog);

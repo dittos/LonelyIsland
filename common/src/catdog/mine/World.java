@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Random;
 
+import catdog.mine.monster.Ghost;
+import catdog.mine.monster.Mob;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -29,6 +32,8 @@ public class World {
 	private SpriteBatch spriteBatch;
 	private Block[][] map;
 	private ArrayList<BlockEntry> interactable;
+	private ArrayList<Mob> monsters;
+	private boolean lastTickWasNight = false;
 	//private ArrayList<Tree> treelayer;
 	
 	public static final int WIDTH = 100;
@@ -42,6 +47,7 @@ public class World {
 		spriteBatch = new SpriteBatch();
 		map = new Block[HEIGHT][WIDTH];
 		interactable = new ArrayList<BlockEntry>();
+		monsters = new ArrayList<Mob>();
 		//treelayer = new ArrayList<Tree>();
 		Tree.LoadTexture();
 		initMap();
@@ -217,6 +223,43 @@ public class World {
 		}
 		
 		spriteBatch.end();
+		
+		for (Mob mob : monsters)
+			mob.render(viewport);
+	}
+	
+	public void update(float delta, Player player)
+	{
+		boolean isNight = Clock.isNight();
+		if (lastTickWasNight != isNight) {
+			if (isNight) {
+				// ¹æ±Ý ¹ãÀÌ µÇ¾úÀ½
+				// ¸÷ÀÌ Á¨!!
+				//Mob mob = new Mob(world, player);
+				Mob mob = new Ghost(this, player);
+				mob.position.set(1, 30);
+				monsters.add(mob);
+			} else {
+				// ¹æ±Ý ¾ÆÄ§ÀÌ µÇ¾úÀ½
+				// ¸÷ÀÌ Æã!!
+				monsters.clear();
+			}
+		}
+		lastTickWasNight = isNight;
+		
+		for(Mob mob: monsters)
+			mob.update(delta);
+		
+		for(BlockEntry block: interactable)
+		{
+			for(Mob mob: monsters)
+			{
+				if(Math.abs(block.x - mob.position.x) + Math.abs(block.y - mob.position.y) <= block.block.getItem().getInteractDist())
+				{
+					block.block.getItem().getInteract().interact(monsters, block.x, block.y);
+				}
+			}
+		}
 	}
 
 	/**

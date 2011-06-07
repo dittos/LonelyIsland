@@ -2,13 +2,15 @@ package catdog.mine;
 
 import java.util.Collection;
 
+import catdog.mine.monster.Mob;
+
 import com.badlogic.gdx.graphics.Texture;
 
 public class Item implements Comparable<Item>
 {
 	public interface Interaction
 	{
-		public void interact(Collection<Life> mob, int blockX, int blockY);
+		public void interact(Collection<Mob> mob, int blockX, int blockY);
 	}
 
 	private Texture iconTex;
