@@ -1,7 +1,12 @@
 package catdog.mine;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Map;
+import java.util.TreeMap;
 
+import catdog.mine.specialblock.Electower;
+import catdog.mine.specialblock.Firetower;
+import catdog.mine.specialblock.Hotstone;
 import catdog.mine.specialblock.Magnet;
 
 import com.badlogic.gdx.Gdx;
@@ -137,8 +142,8 @@ public class ItemDB
 				new Magnet(), 5,
 				1f,
 				false, 0, 0, 0));
-		itemDic.put(11, new Item(11, "Hot Stone", "data/texture/block/hotstone.png",
-				null, 0,
+		itemDic.put(11, new Item(11, "Hot Stone", "data/texture/block/hotstone.png",		
+				new Hotstone(),3,
 				1f,
 				false, 0, 0, 0));
 		itemDic.put(12, new Item(12, "TNT", "data/texture/block/tnt.png",
@@ -150,11 +155,11 @@ public class ItemDB
 				1f,
 				false, 0, 0, 0));
 		itemDic.put(14, new Item(14, "Electric Tower", "data/texture/block/electower.png",
-				null, 0,
+				new Electower(), 5,
 				1f,
 				false, 0, 0, 0));
-		itemDic.put(15, new Item(15, "Hot Stone", "data/texture/block/firetower.png",
-				null, 0,
+		itemDic.put(15, new Item(15, "Fire Tower", "data/texture/block/firetower.png",
+				new Firetower(), 0,
 				1f,
 				false, 0, 0, 0));
 		itemDic.put(16, new Item(16, "Machine", "data/texture/block/machine.png",

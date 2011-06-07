@@ -20,3 +20,4 @@ public class Magnet implements Interaction {
 	}
 
 }
+

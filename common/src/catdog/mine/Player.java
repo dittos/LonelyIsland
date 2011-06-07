@@ -6,7 +6,6 @@ public class Player extends Life {
 		super(world);
 		WALK_SPEED = 10;
 	}
-
 	@Override
 	protected void loadAnimationData() {
 		standAni = AnimationDB.get("player_stand");
@@ -31,5 +30,5 @@ public class Player extends Life {
 		if (!block.isAlive())
 			inventory.addItem(block.getItem());
 	}
-	
+
 }
