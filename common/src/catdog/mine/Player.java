@@ -31,5 +31,5 @@ public class Player extends Life {
 		if (!block.isAlive())
 			inventory.addItem(block.getItem());
 	}
-
+	
 }

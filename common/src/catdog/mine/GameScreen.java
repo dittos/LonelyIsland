@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import catdog.mine.monster.Constructor;
 import catdog.mine.monster.Destructor;
+import catdog.mine.monster.Ghost;
 import catdog.mine.monster.Mob;
 
 import com.badlogic.gdx.Gdx;
@@ -29,8 +30,8 @@ public class GameScreen implements Screen {
 				// 방금 밤이 되었음
 				// 몹이 젠!!
 				//Mob mob = new Mob(world, player);
-				Mob mob = new Constructor(world, player);
-				mob.position.set(1, 50);
+				Mob mob = new Ghost(world, player);
+				mob.position.set(1, 30);
 				monsters.add(mob);
 			} else {
 				// 방금 아침이 되었음

@@ -21,6 +21,7 @@ public abstract class Life {
 	public boolean getDirection() {
 		return direction;
 	}
+	
 	private int state = STATE_STAND;
 	public int getState() {
 		return state;
@@ -300,7 +301,7 @@ public abstract class Life {
 		block.digged(delta);
 	}
 
-	public void setDirection(boolean direction) {
+	protected void setDirection(boolean direction) {
 		this.direction = direction;
 	}
 
