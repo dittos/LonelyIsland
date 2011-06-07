@@ -13,6 +13,15 @@ public class Player extends Life {
 		climbAni = AnimationDB.get("player_climb");
 	}
 	
+	@Override
+	public void update(float delta) {
+		super.update(delta);
+		
+		// 추락하면
+		if (position.y < 0)
+			killed();
+	}
+	
 	/**
 	 * 나무 캐기
 	 * @param tree 나무 오브젝트
@@ -25,10 +34,18 @@ public class Player extends Life {
 			inventory.addItem(ItemDB.getItem(9));
 		}
 	}
+	
 	public void dig(Block block, float delta) {
 		super.dig(block, delta);
 		if (!block.isAlive())
 			inventory.addItem(block.getItem());
+	}
+	
+	/**
+	 * SALHAE당함
+	 */
+	public void killed() {
+		GameState.gameOver = true;
 	}
 
 }

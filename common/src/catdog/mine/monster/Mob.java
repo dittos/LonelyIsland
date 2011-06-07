@@ -51,8 +51,14 @@ public class Mob extends Life {
 		super.update(delta);
 		if (nticks++ % 30 == 0) // 일정 시간마다 플레이어 쪽으로 향하게 함
 			walkTo(player.position);
-		kill();
+		
+		if(Math.abs(player.position.x - position.x)+Math.abs(player.position.y - position.y)<1)
+		{
+			//캐릭터가 죽었슴다--;
+			player.killed();
+		}
 	}
+	
 	/**
 	 * 체력 구하기
 	 * @return 현재 체력
@@ -60,6 +66,7 @@ public class Mob extends Life {
 	public float getLife() {
 		return life;
 	}
+	
 	/**
 	 * 살아있는지 체크
 	 * @return 살아있으면 true
@@ -77,14 +84,7 @@ public class Mob extends Life {
 		if(!isAlive())
 			onDie();
 	}
-	public void kill(){
-		if(Math.abs(player.position.x - position.x)+Math.abs(player.position.y - position.y)<1)
-		{
-			//캐릭터가 죽었슴다--;
-			player.stand();
-			
-		}
-	}
+	
 	protected void onDie() {
 		// TODO : 죽을 때 추가처리
 	}

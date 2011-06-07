@@ -1,12 +1,5 @@
 package catdog.mine;
 
-import java.util.ArrayList;
-
-import catdog.mine.monster.Constructor;
-import catdog.mine.monster.Destructor;
-import catdog.mine.monster.Ghost;
-import catdog.mine.monster.Mob;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
@@ -23,9 +16,19 @@ public class GameScreen implements Screen {
 	private CraftDialog craftDialog;
 	private BitmapFont font = new BitmapFont();
 	private SpriteBatch spriteBatch;
+	private Game game;
+	
+	public GameScreen(Game game) {
+		this.game = game;
+	}
 
 	@Override
 	public void render(float delta) {
+		if (GameState.gameOver) {
+			game.setScreen(new GameOverScreen());
+			return;
+		}
+		
 		if (Gdx.input.isTouched()) {
 			// 터치 이벤트는 화면 왼쪽 위가 (0, 0)
 			Vector2 touchPos = new Vector2(Gdx.input.getX(), viewport.screenHeight - Gdx.input.getY());
