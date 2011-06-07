@@ -6,7 +6,7 @@ public class Clock {
 	/**
 	 * 하루의 길이 (단위: 초)
 	 */
-	public static final float DAY = 150; 
+	public static final float DAY = 30; 
 	
 	static {
 		reset();

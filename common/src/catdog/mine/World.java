@@ -1,6 +1,7 @@
 package catdog.mine;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Random;
 
@@ -271,7 +272,8 @@ public class World {
 			for(j = 0; j < jb; ++ j)
 			{
 				mob = monsters.get(j);
-				lastInteract = inTime.get(i).get(j);
+				lastInteract = inTime.get(i)
+					.get(j);
 				if(Math.abs(block.x - mob.position.x) + Math.abs(block.y - mob.position.y) <= block.block.getItem().getInteractDist())
 				{
 					if(lastInteract == 0f)
@@ -341,8 +343,8 @@ public class World {
 			if(block.getItem().getInteract() != null)
 			{
 				interactable.add(new BlockEntry(x, y, block));
-				ArrayList<Float> a = new ArrayList<Float>();
-				for(int i = 0; i < monsters.size(); ++ i)
+				ArrayList<Float> a = new ArrayList<Float>(monsters.size());
+				for(int i = monsters.size(); i > 0; -- i)
 					a.add(0f);
 				inTime.add(a);
 			}
