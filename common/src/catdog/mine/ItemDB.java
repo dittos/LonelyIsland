@@ -126,7 +126,7 @@ public class ItemDB
 				null, 0,
 				444444444444f,
 				false, 0, 0, 0));
-		itemDic.put(9, new Item(9, "Tree", "data/texture/block/tree.png",
+		itemDic.put(9, new Item(9, "Wood", "data/texture/block/tree.png",
 				null, 0,
 				1f,
 				false, 0, 0, 0));
@@ -134,12 +134,40 @@ public class ItemDB
 				null, 0,
 				1f,
 				false, 0, 0, 0));
+		itemDic.put(11, new Item(11, "Hot Stone", "data/texture/block/hotstone.png",
+				null, 0,
+				1f,
+				false, 0, 0, 0));
+		itemDic.put(12, new Item(12, "TNT", "data/texture/block/tnt.png",
+				null, 0,
+				1f,
+				false, 0, 0, 0));
+		itemDic.put(13, new Item(13, "Barricade", "data/texture/block/barricade.png",
+				null, 0,
+				1f,
+				false, 0, 0, 0));
+		itemDic.put(14, new Item(14, "Electric Tower", "data/texture/block/electower.png",
+				null, 0,
+				1f,
+				false, 0, 0, 0));
+		itemDic.put(15, new Item(15, "Hot Stone", "data/texture/block/firetower.png",
+				null, 0,
+				1f,
+				false, 0, 0, 0));
+		itemDic.put(16, new Item(16, "Machine", "data/texture/block/machine.png",
+				null, 0,
+				1f,
+				false, 0, 0, 0));
 		
 		combDic = new TreeMap<Combination, Item>();
 		
 		// 조합할 아이템 ID와 조합된 아이템 ID를 연결 (조합할 아이템이 2개만 있으면 나머지 ID를 0으로 부여)
-		// Iron + Dirt + Stone = Magnet 
-		combDic.put(new Combination(4, 1, 2), getItem(10));
+		combDic.put(new Combination(4, 1, 2), getItem(10)); // Iron + Dirt + Stone = Magnet
+		combDic.put(new Combination(2, 3, 0), getItem(11)); // Stone + Coal = Hot Stone
+		combDic.put(new Combination(11, 4, 7), getItem(12)); // Hot Stone + Iron + Uranium = TNT
+		combDic.put(new Combination(9, 1, 0), getItem(13)); // Wood + Dirt = Barricade
+		combDic.put(new Combination(10, 16, 0), getItem(14)); // Magnet + Machine = Electric Tower
+		combDic.put(new Combination(11, 16, 0), getItem(15)); // Hot Stone + Machine = Fire Tower
 	}
 	
 	/**
