@@ -169,12 +169,19 @@ public class World {
 		spriteBatch.begin();
 		
 		// 하늘 그리기
-		float opacity = (1.0f + (float)Math.cos(Clock.getElapsed() * MathUtils.PI * 2 / Clock.DAY)) / 2f;
-		spriteBatch.setColor(1, 1, 1, opacity);
+		// 지속적으로 변하면 알아보기 힘드므로 중간에 석양이 질 때만 변하고 나머지 시간동안은 색이 유지되게
+		
+		float dayopacity = (float)Math.sin(Clock.getElapsed() / Clock.DAY * MathUtils.PI * 2);
+		dayopacity *= 4f;
+		dayopacity = Math.min(1, dayopacity);
+		dayopacity = Math.max(-1, dayopacity);
+		dayopacity = dayopacity / 2f + 0.5f;
+		
+		spriteBatch.setColor(1, 1, 1, dayopacity);
 		spriteBatch.draw(dayBgTex, 0, 0, viewport.screenWidth,
 				viewport.screenHeight, 0, 0, dayBgTex.getWidth(),
 				dayBgTex.getHeight(), false, false);
-		spriteBatch.setColor(1, 1, 1, 1-opacity);
+		spriteBatch.setColor(1, 1, 1, 1-dayopacity);
 		spriteBatch.draw(nightBgTex, 0, 0, viewport.screenWidth,
 				viewport.screenHeight, 0, 0, nightBgTex.getWidth(),
 				nightBgTex.getHeight(), false, false);

@@ -23,4 +23,8 @@ public class Clock {
 	public static boolean isNight() {
 		return (getElapsed() % DAY) > DAY/2f;
 	}
+	
+	public static int getDay() {
+		return (int)Math.ceil(getElapsed() / DAY);
+	}
 }

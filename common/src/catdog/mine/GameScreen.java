@@ -10,6 +10,8 @@ import catdog.mine.monster.Mob;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 public class GameScreen implements Screen {
@@ -21,6 +23,7 @@ public class GameScreen implements Screen {
 	private InventoryView inventoryView;
 	private CraftDialog craftDialog;
 	private boolean lastTickWasNight = false;
+	private BitmapFont font = new BitmapFont();
 
 	@Override
 	public void render(float delta) {
@@ -104,6 +107,13 @@ public class GameScreen implements Screen {
 		inventoryView.render();
 		if (craftDialog.shown)
 			craftDialog.render();
+		
+		// 화면 메세지 출력
+		// TODO : 나중에 좀더 tidy하게
+		SpriteBatch sprbatch = new SpriteBatch();
+		sprbatch.begin();
+		font.draw(sprbatch, String.format("Day %d - %s", Clock.getDay(), Clock.isNight()? "Night" : "Day"), 10, 320);
+		sprbatch.end();
 	}
 
 	@Override
