@@ -26,6 +26,7 @@ public class CraftDialog implements InventoryView.OnItemSelected {
 
 	public void render() {
 		spriteBatch.begin();
+		spriteBatch.setColor(1, 1, 1, 0.9f);
 		spriteBatch.draw(bgTex, x, y);
 		for (int i = 0; i < selectedItems.length; i++) {
 			if (selectedItems[i] != null)

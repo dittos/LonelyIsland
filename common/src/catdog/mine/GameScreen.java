@@ -53,8 +53,9 @@ public class GameScreen implements Screen {
 				// 인벤토리를 터치했을 경우
 				inventoryView.onClick(touchPos);
 				
+				// 조합 창 토글 버튼
 				if(touchPos.x >= 433 && touchPos.x <= 472)
-					craftDialog.shown = true;
+					craftDialog.shown = !craftDialog.shown;
 			} else {
 				// 맵을 터치했을 경우
 				Vector2 mapPos = viewport.fromScreen(touchPos);
