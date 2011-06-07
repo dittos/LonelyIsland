@@ -53,7 +53,7 @@ public class Mob extends Life {
 				&& nticks++ % 30 == 0) // 일정 시간마다 플레이어 쪽으로 향하게 함
 			requestMove(player.position);
 		
-		if(Math.abs(player.position.x - position.x)+Math.abs(player.position.y - position.y)<1)
+		if(Math.abs(player.position.x - position.x)+Math.abs(player.position.y - position.y)<1 && isAlive())
 		{
 			//캐릭터가 죽었슴다--;
 			//player.killed();

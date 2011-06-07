@@ -37,7 +37,7 @@ public abstract class Life {
 	 */
 	protected float WALK_SPEED = 1;
 	
-	private static final int CLIMB_SPEED = 5;
+	private static int CLIMB_SPEED = 5;
 	/**
 	 * 중력 상수 (단위: 블럭/초)
 	 */

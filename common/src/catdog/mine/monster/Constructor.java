@@ -35,6 +35,8 @@ public class Constructor extends Mob {
 			
 			if(newx != (int)getPlayer().position.x && this.canPutBlock(newx, newy))
 				getWorld().putBlock(newx, newy, new Block(placeItem));
+			
+			
 		}
 	}
 }

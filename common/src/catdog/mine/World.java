@@ -279,7 +279,7 @@ public class World {
 				// ΈχΐΜ Α¨!!
 				//Mob mob = new Mob(world, player);
 				genMobs(player);
-			
+				 	
 			} else {
 				// Ήζ±έ ΎΖΔ§ΐΜ µΗΎϊΐ½
 				// ΈχΐΜ Ζγ!!

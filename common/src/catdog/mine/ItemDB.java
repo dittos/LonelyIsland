@@ -159,7 +159,7 @@ public class ItemDB
 				3f,
 				false, 0, 0, 0));
 		itemDic.put(15, new Item(15, "Fire Tower", "data/texture/block/firetower.png",
-				new Firetower(), 0,
+				new Firetower(), 3,
 				3f,
 				false, 0, 0, 0));
 		itemDic.put(16, new Item(16, "Machine", "data/texture/block/machine.png",

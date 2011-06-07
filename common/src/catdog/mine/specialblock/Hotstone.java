@@ -13,6 +13,7 @@ public class Hotstone implements Interaction{
 	@Override
 	public void boundIn(Mob mob, Collection<Mob> allMobs, Block targetBlock, int blockX, int blockY, float delta) {
 		mob.hit(damage*delta);
+	   
 	}
 	
 	@Override
