@@ -1,5 +1,7 @@
 package catdog.mine;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,9 +16,14 @@ public class InventoryView {
 	private SpriteBatch spriteBatch;
 	private TextureRegion bgTex;
 	private Item selectedItem = null;
+	private ArrayList<OnItemSelected> onItemSelectedHandlers = new ArrayList<OnItemSelected>();
 	
 	public static final int HEIGHT = 48;
 	private static final int ENTRY_WIDTH = 32 + 8;
+	
+	public interface OnItemSelected {
+		public void onItemSelected(Item selectedItem);
+	}
 	
 	public InventoryView(Inventory model) {
 		this.model = model;
@@ -43,6 +50,10 @@ public class InventoryView {
 		spriteBatch.end();
 	}
 	
+	public void addOnItemSelectedHandler(OnItemSelected handler) {
+		onItemSelectedHandlers.add(handler);
+	}
+	
 	public void onClick(Vector2 pos) {
 		// 위쪽에서부터 i번째 칸이 눌렸음
 		int i = (int)(pos.x / ENTRY_WIDTH);
@@ -53,6 +64,9 @@ public class InventoryView {
 			// 버튼을 눌렀음
 			selectedItem = null;
 		}
+		
+		for (OnItemSelected handler : onItemSelectedHandlers)
+			handler.onItemSelected(getSelectedItem());
 	}
 	
 	public Item getSelectedItem() {

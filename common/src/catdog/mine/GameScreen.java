@@ -17,6 +17,7 @@ public class GameScreen implements Screen {
 	private Player player;
 	private ArrayList<Mob> monsters;
 	private InventoryView inventoryView;
+	private CraftDialog craftDialog;
 	private boolean lastTickWasNight = false;
 
 	@Override
@@ -42,7 +43,7 @@ public class GameScreen implements Screen {
 			// 터치 이벤트는 화면 왼쪽 위가 (0, 0)
 			Vector2 touchPos = new Vector2(Gdx.input.getX(), viewport.screenHeight - Gdx.input.getY());
 			
-			if (touchPos.y <= InventoryView.HEIGHT) {
+			if (touchPos.y <= InventoryView.HEIGHT && Gdx.input.justTouched()) {
 				// 인벤토리를 터치했을 경우
 				inventoryView.onClick(touchPos);
 			} else {
@@ -98,6 +99,8 @@ public class GameScreen implements Screen {
 		for (Mob mob : monsters)
 			mob.render(viewport);
 		inventoryView.render();
+		if (craftDialog.shown)
+			craftDialog.render();
 	}
 
 	@Override
@@ -113,6 +116,8 @@ public class GameScreen implements Screen {
 		player.position.set(2, World.GROUND_ALTITUDE);
 		monsters = new ArrayList<Mob>();
 		inventoryView = new InventoryView(player.inventory);
+		craftDialog = new CraftDialog(player.inventory);
+		inventoryView.addOnItemSelectedHandler(craftDialog);
 		viewport = new Viewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 32, 32);
 		viewport.focusOn(player.position);
 		ItemDB.loadTextures();
