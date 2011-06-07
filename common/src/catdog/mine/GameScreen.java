@@ -24,6 +24,7 @@ public class GameScreen implements Screen {
 	private CraftDialog craftDialog;
 	private boolean lastTickWasNight = false;
 	private BitmapFont font = new BitmapFont();
+	private SpriteBatch spriteBatch;
 
 	@Override
 	public void render(float delta) {
@@ -108,12 +109,9 @@ public class GameScreen implements Screen {
 		if (craftDialog.shown)
 			craftDialog.render();
 		
-		// 화면 메세지 출력
-		// TODO : 나중에 좀더 tidy하게
-		SpriteBatch sprbatch = new SpriteBatch();
-		sprbatch.begin();
-		font.draw(sprbatch, String.format("Day %d - %s", Clock.getDay(), Clock.isNight()? "Night" : "Day"), 10, 320);
-		sprbatch.end();
+		spriteBatch.begin();
+		font.draw(spriteBatch, String.format("Day %d - %s", Clock.getDay(), Clock.isNight()? "Night" : "Day"), 10, 320);
+		spriteBatch.end();
 	}
 
 	@Override
@@ -124,6 +122,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void show() {
+		spriteBatch = new SpriteBatch();
 		world = new World();
 		player = new Player(world);
 		player.position.set(2, World.GROUND_ALTITUDE);
