@@ -50,7 +50,7 @@ public class Mob extends Life {
 		delta *= deltaMul;
 		super.update(delta);
 		if (nticks++ % 30 == 0) // 일정 시간마다 플레이어 쪽으로 향하게 함
-			walkTo(player.position);
+			requestMove(player.position);
 		
 		if(Math.abs(player.position.x - position.x)+Math.abs(player.position.y - position.y)<1)
 		{
