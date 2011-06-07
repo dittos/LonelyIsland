@@ -8,5 +8,11 @@ public class Game extends com.badlogic.gdx.Game {
 		setScreen(gameScreen);
 		
 	}
+	
+	@Override
+	public void dispose() {
+		TextureDict.unloadAll();
+		AnimationDB.unloadAll();
+	}
 
 }

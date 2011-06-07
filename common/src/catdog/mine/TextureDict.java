@@ -14,4 +14,8 @@ public class TextureDict {
 		return dict.get(path);
 	}
 	
+	public static void unloadAll() {
+		dict.clear();
+	}
+	
 }

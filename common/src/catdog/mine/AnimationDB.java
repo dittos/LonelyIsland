@@ -14,4 +14,8 @@ public class AnimationDB {
 		return data.get(filename);
 	}
 	
+	public static void unloadAll() {
+		data.clear();
+	}
+	
 }
