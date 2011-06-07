@@ -1,10 +1,13 @@
 package catdog.mine;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Random;
 
+import catdog.mine.monster.Constructor;
+import catdog.mine.monster.Destructor;
 import catdog.mine.monster.Ghost;
 import catdog.mine.monster.Mob;
 
@@ -64,24 +67,11 @@ public class World {
 		
 		for (int i = 0; i < GROUND_ALTITUDE; i++) {
 			for (int j = 0; j < WIDTH; j++) {
-				//map[i][j] = new Block(ItemDB.getItem(1));
 				newBlock(j, i);
 			}
 		}
 		
-		// TODO: 이것은 임시 코드임. 계단 만들기 -_-
-		for (int i = GROUND_ALTITUDE; i < HEIGHT; i++) {
-			//map[i][i - GROUND_ALTITUDE + 10] = new Block(ItemDB.getItem(1));
-			newBlock(i - GROUND_ALTITUDE + 10, i);
-		}
-		
-		// 임시코드. 충돌체크 테스트용
-		map[GROUND_ALTITUDE][0] = new Block(ItemDB.getItem(1));
-		
-		
 		// 나무
-		// 일단 아무렇게나...
-		//treelayer.add(new Tree(new Vector2(3, 25)));
 		for(int i = 0; i < 10; i++) {
 			newRandomTree();
 		}
@@ -231,6 +221,55 @@ public class World {
 			mob.render(viewport);
 	}
 	
+	/**
+	 * 몬스터 생성
+	 */
+	public void genMobs(Player player) {
+		int day = Clock.getDay();
+		int nmob, nctor = 0, ndtor = 0, nghost = 0;
+		
+		if (day <= 21) {
+			// 기본 몹 (n일 째에 n마리)
+			nmob = day;
+			
+			// 생성자 (6일 째부터)
+			if (6 <= day)
+				nctor = 1;
+			
+			// 파괴자 (11일 째부터)
+			if (11 <= day)
+				ndtor = 1;
+			
+			// 유령 (16일 째부터)
+			if (16 <= day)
+				nghost = 1;
+		} else {
+			// 21일 째부터
+			nghost = day - 20;
+			nmob = 4;
+			nctor = 1;
+			ndtor = 2;
+		}
+			
+		genMobs(Mob.class, nmob, player);
+		genMobs(Constructor.class, nctor, player);
+		genMobs(Destructor.class, ndtor, player);
+		genMobs(Ghost.class, nghost, player);
+	}
+	
+	public <T extends Mob> void genMobs(Class<T> mobClass, int n, Player player) {
+		Mob mob;
+		try {
+			for (int i = 0; i < n; i++) {
+				mob = mobClass.getConstructor(World.class, Player.class).newInstance(this, player);
+				mob.position.set(randobj.nextInt(WIDTH), 30);
+				monsters.add(mob);
+			}
+		} catch (Exception e) {
+			// ignore
+		}
+	}
+	
 	public void update(float delta, Player player)
 	{
 		boolean isNight = Clock.isNight();
@@ -239,9 +278,7 @@ public class World {
 				// 방금 밤이 되었음
 				// 몹이 젠!!
 				//Mob mob = new Mob(world, player);
-				Mob mob = new Ghost(this, player);
-				mob.position.set(1, 30);
-				monsters.add(mob);
+				genMobs(player);
 				
 				for(ArrayList<Float> a: inTime)
 					a.add(0f);
