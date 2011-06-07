@@ -120,7 +120,12 @@ public class World {
 	 * 적합한 위치 중에서 랜덤하게 나무 하나 생성
 	 */
 	private void newRandomTree() {
-		int xpos = randobj.nextInt(WIDTH);
+		int xpos;
+		do
+		{
+			xpos = randobj.nextInt(WIDTH);
+		}
+		while(xpos == 0);
 		// 위에서부터 훑어내려간다. 처음 발견한 블럭이 흙이면 거기에 나무 생성
 		
 		for(int ypos = HEIGHT - 1; ypos >= 0; ypos--) {

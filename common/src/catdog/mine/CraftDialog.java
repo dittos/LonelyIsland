@@ -9,9 +9,10 @@ public class CraftDialog implements InventoryView.OnItemSelected {
 	private SpriteBatch spriteBatch; 
 	
 	private Item[] selectedItems;
+	private Item combinedItem;
 	
 	private int x, y;
-	private int[] xoffsets = {57, 177, 297};
+	private int[] xoffsets = {57, 177, 297, 417};
 	
 	public boolean shown = false;
 	
@@ -32,7 +33,15 @@ public class CraftDialog implements InventoryView.OnItemSelected {
 			if (selectedItems[i] != null)
 				spriteBatch.draw(selectedItems[i].getIconTex(), x + xoffsets[i], y + 47);
 		}
+		
+		if(combinedItem != null)
+			spriteBatch.draw(combinedItem.getIconTex(), x + xoffsets[3], y + 47);
 		spriteBatch.end();
+	}
+	
+	public void combineItem()
+	{
+		combinedItem = ItemDB.getCombination(selectedItems[0], selectedItems[1], selectedItems[2]);
 	}
 
 	@Override
