@@ -22,11 +22,9 @@ public class Destructor extends Mob {
 	}
 	
 	public void loadAnimationData() {
-		// TODO : 개별 애니메이션 로드하기 (상위 클래스 사용하지 않고)
-			standAni = AnimationDB.get("destructor_stand");
-			walkAni = standAni;
-			climbAni = standAni;
-		super.loadAnimationData();
+		standAni = AnimationDB.get("destructor_stand");
+		walkAni = standAni;
+		climbAni = standAni;
 	}
 	
 	public void update(float delta) {

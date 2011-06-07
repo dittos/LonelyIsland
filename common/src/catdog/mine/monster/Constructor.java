@@ -1,5 +1,6 @@
 package catdog.mine.monster;
 
+import catdog.mine.AnimationDB;
 import catdog.mine.Block;
 import catdog.mine.Item;
 import catdog.mine.ItemDB;
@@ -17,9 +18,9 @@ public class Constructor extends Mob {
 	}
 	
 	public void loadAnimationData() {
-		// TODO : 자체 애니메이션 사용하기
-		super.loadAnimationData();
-		
+		standAni = AnimationDB.get("constructor_stand");
+		walkAni = standAni;
+		climbAni = standAni;
 	}
 	
 	public void update(float delta) {

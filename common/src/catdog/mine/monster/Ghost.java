@@ -31,6 +31,13 @@ public class Ghost extends Mob {
 		
 		pseudoPos = position;
 	}
+	
+	@Override
+	protected void loadAnimationData() {
+		standAni = AnimationDB.get("ghost_stand");
+		walkAni = standAni;
+		climbAni = standAni;
+	}
 
 	public void update(float delta) {
 		//기본 처리 그런거 업ㅂ다 무조건 날아가기
@@ -54,12 +61,6 @@ public class Ghost extends Mob {
 		// 체력 감소
 		if(isAlive())
 			hit(damagePerSecondFactor * delta);
-	}
-	@Override
-	protected void loadAnimationData() {
-		standAni = AnimationDB.get("ghost_stand");
-		walkAni = standAni;
-		climbAni = standAni;
 	}
 	
 }
