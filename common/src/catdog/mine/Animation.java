@@ -28,11 +28,16 @@ public class Animation {
 	}
 	
 	public void render(SpriteBatch sprbatch, Vector2 pos, boolean horizontalFlip, boolean verticalFlip) {
+		render(sprbatch, pos, horizontalFlip, verticalFlip, 1f);
+	}
+	
+	public void render(SpriteBatch sprbatch, Vector2 pos, boolean horizontalFlip, boolean verticalFlip, float alpha) {
 		// 현재 프레임 가져오기
 		AnimationData.Frame frame = data.getCurrentFrame();
 		Texture texture = frame.getTexture();
 		
 		// 현재 프레임 출력
+		sprbatch.setColor(1f, 1f, 1f, alpha);
 		sprbatch.draw(texture, pos.x, pos.y, texture.getWidth(), texture.getHeight(),
 				0, 0, texture.getWidth(), texture.getHeight(), horizontalFlip, verticalFlip);
 	}

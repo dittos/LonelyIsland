@@ -219,7 +219,10 @@ public class World {
 		spriteBatch.end();
 		
 		for (Mob mob : monsters)
-			mob.render(viewport);
+		{
+			if(mob.isAlive())
+				mob.render(viewport);
+		}
 	}
 	
 	/**
@@ -296,7 +299,10 @@ public class World {
 		lastTickWasNight = isNight;
 		
 		for(Mob mob: monsters)
-			mob.update(delta);
+		{
+			if(mob.isAlive())
+				mob.update(delta);
+		}
 			
 		float elapsed = Clock.getElapsed();
 		

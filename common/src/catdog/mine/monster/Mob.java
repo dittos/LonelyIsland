@@ -82,6 +82,7 @@ public class Mob extends Life {
 	 */
 	public void hit(float damage) {
 		life -= damage;
+		lifeRatio = life / maxLife;
 		if(!isAlive())
 			onDie();
 	}

@@ -69,6 +69,8 @@ public abstract class Life {
 	public static final int STATE_CLIMB = 3;
 	public static final int STATE_JUMP = 4;
 	
+	protected float lifeRatio = 1f;
+	
 	/**
 	 * »ý¼ºÀÚ
 	 * @param world ¸Ê °´Ã¼
@@ -322,7 +324,7 @@ public abstract class Life {
 	public void render(Viewport viewport) {
 		Vector2 screenPos = viewport.toScreen(position);
 		spriteBatch.begin();
-		currentAni.render(spriteBatch, screenPos, direction == RIGHT, false);
+		currentAni.render(spriteBatch, screenPos, direction == RIGHT, false, 0.5f + lifeRatio * 0.5f);
 		//spriteBatch.draw(playerTex, screenPos.x, screenPos.y, playerTex.getWidth(), playerTex.getHeight(),
 		//		0, 0, playerTex.getWidth(), playerTex.getHeight(), direction == RIGHT, false);
 		spriteBatch.end();
