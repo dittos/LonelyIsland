@@ -9,16 +9,16 @@ import catdog.mine.World;
 public class Ghost extends Mob {
 	
 	/**
-	 * ½Ã°£´ç µ¥¹ÌÁö ¹èÀ²
+	 * ì‹œê°„ë‹¹ ë°ë¯¸ì§€ ë°°ìœ¨
 	 */
 	public static final float damagePerSecondFactor = 0.1f;
 	/**
-	 * ½Ã°£´ç ÀÌµ¿ °Å¸®
+	 * ì‹œê°„ë‹¹ ì´ë™ ê±°ë¦¬
 	 */
 	public static final float speed = 2f;
 	
 	/**
-	 * »óÇÏ·Î ¿òÁ÷ÀÌ´Â °Å¸®
+	 * ìƒí•˜ë¡œ ì›€ì§ì´ëŠ” ê±°ë¦¬
 	 */
 	public static final float wavingheight = 0.2f;
 	
@@ -40,9 +40,9 @@ public class Ghost extends Mob {
 	}
 
 	public void update(float delta) {
-		//±âº» Ã³¸® ±×·±°Å ¾÷¤²´Ù ¹«Á¶°Ç ³¯¾Æ°¡±â
+		//ê¸°ë³¸ ì²˜ë¦¬ ê·¸ëŸ°ê±° ì—…ã…‚ë‹¤ ë¬´ì¡°ê±´ ë‚ ì•„ê°€ê¸°
 		
-		// TODO: Ghostµµ ´À·ÁÁö°Ô?
+		// TODO: Ghostë„ ëŠë ¤ì§€ê²Œ?
 		delta *= getDeltaMul();
 		
 		Vector2 movevector = new Vector2(getPlayer().position.x - this.pseudoPos.x, 
@@ -55,10 +55,10 @@ public class Ghost extends Mob {
 		
 		totaltime += delta;
 		
-		// ¹æÇâ ¼³Á¤
+		// ë°©í–¥ ì„¤ì •
 		setDirection(movevector.x >= 0? RIGHT : LEFT);
 		
-		// Ã¼·Â °¨¼Ò
+		// ì²´ë ¥ ê°ì†Œ
 		if(isAlive())
 			hit(damagePerSecondFactor * delta);
 	}

@@ -11,7 +11,7 @@ public class Destructor extends Mob {
 	//public static final float maxLife = 1.5f;
 	
 	/**
-	 * ºí·° ÆÄ±« ¼Óµµ ºñÀ²
+	 * ë¸”ëŸ­ íŒŒê´´ ì†ë„ ë¹„ìœ¨
 	 */
 	public static final float destroyFactor = 0.5f;
 	
@@ -32,14 +32,14 @@ public class Destructor extends Mob {
 	public void update(float delta) {
 		boolean processed = false;
 		
-		// ÇÃ·¹ÀÌ¾î¿Í xÃà°ªÀÌ ´Ù¸£°í ÁøÇà¹æÇâ¿¡ º®ÀÌ °¡·Î¸·°í ÀÖ´Ù¸é º® ºÎ¼ö±â
+		// í”Œë ˆì´ì–´ì™€ xì¶•ê°’ì´ ë‹¤ë¥´ê³  ì§„í–‰ë°©í–¥ì— ë²½ì´ ê°€ë¡œë§‰ê³  ìˆë‹¤ë©´ ë²½ ë¶€ìˆ˜ê¸°
 		if(getPlayer().position.x != this.position.x
 				&& blockInPath(delta * 3)) {
 			Block top = getWorld().getBlock((int)position.x + (getDirection() == Life.RIGHT? 1 : -1),
 											(int)position.y + 1);
 			Block bottom = getWorld().getBlock((int)position.x + (getDirection() == Life.RIGHT? 1 : -1),
 											(int)position.y);
-			// À§ÂÊ ºí·°ºÎÅÍ
+			// ìœ„ìª½ ë¸”ëŸ­ë¶€í„°
 			if(top != null && top.isAlive()) {
 				this.dig(top, delta * destroyFactor);
 				processed = true;
@@ -47,21 +47,21 @@ public class Destructor extends Mob {
 				this.dig(bottom, delta * destroyFactor);
 				processed = true;
 			}
-			// ÇÃ·¹ÀÌ¾î°¡ ÀÚ½Åº¸´Ù ¾Æ·¡¿¡ ÀÖÀ¸¸é
+			// í”Œë ˆì´ì–´ê°€ ìì‹ ë³´ë‹¤ ì•„ë˜ì— ìˆìœ¼ë©´
 		} else {
 			if(getPlayer().position.y < this.position.y){
-				// ¾Æ·¡ÂÊ¿¡ ºí·°ÀÌ ÀÖ´ÂÁö Ã¼Å©
+				// ì•„ë˜ìª½ì— ë¸”ëŸ­ì´ ìˆëŠ”ì§€ ì²´í¬
 				Block below = getWorld().getBlock((int)position.x, (int)position.y-1);
-				// ¾Æ·¡ÂÊ¿¡ ºí·°ÀÌ ÀÖ´Ù¸é 
+				// ì•„ë˜ìª½ì— ë¸”ëŸ­ì´ ìˆë‹¤ë©´ 
 				if(below != null && below.isAlive()) {
 					this.dig(below, delta * destroyFactor);
 					processed = true;
 				}
-				// ÇÃ·¹ÀÌ¾î°¡ ÀÚ½Åº¸´Ù À§¿¡ ÀÖÀ¸¸é
+				// í”Œë ˆì´ì–´ê°€ ìì‹ ë³´ë‹¤ ìœ„ì— ìˆìœ¼ë©´
 			} else if(getPlayer().position.y > this.position.y){
-				// À§¿¡ ºí·°ÀÌ ÀÖ´ÂÁö Ã¼Å©
+				// ìœ„ì— ë¸”ëŸ­ì´ ìˆëŠ”ì§€ ì²´í¬
 				Block above = getWorld().getBlock((int)position.x, (int)position.y+2);
-				// ¾Æ·¡ÂÊ¿¡ ºí·°ÀÌ ÀÖ´Ù¸é 
+				// ì•„ë˜ìª½ì— ë¸”ëŸ­ì´ ìˆë‹¤ë©´ 
 				if(above!= null && above.isAlive()) {
 					this.dig(above, delta * destroyFactor);
 					processed = true;
@@ -69,7 +69,7 @@ public class Destructor extends Mob {
 			}
 		}
 		if(!processed)
-			// ´Ù¸¥ Ã³¸®°¡ ¾øÀ¸¸é »óÀ§ ¿ÀºêÁ§Æ® Ã³¸®¸¦
+			// ë‹¤ë¥¸ ì²˜ë¦¬ê°€ ì—†ìœ¼ë©´ ìƒìœ„ ì˜¤ë¸Œì íŠ¸ ì²˜ë¦¬ë¥¼
 			super.update(delta);
 	}
 	

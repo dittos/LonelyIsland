@@ -17,19 +17,19 @@ public class Player extends Life {
 	public void update(float delta) {
 		super.update(delta);
 		
-		// Ãß¶ôÇÏ°Å³ª »ê¼Ò°¡ Èñ¹ÚÇÏ¸é
+		// ì¶”ë½í•˜ê±°ë‚˜ ì‚°ì†Œê°€ í¬ë°•í•˜ë©´
 		if (position.y < 0 || position.y > World.HEIGHT)
 			killed();
 	}
 	
 	/**
-	 * ³ª¹« Ä³±â
-	 * @param tree ³ª¹« ¿ÀºêÁ§Æ®
-	 * @param delta Ä³´Â ½Ã°£
+	 * ë‚˜ë¬´ ìºê¸°
+	 * @param tree ë‚˜ë¬´ ì˜¤ë¸Œì íŠ¸
+	 * @param delta ìºëŠ” ì‹œê°„
 	 */
 	public void chopTree(Tree tree, float delta) {
 		tree.chopped(delta);
-		// ³ª¹«°¡ Á×¾ú´Ù¸é ³ª¹« ¾ÆÀÌÅÛÀ» ÀÎº¥Åä¸®¿¡ Ãß°¡
+		// ë‚˜ë¬´ê°€ ì£½ì—ˆë‹¤ë©´ ë‚˜ë¬´ ì•„ì´í…œì„ ì¸ë²¤í† ë¦¬ì— ì¶”ê°€
 		if(!tree.isAlive()) {
 			inventory.addItem(ItemDB.getItem(9));
 		}
@@ -42,7 +42,7 @@ public class Player extends Life {
 	}
 	
 	/**
-	 * SALHAE´çÇÔ
+	 * SALHAEë‹¹í•¨
 	 */
 	public void killed() {
 		GameState.gameOver = true;

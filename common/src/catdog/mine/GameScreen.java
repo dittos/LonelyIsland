@@ -60,23 +60,23 @@ public class GameScreen implements Screen {
 
 	private void update(float delta) {
 		if (Gdx.input.isTouched()) {
-			// ÅÍÄ¡ ÀÌº¥Æ®´Â È­¸é ¿ŞÂÊ À§°¡ (0, 0)
+			// í„°ì¹˜ ì´ë²¤íŠ¸ëŠ” í™”ë©´ ì™¼ìª½ ìœ„ê°€ (0, 0)
 			Vector2 touchPos = new Vector2(Gdx.input.getX(), viewport.screenHeight - Gdx.input.getY());
 			
 			if (touchPos.y <= InventoryView.HEIGHT && Gdx.input.justTouched()) {
-				// ÀÎº¥Åä¸®¸¦ ÅÍÄ¡ÇßÀ» °æ¿ì
+				// ì¸ë²¤í† ë¦¬ë¥¼ í„°ì¹˜í–ˆì„ ê²½ìš°
 				inventoryView.onClick(touchPos);
 				
-				// Á¶ÇÕ Ã¢ Åä±Û ¹öÆ°
+				// ì¡°í•© ì°½ í† ê¸€ ë²„íŠ¼
 				if(touchPos.x >= 463 && touchPos.x <= 502)
 					craftDialog.shown = !craftDialog.shown;
 			} else if(craftDialog.isInDialog(touchPos) && Gdx.input.justTouched()) {
 				craftDialog.onClick(touchPos);
 			} else {
-				// ¸ÊÀ» ÅÍÄ¡ÇßÀ» °æ¿ì
+				// ë§µì„ í„°ì¹˜í–ˆì„ ê²½ìš°
 				Vector2 mapPos = viewport.fromScreen(touchPos);
 				
-				// ÅÍÄ¡ÇÑ °÷¿¡ µû¶ó Ä³¸¯ÅÍ ½Ã¼± ¹æÇâÀ» Á¤ÇÑ´Ù.
+				// í„°ì¹˜í•œ ê³³ì— ë”°ë¼ ìºë¦­í„° ì‹œì„  ë°©í–¥ì„ ì •í•œë‹¤.
 				if (mapPos.x < player.position.x)
 					player.setDirection(Life.LEFT);
 				else
@@ -84,7 +84,7 @@ public class GameScreen implements Screen {
 				
 				Item selectedItem = inventoryView.getSelectedItem();
 				if (selectedItem != null) {
-					// ¾ÆÀÌÅÛ ³õ´Â ¸ğµå
+					// ì•„ì´í…œ ë†“ëŠ” ëª¨ë“œ
 					if (Gdx.input.justTouched() && player.isNear(mapPos) &&
 							player.canPutBlock((int)mapPos.x, (int)mapPos.y) &&
 							world.canPutBlock((int)mapPos.x, (int)mapPos.y) &&
@@ -93,19 +93,19 @@ public class GameScreen implements Screen {
 						player.inventory.removeItem(player.inventory.findItem(selectedItem));
 					}
 				} else {
-					// ÀÌµ¿ ¸ğµå
+					// ì´ë™ ëª¨ë“œ
 					Block block = world.getBlock(mapPos);
 					if (block != null) {
 						if (player.isNear(mapPos))
 							player.dig(block, delta);
 					} else {
-						// ³ª¹«°¡ ÀÖ´ÂÁö È®ÀÎ
+						// ë‚˜ë¬´ê°€ ìˆëŠ”ì§€ í™•ì¸
 						Block baseblock = world.getBlock((int)mapPos.x, (int)mapPos.y - 1);
 						if(baseblock != null && baseblock.isAlive()
 								&& baseblock.getAttachedTree()!= null
 								&& baseblock.getAttachedTree().isAlive()
 								&& player.isNear(mapPos)) {
-							// TODO : ³ª¹«¸¦ Ä³´Â ÄÚµå
+							// TODO : ë‚˜ë¬´ë¥¼ ìºëŠ” ì½”ë“œ
 							player.chopTree(baseblock.getAttachedTree(), delta);
 						} else
 							if (Gdx.input.justTouched())

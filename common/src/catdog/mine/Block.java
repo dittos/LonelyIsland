@@ -3,19 +3,19 @@ package catdog.mine;
 public class Block {
 	
 	/**
-	 * ºí·° ÆÄ±«±îÁö ³²Àº ½Ã°£ (ÃÊ)
+	 * ë¸”ëŸ­ íŒŒê´´ê¹Œì§€ ë‚¨ì€ ì‹œê°„ (ì´ˆ)
 	 */
 	private float timeLeft;
 	
 	/**
-	 * ¾ÆÀÌÅÛ °´Ã¼
+	 * ì•„ì´í…œ ê°ì²´
 	 */
 	private Item item;
 	
 	private boolean alive = true;
 	
 	/**
-	 * ºí·Ï¿¡ ºÙÀº ³ª¹«
+	 * ë¸”ë¡ì— ë¶™ì€ ë‚˜ë¬´
 	 */
 	private Tree attachedtree = null;
 
@@ -28,8 +28,8 @@ public class Block {
 	}
 
 	/**
-	 * deltaÃÊ µ¿¾È ÆÄÀÓ
-	 * @param delta ÆÄÀÎ ½Ã°£
+	 * deltaì´ˆ ë™ì•ˆ íŒŒì„
+	 * @param delta íŒŒì¸ ì‹œê°„
 	 */
 	public void digged(float delta) {
 		if (alive) {
@@ -40,32 +40,32 @@ public class Block {
 	}
 	
 	/**
-	 * ÆÄ±«
+	 * íŒŒê´´
 	 */
 	public void destroy() {
-		// TODO: World¿¡ ¾Ë·Á¼­ »ç¶óÁö±â
+		// TODO: Worldì— ì•Œë ¤ì„œ ì‚¬ë¼ì§€ê¸°
 		alive = false;
 	}
 	
 	/**
-	 * ÆÄ±« ºñÀ²
-	 * @return ÆÄ±« ºñÀ² (0ºÎÅÍ 1 »çÀÌ)
+	 * íŒŒê´´ ë¹„ìœ¨
+	 * @return íŒŒê´´ ë¹„ìœ¨ (0ë¶€í„° 1 ì‚¬ì´)
 	 */
 	public float getDestructionRatio() {
 		return 1 - Math.max(timeLeft, 0) / item.getDestroytime();
 	}
 	
 	/**
-	 * ºí·°ÀÌ ÆÄ±«µÇ¾ú´Â°¡?
-	 * @return ¾ÆÁ÷ »ì¾ÆÀÖÀ¸¸é true, ¾Æ´Ï¸é false
+	 * ë¸”ëŸ­ì´ íŒŒê´´ë˜ì—ˆëŠ”ê°€?
+	 * @return ì•„ì§ ì‚´ì•„ìˆìœ¼ë©´ true, ì•„ë‹ˆë©´ false
 	 */
 	public boolean isAlive() {
 		return alive;
 	}
 	
 	/**
-	 * ºÎ¼­Á³À» ¶§ Æ¢¾î³ª¿À´Â ¾ÆÀÌÅÛÀ» µ¹·ÁÁØ´Ù.
-	 * @return ºí·°¿¡ ±Í¼ÓµÈ Item °´Ã¼
+	 * ë¶€ì„œì¡Œì„ ë•Œ íŠ€ì–´ë‚˜ì˜¤ëŠ” ì•„ì´í…œì„ ëŒë ¤ì¤€ë‹¤.
+	 * @return ë¸”ëŸ­ì— ê·€ì†ëœ Item ê°ì²´
 	 */
 	public Item getItem() {
 		return item;

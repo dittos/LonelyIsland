@@ -16,37 +16,37 @@ public class Tree {
 	}
 	
 	/**
-	 * »ı¼ºÀÚ
-	 * @param pos ³ª¹« À§Ä¡ (¸Ê ÁÂÇ¥)
+	 * ìƒì„±ì
+	 * @param pos ë‚˜ë¬´ ìœ„ì¹˜ (ë§µ ì¢Œí‘œ)
 	 */
 	public Tree(Vector2 pos) {
 		this.pos = pos;
 	}
 	
 	/**
-	 * ³ª¹«°¡ »ì¾ÆÀÖ´ÂÁö
-	 * @return »ì¾ÆÀÖÀ¸¸é true
+	 * ë‚˜ë¬´ê°€ ì‚´ì•„ìˆëŠ”ì§€
+	 * @return ì‚´ì•„ìˆìœ¼ë©´ true
 	 */
 	public boolean isAlive() {
 		return timeleft > 0;
 	}
 	
 	/**
-	 * ³ª¹« Ä³±â
-	 * @param delta : ³ª¹«¸¦ Ä³´Â ½Ã°£
+	 * ë‚˜ë¬´ ìºê¸°
+	 * @param delta : ë‚˜ë¬´ë¥¼ ìºëŠ” ì‹œê°„
 	 */
 	public void chopped(float delta) {
-		// ³ª¹«°¡ ¾ÆÁ÷ »ì¾ÆÀÖ´Ù¸é ³²Àº ½Ã°£À» »©ÁÖ±â
+		// ë‚˜ë¬´ê°€ ì•„ì§ ì‚´ì•„ìˆë‹¤ë©´ ë‚¨ì€ ì‹œê°„ì„ ë¹¼ì£¼ê¸°
 		if(isAlive())
 			timeleft -= delta;
 	}
 	
 	public void render(SpriteBatch sprbatch, Viewport viewport) {
-		// ½ÇÁ¦ ÁÂÇ¥·Î º¯È¯ÇÏ¿© °è»ê
+		// ì‹¤ì œ ì¢Œí‘œë¡œ ë³€í™˜í•˜ì—¬ ê³„ì‚°
 		Vector2 screenpos = viewport.toScreen(pos);
-		// ³ª¹« ÅØ½ºÃÄ¸¦ °í·ÁÇÏ¿© ÁÂÇ¥ º¯°æ
+		// ë‚˜ë¬´ í…ìŠ¤ì³ë¥¼ ê³ ë ¤í•˜ì—¬ ì¢Œí‘œ ë³€ê²½
 		screenpos.x += 16 - treetexture.getWidth() / 2;
-		// ÆÄ±« Á¤µµ¿¡ µû¶ó ¾ËÆÄ°ª °¨¼ÒÇÏ¿© ±×¸®±â
+		// íŒŒê´´ ì •ë„ì— ë”°ë¼ ì•ŒíŒŒê°’ ê°ì†Œí•˜ì—¬ ê·¸ë¦¬ê¸°
 		float alpha = (timeleft / destroyTime) / 2f + 0.5f;
 		Color oldcolor = sprbatch.getColor();
 		sprbatch.setColor(1,1,1,alpha);

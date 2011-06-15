@@ -6,23 +6,23 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
- * ¾Ö´Ï¸ŞÀÌ¼Ç µ¥ÀÌÅÍ Å¬·¡½º
+ * ì• ë‹ˆë©”ì´ì…˜ ë°ì´í„° í´ë˜ìŠ¤
  * @author ReB
  *
  */
 public class AnimationData {
 	/**
-	 * °¢ ÇÁ·¹ÀÓ ´ç Á¤º¸
+	 * ê° í”„ë ˆì„ ë‹¹ ì •ë³´
 	 * @author ReB
 	 *
 	 */
 	public class Frame {
 		/**
-		 *  ÇÁ·¹ÀÓ¸¶´Ù ÅØ½ºÃÄ
+		 *  í”„ë ˆì„ë§ˆë‹¤ í…ìŠ¤ì³
 		 */
 		private Texture texture;
 		/** 
-		 * ÇÁ·¹ÀÓ Áö¼Ó½Ã°£
+		 * í”„ë ˆì„ ì§€ì†ì‹œê°„
 		 */
 		private float time;
 		
@@ -42,72 +42,72 @@ public class AnimationData {
 	}
 	
 	/**
-	 * ÇÁ·¹ÀÓ ¸®½ºÆ®
+	 * í”„ë ˆì„ ë¦¬ìŠ¤íŠ¸
 	 */
 	private ArrayList<Frame> framelist;
 	
 	/**
-	 * ÇÁ·¹ÀÓ ¹øÈ£
+	 * í”„ë ˆì„ ë²ˆí˜¸
 	 */
 	private int framenum = 0;
 	/**
-	 * ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ·çÇÁÇÏ´ÂÁö
+	 * ì• ë‹ˆë©”ì´ì…˜ì´ ë£¨í”„í•˜ëŠ”ì§€
 	 */
 	private boolean loop = false;
 	
 	/**
-	 * ÇöÀç ÇÁ·¹ÀÓ ±¸ÇÏ±â
-	 * @return Frame ·¹ÆÛ·±½º
+	 * í˜„ì¬ í”„ë ˆì„ êµ¬í•˜ê¸°
+	 * @return Frame ë ˆí¼ëŸ°ìŠ¤
 	 */
 	public Frame getCurrentFrame() {
 		return framelist.get(framenum);
 	}
 	/**
-	 * ´ÙÀ½ ÇÁ·¹ÀÓÀ¸·Î ÁøÇàÇÏ±â
-	 * @return ´ÙÀ½ ÇÁ·¹ÀÓÀ¸·Î ³Ñ¾î°¬´ÂÁö ¿©ºÎ, true´Â ¼º°ø
+	 * ë‹¤ìŒ í”„ë ˆì„ìœ¼ë¡œ ì§„í–‰í•˜ê¸°
+	 * @return ë‹¤ìŒ í”„ë ˆì„ìœ¼ë¡œ ë„˜ì–´ê°”ëŠ”ì§€ ì—¬ë¶€, trueëŠ” ì„±ê³µ
 	 */
 	public boolean nextFrame() {
-		// ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ³¡³µ´Ù¸é ¾Æ¹« ÀÏµµ ÇÏÁö ¾Ê°í false
+		// ì• ë‹ˆë©”ì´ì…˜ì´ ëë‚¬ë‹¤ë©´ ì•„ë¬´ ì¼ë„ í•˜ì§€ ì•Šê³  false
 		if(isAnimationEnd())
 			return false;
 		
-		// ´ÙÀ½ ÇÁ·¹ÀÓ, true¸®ÅÏ
+		// ë‹¤ìŒ í”„ë ˆì„, trueë¦¬í„´
 		framenum = (framenum + 1) % framelist.size();
 		return true;
 	}
 	
 	/**
-	 * ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ³¡³µ´ÂÁö Ã¼Å©
-	 * @return ³¡³µÀ¸¸é true, ·çÇÁ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ°Å³ª ³¡³ªÁö ¾Ê¾Ò´Ù¸é false
+	 * ì• ë‹ˆë©”ì´ì…˜ì´ ëë‚¬ëŠ”ì§€ ì²´í¬
+	 * @return ëë‚¬ìœ¼ë©´ true, ë£¨í”„ì• ë‹ˆë©”ì´ì…˜ì´ê±°ë‚˜ ëë‚˜ì§€ ì•Šì•˜ë‹¤ë©´ false
 	 */
 	public boolean isAnimationEnd() {
 		return (!loop && framenum == framelist.size()-1);
 	}
 	
 	/**
-	 * ÇÁ·¹ÀÓ Ãß°¡ÇÏ±â
-	 * @param frame : Frame ¿ÀºêÁ§Æ®
+	 * í”„ë ˆì„ ì¶”ê°€í•˜ê¸°
+	 * @param frame : Frame ì˜¤ë¸Œì íŠ¸
 	 */
 	private void addFrame(Frame frame) {
 		framelist.add(frame);
 	}
 	
 	/** 
-	 * ÆÄÀÏ¿¡¼­ µ¥ÀÌÅÍ ÀĞ¾î¿À±â
-	 * @param filename : ÆÄÀÏ ÀÌ¸§(°æ·Î)
+	 * íŒŒì¼ì—ì„œ ë°ì´í„° ì½ì–´ì˜¤ê¸°
+	 * @param filename : íŒŒì¼ ì´ë¦„(ê²½ë¡œ)
 	 */
 	public void loadFromFile(String filename) {
-		// ¶óÀÎ ´ÜÀ§·Î ²÷¾î¼­ ÆÄÀÏ ÀĞ¾î¿À±â
+		// ë¼ì¸ ë‹¨ìœ„ë¡œ ëŠì–´ì„œ íŒŒì¼ ì½ì–´ì˜¤ê¸°
 		String[] data = Gdx.files.internal(filename).readString()
 					.split("\r\n");
 		
-		// Ã¹ ¶óÀÎ : ·çÇÁ ¿©ºÎ
+		// ì²« ë¼ì¸ : ë£¨í”„ ì—¬ë¶€
 		loop = Boolean.valueOf(data[0]);
 		
-		// ¶óÀÎ´ç Ã³¸®
+		// ë¼ì¸ë‹¹ ì²˜ë¦¬
 		for(int i = 1; i < data.length; i++) {
-			// ÇÑ ¶óÀÎÀº ÅØ½ºÃÄ °æ·Î[ÅÇ]ÇÁ·¹ÀÓ½Ã°£(float)À¸·Î ³ª´µ¾îÁü
-			// Àß ³ª´« ´ÙÀ½ FrameÀ» »ı¼ºÇÏ¿© Ãß°¡ÇÏ±â
+			// í•œ ë¼ì¸ì€ í…ìŠ¤ì³ ê²½ë¡œ[íƒ­]í”„ë ˆì„ì‹œê°„(float)ìœ¼ë¡œ ë‚˜ë‰˜ì–´ì§
+			// ì˜ ë‚˜ëˆˆ ë‹¤ìŒ Frameì„ ìƒì„±í•˜ì—¬ ì¶”ê°€í•˜ê¸°
 			String [] linespl = data[i].split("\t");
 			addFrame(new Frame(new Texture(linespl[0]), Float.valueOf(linespl[1])));
 		}

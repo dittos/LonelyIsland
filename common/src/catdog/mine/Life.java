@@ -5,14 +5,14 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public abstract class Life {
-	// °ü·Ã °´Ã¼ ·¹ÆÛ·±½º
+	// ê´€ë ¨ ê°ì²´ ë ˆí¼ëŸ°ìŠ¤
 	private World world;
 	protected World getWorld() {
 		return world;
 	}
 	public Inventory inventory;
 	
-	// »óÅÂ
+	// ìƒíƒœ
 	public Vector2 position = new Vector2();
 	public Vector2 velocity = new Vector2(0, 0);
 	private Vector2 destPos = new Vector2();
@@ -28,38 +28,38 @@ public abstract class Life {
 	}
 	private boolean hasDest = false;
 	
-	// »ó¼ö
+	// ìƒìˆ˜
 	public static final boolean LEFT = false;
 	public static final boolean RIGHT = true;
 
 	/**
-	 * °È´Â ¼Óµµ (´ÜÀ§: ºí·°/ÃÊ)
+	 * ê±·ëŠ” ì†ë„ (ë‹¨ìœ„: ë¸”ëŸ­/ì´ˆ)
 	 */
 	protected float WALK_SPEED = 1;
 	
 	private static int CLIMB_SPEED = 5;
 	/**
-	 * Áß·Â »ó¼ö (´ÜÀ§: ºí·°/ÃÊ)
+	 * ì¤‘ë ¥ ìƒìˆ˜ (ë‹¨ìœ„: ë¸”ëŸ­/ì´ˆ)
 	 */
 	private static final int GRAVITY = 40;
 	
 	/**
-	 * Á¡ÇÁ ÃÊ±â ¼Óµµ (´ÜÀ§: ºí·°/ÃÊ)
+	 * ì í”„ ì´ˆê¸° ì†ë„ (ë‹¨ìœ„: ë¸”ëŸ­/ì´ˆ)
 	 */
 	private static final int JUMP_SPEED = 11;
 	
 	/**
-	 * Á¡ÇÁ½Ã xÃà ¼Óµµ (´ÜÀ§: ºí·°/ÃÊ)
+	 * ì í”„ì‹œ xì¶• ì†ë„ (ë‹¨ìœ„: ë¸”ëŸ­/ì´ˆ)
 	 */
 	private static final int JUMP_XSPEED = 3;
 	
 	/**
-	 * ¸ñÀûÁö¿¡ µµÂøÇÑ °ÍÀ¸·Î Ã³¸®ÇÒ °Å¸®°ª (´ÜÀ§: ºí·°)
+	 * ëª©ì ì§€ì— ë„ì°©í•œ ê²ƒìœ¼ë¡œ ì²˜ë¦¬í•  ê±°ë¦¬ê°’ (ë‹¨ìœ„: ë¸”ëŸ­)
 	 */
 	private static final float ARRIVE_THRES = 0.1f;
 	
 	/**
-	 * Ãæµ¹¹üÀ§
+	 * ì¶©ëŒë²”ìœ„
 	 */
 	protected Rectangle hitbox = new Rectangle(-0.3f, -1.8f, 0.6f, 1.8f);
 	
@@ -72,8 +72,8 @@ public abstract class Life {
 	protected float lifeRatio = 1f;
 	
 	/**
-	 * »ı¼ºÀÚ
-	 * @param world ¸Ê °´Ã¼
+	 * ìƒì„±ì
+	 * @param world ë§µ ê°ì²´
 	 */
 	public Life(World world) {
 		//playerTex = new Texture(Gdx.files.internal("data/player.png"));
@@ -83,19 +83,19 @@ public abstract class Life {
 		
 		loadAnimationData();
 		
-		// ¾Ö´Ï¸ŞÀÌ¼Ç ÃÊ±âÈ­
+		// ì• ë‹ˆë©”ì´ì…˜ ì´ˆê¸°í™”
 		currentAni = new Animation(standAni);
 	}
 	
 	/**
-	 * ÀÌµ¿À» ½ÃµµÇÑ´Ù.
-	 * @param newPos ¸ñÀûÁö À§Ä¡ (ÅÍÄ¡ÇÑ °÷)
+	 * ì´ë™ì„ ì‹œë„í•œë‹¤.
+	 * @param newPos ëª©ì ì§€ ìœ„ì¹˜ (í„°ì¹˜í•œ ê³³)
 	 */
 	public void requestMove(Vector2 newPos) {
-		// ÅÍÄ¡ÇÑ À§Ä¡°¡ Ä³¸¯ÅÍ Áß¾ÓÀÌ µÇµµ·Ï °É¾î°£´Ù.
+		// í„°ì¹˜í•œ ìœ„ì¹˜ê°€ ìºë¦­í„° ì¤‘ì•™ì´ ë˜ë„ë¡ ê±¸ì–´ê°„ë‹¤.
 		Vector2 dest = new Vector2(newPos.x - hitbox.width / 2f, newPos.y);
 		if (state == STATE_CLIMB) {
-			// ±â¾î¿Ã¶ó°¡´Â Áß¿¡´Â ¸ñÀûÁö¸¸ ¹Ù²Û´Ù.
+			// ê¸°ì–´ì˜¬ë¼ê°€ëŠ” ì¤‘ì—ëŠ” ëª©ì ì§€ë§Œ ë°”ê¾¼ë‹¤.
 			destPos.set(dest);
 		} else {
 			walkTo(dest);
@@ -103,8 +103,8 @@ public abstract class Life {
 	}
 	
 	/**
-	 * ½Ã°£¿¡ µû¶ó »óÅÂ¸¦ ¾÷µ¥ÀÌÆ®ÇÑ´Ù.
-	 * @param delta Áö³ª°£ ½Ã°£
+	 * ì‹œê°„ì— ë”°ë¼ ìƒíƒœë¥¼ ì—…ë°ì´íŠ¸í•œë‹¤.
+	 * @param delta ì§€ë‚˜ê°„ ì‹œê°„
 	 */
 	public void update(float delta) {
 		float fx = position.x + hitbox.width + ((velocity.x > 0)? 1 : -1);
@@ -120,11 +120,11 @@ public abstract class Life {
 			else if (arrived())
 				stand();
 			else if(!blockInPath(velocity.x * delta))
-				// ¸·È÷´Â ºí·°ÀÌ ¾ø´Ù¸é ÀÌµ¿
+				// ë§‰íˆëŠ” ë¸”ëŸ­ì´ ì—†ë‹¤ë©´ ì´ë™
 				position.x += velocity.x * delta;
 			else {
-				// ¸·È÷´Â ºí·°ÀÌ ÀÖ´Ù¸é
-				// °°Àº ³ôÀÌ¿¡ ºí·°ÀÌ ÀÖ°í, ±× À§¿¡´Â ¾ø´Ù¸é Á¡ÇÁ
+				// ë§‰íˆëŠ” ë¸”ëŸ­ì´ ìˆë‹¤ë©´
+				// ê°™ì€ ë†’ì´ì— ë¸”ëŸ­ì´ ìˆê³ , ê·¸ ìœ„ì—ëŠ” ì—†ë‹¤ë©´ ì í”„
 				if(world.getBlock(new Vector2(fx, position.y)) != null
 						&& world.getBlock(new Vector2(fx, position.y + 1)) == null
 						&& world.getBlock(new Vector2(fx, position.y+2) )== null
@@ -150,19 +150,19 @@ public abstract class Life {
 			}
 			break;
 		case STATE_JUMP:
-			// °¡¼Óµµ °è»ê
+			// ê°€ì†ë„ ê³„ì‚°
 			velocity.y -= GRAVITY * delta;
-			// yÃàÀ¸·Î ÀÌµ¿
+			// yì¶•ìœ¼ë¡œ ì´ë™
 			position.y += velocity.y * delta;
-			// ¾ÕÀ¸·Î ¿òÁ÷ÀÏ ¼ö ÀÖ´Ù¸é xÃàÀ¸·Îµµ ÀÌµ¿
+			// ì•ìœ¼ë¡œ ì›€ì§ì¼ ìˆ˜ ìˆë‹¤ë©´ xì¶•ìœ¼ë¡œë„ ì´ë™
 			if(!blockInPath(velocity.x * delta))
 				position.x += velocity.x * delta;
-			// ¶³¾îÁö´Â ÁßÀÏ ¶§ ¶¥À» µó°í ¼¹´Ù¸é °è¼Ó °È°Ô
+			// ë–¨ì–´ì§€ëŠ” ì¤‘ì¼ ë•Œ ë•…ì„ ë”›ê³  ì„°ë‹¤ë©´ ê³„ì† ê±·ê²Œ
 			if(velocity.y < 0 && hasStandingBlock()) {
 				velocity.y = 0;
 				position.y = (float) Math.ceil(position.y);
-				// ¸¸¾à ÂøÁöÇÑ °÷ÀÌ µµÂøÁ¡°ú ¾ó¸¶ ¶³¾îÁöÁö ¾ÊÀº °÷ÀÌ¶ó¸é Á¤Áö
-				// (ÂøÁö ÈÄ ºÒ¾ÈÁ¤ÇÑ ¿òÁ÷ÀÓÀ» º¸Á¤ÇÏ±â À§ÇÔ)
+				// ë§Œì•½ ì°©ì§€í•œ ê³³ì´ ë„ì°©ì ê³¼ ì–¼ë§ˆ ë–¨ì–´ì§€ì§€ ì•Šì€ ê³³ì´ë¼ë©´ ì •ì§€
+				// (ì°©ì§€ í›„ ë¶ˆì•ˆì •í•œ ì›€ì§ì„ì„ ë³´ì •í•˜ê¸° ìœ„í•¨)
 				if(Math.abs(position.x - destPos.x) < 1f)
 					stand();
 				else
@@ -172,25 +172,25 @@ public abstract class Life {
 		case STATE_CLIMB:
 			position.y += velocity.y*delta;
 			if(!blockInPath(velocity.x * delta)){
-				//´Ù ¿Ã¶ó¿ÔÀ»¶§
+				//ë‹¤ ì˜¬ë¼ì™”ì„ë•Œ
 				position.x += velocity.x * delta;	
 				}
 			if(world.getBlock(new Vector2(fx, position.y)) == null && world.getBlock(new Vector2(fx, position.y+1)) == null) {
 				velocity.y = 0;
 				walkTo(destPos);
-			}//À§¿¡ ºí·°À¸·Î ¸·ÇûÀ»¶§
+			}//ìœ„ì— ë¸”ëŸ­ìœ¼ë¡œ ë§‰í˜”ì„ë•Œ
 			if(world.getBlock(new Vector2(position.x+0.2f,position.y+1)) != null
 					|| world.getBlock(new Vector2(position.x+0.2f,position.y+2)) != null)
 			{
 				stand();
 			}
 		}
-		// ¾Ö´Ï¸ŞÀÌ¼Ç ¾÷µ¥ÀÌÆ®
+		// ì• ë‹ˆë©”ì´ì…˜ ì—…ë°ì´íŠ¸
 		currentAni.update(delta);
 	}
 	
 	/**
-	 * ÀÚ¸®¿¡ ¸ØÃç ¼±´Ù.
+	 * ìë¦¬ì— ë©ˆì¶° ì„ ë‹¤.
 	 */
 	public void stand() {
 		changestate(STATE_STAND);
@@ -200,8 +200,8 @@ public abstract class Life {
 	}
 	
 	/**
-	 * ÇØ´ç À§Ä¡·Î ÀÌµ¿ÇÏ°Ô ¸í·É (¸Ê ÁÂÇ¥»óÀ¸·Î)
-	 * Âü°í : ¸Ê ÁÂÇ¥´Â ¿ÀºêÁ§Æ®ÀÌ ÁÂÃø ÇÏ´ÜÀ» ±âÁØÀ¸·Î ÇÏ¹Ç·Î ÅÍÄ¡ÇÑ °÷°ú´Â ´Ù¸§ 
+	 * í•´ë‹¹ ìœ„ì¹˜ë¡œ ì´ë™í•˜ê²Œ ëª…ë ¹ (ë§µ ì¢Œí‘œìƒìœ¼ë¡œ)
+	 * ì°¸ê³  : ë§µ ì¢Œí‘œëŠ” ì˜¤ë¸Œì íŠ¸ì´ ì¢Œì¸¡ í•˜ë‹¨ì„ ê¸°ì¤€ìœ¼ë¡œ í•˜ë¯€ë¡œ í„°ì¹˜í•œ ê³³ê³¼ëŠ” ë‹¤ë¦„ 
 	 * @param newPos
 	 */
 	protected void walkTo(Vector2 newPos) {
@@ -216,7 +216,7 @@ public abstract class Life {
 	}
 	
 	/**
-	 * Á¡ÇÁ¸¦ ÇÑ´Ù.
+	 * ì í”„ë¥¼ í•œë‹¤.
 	 */
 	public void jump() {
 		changestate(STATE_JUMP);
@@ -225,7 +225,7 @@ public abstract class Life {
 	}
 	
 	/**
-	 * ÇöÀç state ¹Ù²Ù°í ±×¿¡ ¸Â´Â ¾Ö´Ï¸ŞÀÌ¼Ç ³Ö±â
+	 * í˜„ì¬ state ë°”ê¾¸ê³  ê·¸ì— ë§ëŠ” ì• ë‹ˆë©”ì´ì…˜ ë„£ê¸°
 	 * @param state
 	 */
 	private void changestate(int state) {
@@ -233,21 +233,21 @@ public abstract class Life {
 		
 		switch(state) {
 		case STATE_WALK:
-			// °È±â
+			// ê±·ê¸°
 			currentAni = new Animation(walkAni);
 			break;
 		case STATE_CLIMB:
 			currentAni = new Animation(climbAni);
-			//±â´Â°É·Î ¹Ù²ã¾ßµÊ.
+			//ê¸°ëŠ”ê±¸ë¡œ ë°”ê¿”ì•¼ë¨.
 			break;
 		case STATE_STAND:
 		default:
-			// ±âº» : ¼­ÀÖ±â
+			// ê¸°ë³¸ : ì„œìˆê¸°
 			currentAni = new Animation(standAni);
 		}
 	}
 	/**
-	 * ±â¾î¿À¸¥´Ù.
+	 * ê¸°ì–´ì˜¤ë¥¸ë‹¤.
 	 */
 	public void climb() {
 		changestate(STATE_CLIMB);
@@ -255,8 +255,8 @@ public abstract class Life {
 	}
 	
 	/**
-	 * ºí·°À» µó°í ¼­ÀÖ³ª?
-	 * @return ¾øÀ¸¸é false, ÀÖÀ¸¸é true
+	 * ë¸”ëŸ­ì„ ë”›ê³  ì„œìˆë‚˜?
+	 * @return ì—†ìœ¼ë©´ false, ìˆìœ¼ë©´ true
 	 */
 	protected boolean hasStandingBlock() {
 		int below = (int)Math.ceil(position.y - 1);
@@ -265,21 +265,21 @@ public abstract class Life {
 	}
 	
 	/**
-	 * ÇÃ·¹ÀÌ¾î°¡ ÇâÇÏ´Â ¹æÇâ¿¡ ºí·°ÀÌ ÀÖ´ÂÁö (Ãæµ¹Ã¼Å©)
-	 * @param xmovedist xÃà¿¡¼­ ¿òÁ÷ÀÏ °Å¸®
-	 * @return ÀÖÀ¸¸é true, ¾øÀ¸¸é false
+	 * í”Œë ˆì´ì–´ê°€ í–¥í•˜ëŠ” ë°©í–¥ì— ë¸”ëŸ­ì´ ìˆëŠ”ì§€ (ì¶©ëŒì²´í¬)
+	 * @param xmovedist xì¶•ì—ì„œ ì›€ì§ì¼ ê±°ë¦¬
+	 * @return ìˆìœ¼ë©´ true, ì—†ìœ¼ë©´ false
 	 */
 	protected boolean blockInPath(float xmovedist) {
-		// ÇÃ·¹ÀÌ¾î¿Í ¾Æ·¡ÂÊ¿¡ ÀÖ´Â ºí·° ÁÂÇ¥
+		// í”Œë ˆì´ì–´ì™€ ì•„ë˜ìª½ì— ìˆëŠ” ë¸”ëŸ­ ì¢Œí‘œ
 		int blocky_bottom = (int)Math.floor(position.y);
-		// ÇÃ·¹ÀÌ¾î À§ÂÊ¿¡ ÀÖ´Â ºí·° ÁÂÇ¥
+		// í”Œë ˆì´ì–´ ìœ„ìª½ì— ìˆëŠ” ë¸”ëŸ­ ì¢Œí‘œ
 		int blocky_top = (int) Math.floor(position.y + hitbox.height);
-		// ÇÃ·¹ÀÌ¾î°¡ ÇâÇÑ ¹æÇâ, ¹Ù·Î ¾Õ¿¡ ÀÖ´Â ºí·°
+		// í”Œë ˆì´ì–´ê°€ í–¥í•œ ë°©í–¥, ë°”ë¡œ ì•ì— ìˆëŠ” ë¸”ëŸ­
 		
 		int blockx1 = (int)Math.floor(position.x + xmovedist + hitbox.width);
 		int blockx2 = (int)Math.floor(position.x + xmovedist);
 		
-		// ÇØ´ç À§Ä¡¿¡ ºí·°ÀÌ ÀÖÀ¸¸é true
+		// í•´ë‹¹ ìœ„ì¹˜ì— ë¸”ëŸ­ì´ ìˆìœ¼ë©´ true
 		return world.getBlock(blockx1, blocky_bottom) != null 
 				|| world.getBlock(blockx1, blocky_top) != null
 				|| world.getBlock(blockx2, blocky_bottom) != null
@@ -288,11 +288,11 @@ public abstract class Life {
 				|| world.getBlock((int)position.x,(int)position.y+1) != null;
 	}
 	/**
-	 * ÀÌµ¿ ÁßÀÏ ¶§ ¸ñÀûÁö¿¡ µµÂøÇß´ÂÁö È®ÀÎ
-	 * @return µµÂøÇßÀ¸¸é true, ¾Æ´Ï¸é false
+	 * ì´ë™ ì¤‘ì¼ ë•Œ ëª©ì ì§€ì— ë„ì°©í–ˆëŠ”ì§€ í™•ì¸
+	 * @return ë„ì°©í–ˆìœ¼ë©´ true, ì•„ë‹ˆë©´ false
 	 */
 	protected boolean arrived() {
-		// TODO: yÁÂÇ¥ È®ÀÎ
+		// TODO: yì¢Œí‘œ í™•ì¸
 		return Math.abs(position.x - destPos.x) < ARRIVE_THRES;
 	}
 	
@@ -313,7 +313,7 @@ public abstract class Life {
 		this.direction = direction;
 	}
 
-	// ±×¸®±â °ü·Ã ÄÚµå
+	// ê·¸ë¦¬ê¸° ê´€ë ¨ ì½”ë“œ
 	private Animation currentAni;
 	private SpriteBatch spriteBatch;
 	
@@ -331,17 +331,17 @@ public abstract class Life {
 	}
 	
 	/**
-	 * ¿ÀºêÁ§Æ®°¡ ÀÖ´Â À§Ä¡¸¦ °í·ÁÇØ ºí·°À» ³õÀ» ¼ö ÀÖ´ÂÁö Ã¼Å© 
-	 * @param x ºí·°À» ³õÀ» xÁÂÇ¥
-	 * @param y ºí·°À» ³õÀ» yÁÂÇ¥
-	 * @return ³õÀ» ¼ö ÀÖÀ¸¸é true
+	 * ì˜¤ë¸Œì íŠ¸ê°€ ìˆëŠ” ìœ„ì¹˜ë¥¼ ê³ ë ¤í•´ ë¸”ëŸ­ì„ ë†“ì„ ìˆ˜ ìˆëŠ”ì§€ ì²´í¬ 
+	 * @param x ë¸”ëŸ­ì„ ë†“ì„ xì¢Œí‘œ
+	 * @param y ë¸”ëŸ­ì„ ë†“ì„ yì¢Œí‘œ
+	 * @return ë†“ì„ ìˆ˜ ìˆìœ¼ë©´ true
 	 */
 	public boolean canPutBlock(int x, int y) {
-		// ÇÃ·¹ÀÌ¾î¿Í ¾Æ·¡ÂÊ¿¡ ÀÖ´Â ºí·° ÁÂÇ¥
+		// í”Œë ˆì´ì–´ì™€ ì•„ë˜ìª½ì— ìˆëŠ” ë¸”ëŸ­ ì¢Œí‘œ
 		int blocky_bottom = (int)Math.floor(position.y);
-		// ÇÃ·¹ÀÌ¾î À§ÂÊ¿¡ ÀÖ´Â ºí·° ÁÂÇ¥
+		// í”Œë ˆì´ì–´ ìœ„ìª½ì— ìˆëŠ” ë¸”ëŸ­ ì¢Œí‘œ
 		int blocky_top = (int) Math.floor(position.y + hitbox.height);
-		// ÇÃ·¹ÀÌ¾î°¡ ÇâÇÑ ¹æÇâ, ¹Ù·Î ¾Õ¿¡ ÀÖ´Â ºí·°
+		// í”Œë ˆì´ì–´ê°€ í–¥í•œ ë°©í–¥, ë°”ë¡œ ì•ì— ìˆëŠ” ë¸”ëŸ­
 		
 		int blockx1 = (int)Math.floor(position.x + hitbox.width);
 		int blockx2 = (int)Math.floor(position.x);

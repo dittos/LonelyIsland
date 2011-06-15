@@ -55,13 +55,13 @@ public class InventoryView {
 	}
 	
 	public void onClick(Vector2 pos) {
-		// À§ÂÊ¿¡¼­ºÎÅÍ i¹øÂ° Ä­ÀÌ ´­·ÈÀ½
+		// ìœ„ìª½ì—ì„œë¶€í„° ië²ˆì§¸ ì¹¸ì´ ëˆŒë ¸ìŒ
 		int i = (int)(pos.x / ENTRY_WIDTH);
 		if (i < Inventory.MAX_ITEMS) {
-			// ¾ÆÀÌÅÛÀ» ´­·¶À½
+			// ì•„ì´í…œì„ ëˆŒë €ìŒ
 			selectedItem = model.getItem(i);
 		} else {
-			// ¹öÆ°À» ´­·¶À½
+			// ë²„íŠ¼ì„ ëˆŒë €ìŒ
 			selectedItem = null;
 		}
 		

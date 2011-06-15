@@ -4,7 +4,7 @@ public class Clock {
 	private static long start;
 	
 	/**
-	 * ÇÏ·çÀÇ ±æÀÌ (´ÜÀ§: ÃÊ)
+	 * í•˜ë£¨ì˜ ê¸¸ì´ (ë‹¨ìœ„: ì´ˆ)
 	 */
 	public static final float DAY = 45; 
 	

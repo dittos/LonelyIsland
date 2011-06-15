@@ -14,11 +14,11 @@ public class Mob extends Life {
 	private int nticks = 0;
 	private float deltaMul = 1f;
 	/** 
-	 * ÃÖ´ë Ã¼·Â
+	 * ìµœëŒ€ ì²´ë ¥
 	 */
 	public float maxLife = 1f;
 	/**
-	 * ÇöÀç Ã¼·Â
+	 * í˜„ì¬ ì²´ë ¥
 	 */
 	private float life = maxLife;
 
@@ -50,35 +50,35 @@ public class Mob extends Life {
 		delta *= deltaMul;
 		super.update(delta);
 		if ((this.getState() == Life.STATE_STAND || this.getState() == Life.STATE_WALK)
-				&& nticks++ % 30 == 0) // ÀÏÁ¤ ½Ã°£¸¶´Ù ÇÃ·¹ÀÌ¾î ÂÊÀ¸·Î ÇâÇÏ°Ô ÇÔ
+				&& nticks++ % 30 == 0) // ì¼ì • ì‹œê°„ë§ˆë‹¤ í”Œë ˆì´ì–´ ìª½ìœ¼ë¡œ í–¥í•˜ê²Œ í•¨
 			requestMove(player.position);
 		
 		if(Math.abs(player.position.x - position.x)+Math.abs(player.position.y - position.y)<1 && isAlive())
 		{
-			//Ä³¸¯ÅÍ°¡ Á×¾ú½¿´Ù--;
+			//ìºë¦­í„°ê°€ ì£½ì—ˆìŠ´ë‹¤--;
 			player.killed();
 		}
 	}
 	
 	/**
-	 * Ã¼·Â ±¸ÇÏ±â
-	 * @return ÇöÀç Ã¼·Â
+	 * ì²´ë ¥ êµ¬í•˜ê¸°
+	 * @return í˜„ì¬ ì²´ë ¥
 	 */
 	public float getLife() {
 		return life;
 	}
 	
 	/**
-	 * »ì¾ÆÀÖ´ÂÁö Ã¼Å©
-	 * @return »ì¾ÆÀÖÀ¸¸é true
+	 * ì‚´ì•„ìˆëŠ”ì§€ ì²´í¬
+	 * @return ì‚´ì•„ìˆìœ¼ë©´ true
 	 */
 	public boolean isAlive() {
 		return life > 0;
 	}
 	
 	/**
-	 * µ¥¹ÌÁö ÁÖ±â
-	 * @param damage µ¥¹ÌÁö ¾ç
+	 * ë°ë¯¸ì§€ ì£¼ê¸°
+	 * @param damage ë°ë¯¸ì§€ ì–‘
 	 */
 	public void hit(float damage) {
 		life -= damage;
@@ -88,7 +88,7 @@ public class Mob extends Life {
 	}
 	
 	public void onDie() {
-		// TODO : Á×À» ¶§ Ãß°¡Ã³¸®
+		// TODO : ì£½ì„ ë•Œ ì¶”ê°€ì²˜ë¦¬
 		
 	}
 }

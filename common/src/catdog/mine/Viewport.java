@@ -3,22 +3,22 @@ package catdog.mine;
 import com.badlogic.gdx.math.Vector2;
 
 /**
- * È­¸é¿¡ Ç¥½ÃµÇ´Â ¿µ¿ªÀ» °ü¸®ÇÏ´Â Å¬·¡½º
+ * í™”ë©´ì— í‘œì‹œë˜ëŠ” ì˜ì—­ì„ ê´€ë¦¬í•˜ëŠ” í´ë˜ìŠ¤
  * 
- * ÁÂÇ¥°è´Â °¢ ºí·°ÀÌ 1x1ÀÇ Å©±âÀÌ°í ¸Ê ¿ŞÂÊ ¾Æ·¡ÀÇ ÁÂÇ¥°¡ (0, 0)ÀÎ °ÍÀ¸·Î ÇÑ´Ù.
- * ºí·°°ú ºí·° »çÀÌÀÇ À§Ä¡´Â (100.3, 50.12)¿Í °°ÀÌ ¼Ò¼ıÁ¡ ´ÜÀ§·Î ³ªÅ¸³»¸é µÈ´Ù.
+ * ì¢Œí‘œê³„ëŠ” ê° ë¸”ëŸ­ì´ 1x1ì˜ í¬ê¸°ì´ê³  ë§µ ì™¼ìª½ ì•„ë˜ì˜ ì¢Œí‘œê°€ (0, 0)ì¸ ê²ƒìœ¼ë¡œ í•œë‹¤.
+ * ë¸”ëŸ­ê³¼ ë¸”ëŸ­ ì‚¬ì´ì˜ ìœ„ì¹˜ëŠ” (100.3, 50.12)ì™€ ê°™ì´ ì†Œìˆ«ì  ë‹¨ìœ„ë¡œ ë‚˜íƒ€ë‚´ë©´ ëœë‹¤.
  * 
- * @author ±èÅÂÈ£
+ * @author ê¹€íƒœí˜¸
  *
  */
 public class Viewport {
 	/**
-	 * (0, 0)¿¡ Ç¥½ÃÇÒ ¸Ê »óÀÇ ÁÂÇ¥ 
+	 * (0, 0)ì— í‘œì‹œí•  ë§µ ìƒì˜ ì¢Œí‘œ 
 	 */
 	public float startX, startY;
 	
 	/**
-	 * È­¸é ¾È¿¡ ³ªÅ¸³ª´Â °¡·Î, ¼¼·Î ºí·° ¼ö
+	 * í™”ë©´ ì•ˆì— ë‚˜íƒ€ë‚˜ëŠ” ê°€ë¡œ, ì„¸ë¡œ ë¸”ëŸ­ ìˆ˜
 	 */
 	public float width, height;
 	
@@ -27,11 +27,11 @@ public class Viewport {
 	public int blockWidth, blockHeight;
 	
 	/**
-	 * »ı¼ºÀÚ
-	 * @param screenWidth È­¸éÀÇ °¡·Î Å©±â (px)
-	 * @param screenHeight È­¸éÀÇ ¼¼·Î Å©±â (px)
-	 * @param blockWidth ºí·°ÀÇ °¡·Î Å©±â (px)
-	 * @param blockHeight ºí·°ÀÇ ¼¼·Î Å©±â (px)
+	 * ìƒì„±ì
+	 * @param screenWidth í™”ë©´ì˜ ê°€ë¡œ í¬ê¸° (px)
+	 * @param screenHeight í™”ë©´ì˜ ì„¸ë¡œ í¬ê¸° (px)
+	 * @param blockWidth ë¸”ëŸ­ì˜ ê°€ë¡œ í¬ê¸° (px)
+	 * @param blockHeight ë¸”ëŸ­ì˜ ì„¸ë¡œ í¬ê¸° (px)
 	 */
 	public Viewport(int screenWidth, int screenHeight, int blockWidth, int blockHeight) {
 		width = screenWidth / blockWidth;
@@ -43,26 +43,26 @@ public class Viewport {
 	}
 	
 	/**
-	 * ¸Ê ÁÂÇ¥°è·Î µÈ ÁÂÇ¥¸¦ È­¸é »óÀÇ ÁÂÇ¥·Î º¯È¯ÇÑ´Ù.
-	 * @param mapPos ¸Ê ÁÂÇ¥°èÀÇ ÁÂÇ¥
-	 * @return È­¸é »óÀÇ ÁÂÇ¥
+	 * ë§µ ì¢Œí‘œê³„ë¡œ ëœ ì¢Œí‘œë¥¼ í™”ë©´ ìƒì˜ ì¢Œí‘œë¡œ ë³€í™˜í•œë‹¤.
+	 * @param mapPos ë§µ ì¢Œí‘œê³„ì˜ ì¢Œí‘œ
+	 * @return í™”ë©´ ìƒì˜ ì¢Œí‘œ
 	 */
 	public Vector2 toScreen(Vector2 mapPos) {
 		return new Vector2((mapPos.x - startX) * blockWidth, (mapPos.y - startY) * blockHeight);
 	}
 	
 	/**
-	 * È­¸é »óÀÇ ÁÂÇ¥¸¦ ¸Ê ÁÂÇ¥°è·Î º¯È¯ÇÑ´Ù.
-	 * @param screenPos È­¸é »óÀÇ ÁÂÇ¥
-	 * @return ¸Ê ÁÂÇ¥°è·Î º¯È¯µÈ ÁÂÇ¥
+	 * í™”ë©´ ìƒì˜ ì¢Œí‘œë¥¼ ë§µ ì¢Œí‘œê³„ë¡œ ë³€í™˜í•œë‹¤.
+	 * @param screenPos í™”ë©´ ìƒì˜ ì¢Œí‘œ
+	 * @return ë§µ ì¢Œí‘œê³„ë¡œ ë³€í™˜ëœ ì¢Œí‘œ
 	 */
 	public Vector2 fromScreen(Vector2 screenPos) {
 		return new Vector2(screenPos.x / blockWidth + startX, screenPos.y / blockHeight + startY);
 	}
 	
 	/**
-	 * Æ¯Á¤ À§Ä¡·Î ÃÊÁ¡À» ÀÌµ¿ÇÑ´Ù.
-	 * @param focus È­¸é °¡¿îµ¥·Î ¿Ã ÁÂÇ¥
+	 * íŠ¹ì • ìœ„ì¹˜ë¡œ ì´ˆì ì„ ì´ë™í•œë‹¤.
+	 * @param focus í™”ë©´ ê°€ìš´ë°ë¡œ ì˜¬ ì¢Œí‘œ
 	 */
 	public void focusOn(Vector2 focus) {
 		startX = focus.x - width / 2;

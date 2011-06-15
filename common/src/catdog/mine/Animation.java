@@ -5,18 +5,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 /**
- * ¾Ö´Ï¸ŞÀÌ¼Ç Å¬·¡½º
+ * ì• ë‹ˆë©”ì´ì…˜ í´ë˜ìŠ¤
  * @author ReB
  *
  */
 public class Animation {
 	/**
-	 * ¾Ö´Ï¸ŞÀÌ¼Ç ÁøÇà ½Ã°£
+	 * ì• ë‹ˆë©”ì´ì…˜ ì§„í–‰ ì‹œê°„
 	 */
 	private float time;
 	
 	/**
-	 * ¾Ö´Ï¸ŞÀÌ¼Ç µ¥ÀÌÅÍ
+	 * ì• ë‹ˆë©”ì´ì…˜ ë°ì´í„°
 	 */
 	private AnimationData data;
 	
@@ -32,28 +32,28 @@ public class Animation {
 	}
 	
 	public void render(SpriteBatch sprbatch, Vector2 pos, boolean horizontalFlip, boolean verticalFlip, float alpha) {
-		// ÇöÀç ÇÁ·¹ÀÓ °¡Á®¿À±â
+		// í˜„ì¬ í”„ë ˆì„ ê°€ì ¸ì˜¤ê¸°
 		AnimationData.Frame frame = data.getCurrentFrame();
 		Texture texture = frame.getTexture();
 		
-		// ÇöÀç ÇÁ·¹ÀÓ Ãâ·Â
+		// í˜„ì¬ í”„ë ˆì„ ì¶œë ¥
 		sprbatch.setColor(1f, 1f, 1f, alpha);
 		sprbatch.draw(texture, pos.x, pos.y, texture.getWidth(), texture.getHeight(),
 				0, 0, texture.getWidth(), texture.getHeight(), horizontalFlip, verticalFlip);
 	}
 	
 	public void update(float delta) {
-		// ÇöÀç ÇÁ·¹ÀÓ °¡Á®¿À±â
+		// í˜„ì¬ í”„ë ˆì„ ê°€ì ¸ì˜¤ê¸°
 		AnimationData.Frame frame = data.getCurrentFrame();
 		
-		// ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ³¡³ªÁö ¾Ê¾Ò´Ù¸é
+		// ì• ë‹ˆë©”ì´ì…˜ì´ ëë‚˜ì§€ ì•Šì•˜ë‹¤ë©´
 		if(!data.isAnimationEnd()) {
-			// ÁøÇà½Ã°£ ´©ÀûÇÏ±â
+			// ì§„í–‰ì‹œê°„ ëˆ„ì í•˜ê¸°
 			time += delta;
 			
-			// ÇöÀç ÇÁ·¹ÀÓ Áö¼Ó½Ã°£À» ³Ñ¾ú´Ù¸é
+			// í˜„ì¬ í”„ë ˆì„ ì§€ì†ì‹œê°„ì„ ë„˜ì—ˆë‹¤ë©´
 			if(time >= frame.getTime()) {
-				// Áö¼Ó½Ã°£¸¸Å­ time¿¡¼­ »©°í ´ÙÀ½ ÇÁ·¹ÀÓÀ¸·Î
+				// ì§€ì†ì‹œê°„ë§Œí¼ timeì—ì„œ ë¹¼ê³  ë‹¤ìŒ í”„ë ˆì„ìœ¼ë¡œ
 				time -= frame.getTime();
 				
 				data.nextFrame();

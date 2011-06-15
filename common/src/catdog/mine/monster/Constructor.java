@@ -27,9 +27,9 @@ public class Constructor extends Mob {
 	public void update(float delta) {
 		super.update(delta);
 		
-		// walk »óÅÂÀÏ ¶§
+		// walk ìƒíƒœì¼ ë•Œ
 		if(getState() == Life.STATE_WALK) {
-			// ÀÚ±â ¾ÕÂÊ ¹Ù·Î ¾Æ·¡¿¡ ºí·°À» ³õÀ» ¼ö ÀÖ´Â °æ¿ì, ±× À§Ä¡ x°ªÀÌ ÇÃ·¹ÀÌ¾î°¡ ÀÖ´Â x°ª°ú ´Ù¸£´Ù¸é
+			// ìê¸° ì•ìª½ ë°”ë¡œ ì•„ë˜ì— ë¸”ëŸ­ì„ ë†“ì„ ìˆ˜ ìˆëŠ” ê²½ìš°, ê·¸ ìœ„ì¹˜ xê°’ì´ í”Œë ˆì´ì–´ê°€ ìˆëŠ” xê°’ê³¼ ë‹¤ë¥´ë‹¤ë©´
 			int newx = (int)this.position.x + (getDirection() == RIGHT? 1 : -1);
 			int newy = (int)this.position.y - 1;
 			
