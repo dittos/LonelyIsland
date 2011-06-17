@@ -1,5 +1,7 @@
 **Lonely Island** is a 2D-based [Minecraft](http://www.minecraft.net/)/[Terraria](http://www.terraria.org/) clone for Android platform.
 
+![Screenshot](http://dittos.pe.kr/2011/mine-screenshot.png)
+
 
 License
 -------
